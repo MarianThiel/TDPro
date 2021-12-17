@@ -33,6 +33,23 @@ public class TowerManager {
             return false;
     }
 
+    public boolean placeTower(int i, TowerType type){
+        if(i >= 0 && i < towers.length){
+            if(towers[i] != null){
+                switch (type){
+                    case FIRE_TOWER:
+            
+                        break;
+                    case ICE_TOWER:
+
+                        break;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
     private boolean upgradePossible(int i){
         return towers[i].getLevel()<Tower.MAX_LEVEL;
     }
