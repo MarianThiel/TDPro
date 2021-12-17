@@ -38,7 +38,7 @@ public class TowerManager {
             if(towers[i] != null){
                 switch (type){
                     case FIRE_TOWER:
-            
+
                         break;
                     case ICE_TOWER:
 
