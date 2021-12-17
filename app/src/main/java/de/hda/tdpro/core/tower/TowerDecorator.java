@@ -9,26 +9,26 @@ public class TowerDecorator extends Tower {
 
     @Override
     public int getDamage() {
-        return this.damage + super.getDamage();
+        return this.damage + embeddedTower.getDamage();
     }
 
     @Override
     public int getRadius() {
-        return this.radius + super.getRadius();
+        return this.radius + embeddedTower.getRadius();
     }
 
     @Override
     public float getSpeed() {
-        return this.speed + super.getSpeed();
+        return this.speed + embeddedTower.getSpeed();
     }
 
     @Override
     public int getPrice() {
-        return this.price + super.getPrice();
+        return this.price + embeddedTower.getPrice();
     }
 
     @Override
     public int getLevel() {
-        return 1 + super.getLevel();
+        return 1 + embeddedTower.getLevel();
     }
 }
