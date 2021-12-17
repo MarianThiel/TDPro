@@ -26,4 +26,9 @@ public class TowerDecorator extends Tower {
     public int getPrice() {
         return this.price + super.getPrice();
     }
+
+    @Override
+    public int getLevel() {
+        return 1 + super.getLevel();
+    }
 }

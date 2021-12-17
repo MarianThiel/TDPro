@@ -11,9 +11,9 @@ abstract public class Tower {
     protected float speed;
     protected int price;
 
-    protected int cLevel;
 
-    private final int MAX_LEVEL = 5;
+
+    private static final int MAX_LEVEL = 5;
 
     RangeSphere sphere;
 
@@ -23,7 +23,6 @@ abstract public class Tower {
         this.damage = damage;
         this.speed = speed;
         this.price = price;
-        cLevel = 1;
         sphere = new RangeSphere(radius);
     }
 
@@ -63,12 +62,9 @@ abstract public class Tower {
         sphere.hitEnemy(damage);
     }
 
-    private boolean levelUp(){
-
-        if(cLevel < MAX_LEVEL){
-            cLevel++;
-            return true;
-        }
-        return false;
+    public int getLevel(){
+        return 1;
     }
+
+
 }
