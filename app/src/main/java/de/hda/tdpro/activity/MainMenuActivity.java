@@ -1,9 +1,11 @@
-package de.hda.tdpro;
+package de.hda.tdpro.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import de.hda.tdpro.R;
+
+public class MainMenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
