@@ -1,0 +1,39 @@
+package de.hda.tdpro.core.tower;
+
+import java.util.Arrays;
+
+public class TowerManager {
+
+    private final int MAX_TOWER_NUMBER;
+
+    private Tower[] towers;
+
+    public TowerManager(int MAX_TOWER_NUMBER) {
+        this.MAX_TOWER_NUMBER = MAX_TOWER_NUMBER;
+        towers = new Tower[MAX_TOWER_NUMBER];
+        Arrays.fill(towers, null);
+    }
+
+    public boolean upgradeTower(int i,  UpgradeType upg){
+        if(i >= 0 && i < towers.length){
+            if(towers[i] != null){
+                if(upgradePossible(i)){
+                    switch (upg){
+                        case DMG_UPGRADE:
+                            towers[i] = new TowerDMGUpgrade(towers[i]);
+                            break;
+                        case RANGE_UPGRADE:
+                            break;
+                    }
+                    return true;
+                }
+
+            }
+        }
+            return false;
+    }
+
+    private boolean upgradePossible(int i){
+        return towers[i].getLevel()<Tower.MAX_LEVEL;
+    }
+}

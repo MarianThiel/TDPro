@@ -13,7 +13,7 @@ abstract public class Tower {
 
 
 
-    private static final int MAX_LEVEL = 5;
+    public static final int MAX_LEVEL = 5;
 
     RangeSphere sphere;
 
