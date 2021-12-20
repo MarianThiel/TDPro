@@ -1,21 +1,25 @@
 package de.hda.tdpro.core.tower;
 
+import de.hda.tdpro.core.EnemyObserver;
+import de.hda.tdpro.core.Position;
+import de.hda.tdpro.core.enemy.Enemy;
+
 /**
  * @author Marian Thiel
  *  Abstract Class representing a tower
  */
-abstract public class Tower {
+abstract public class Tower implements EnemyObserver {
 
     protected int radius;
     protected int damage;
     protected float speed;
     protected int price;
-
+    protected Position pos;
 
 
     public static final int MAX_LEVEL = 5;
 
-    RangeSphere sphere;
+    protected RangeSphere sphere;
 
 
     public Tower(int radius, int damage, float speed, int price) {
@@ -23,8 +27,17 @@ abstract public class Tower {
         this.damage = damage;
         this.speed = speed;
         this.price = price;
-        sphere = new RangeSphere(radius);
+        sphere = null;
     }
+
+    public Position getPos() {
+        return pos;
+    }
+
+    public void setPos(Position pos) {
+        this.pos = pos;
+    }
+
 
     public int getRadius() {
         return radius;
@@ -66,5 +79,17 @@ abstract public class Tower {
         return 1;
     }
 
+    public RangeSphere getSphere() {
+        return sphere;
+    }
 
+    @Override
+    public void onEnemyMovement(Enemy e) {
+        Position p = e.getPosition();
+        if(sphere.intersects(p)){
+            //enqueue
+            sphere.targetEnemy(e);
+        }
+
+    }
 }
