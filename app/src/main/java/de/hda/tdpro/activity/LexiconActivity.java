@@ -1,5 +1,6 @@
 package de.hda.tdpro.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebView;
@@ -27,6 +28,10 @@ public class LexiconActivity extends AppCompatActivity {
 
         initLexicon();
 
+        btnReturn.setOnClickListener(e->{
+            Intent intent = new Intent(LexiconActivity.this, MainMenuActivity.class);
+            startActivity(intent);
+        });
     }
 
     /**
