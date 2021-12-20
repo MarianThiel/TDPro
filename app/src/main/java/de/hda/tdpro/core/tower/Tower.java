@@ -114,7 +114,7 @@ abstract public class Tower implements EnemyObserver, Runnable {
         while(running){
             fireMissile();
             try {
-                Thread.sleep(1000);
+                Thread.sleep ((long) (1000/getSpeed()));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
