@@ -18,6 +18,9 @@ public class TowerFactory {
     }
 
     public FireTower createFireTower(){
-        return new FireTower(50,100,1,80);
+        FireTower ft = new FireTower(50,100,1,80);
+        Thread t = new Thread(ft);
+        t.start();
+        return ft;
     }
 }
