@@ -1,5 +1,8 @@
 package de.hda.tdpro.core.tower;
 
+import de.hda.tdpro.core.Position;
+
+
 public class TowerDecorator extends Tower {
     Tower embeddedTower;
     public TowerDecorator(Tower uTower) {
@@ -31,4 +34,15 @@ public class TowerDecorator extends Tower {
     public int getLevel() {
         return 1 + embeddedTower.getLevel();
     }
+
+    @Override
+    public RangeSphere getSphere() {
+        return embeddedTower.getSphere();
+    }
+
+    @Override
+    public Position getPos() {
+        return embeddedTower.getPos();
+    }
+
 }
