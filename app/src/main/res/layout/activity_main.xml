@@ -6,13 +6,194 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainMenuActivity">
 
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="1154dp"
+        android:layout_height="943dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.601"
+        app:srcCompat="@drawable/sea" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="2702dp"
+        android:layout_height="991dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.534"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.508"
+        app:srcCompat="@drawable/far_grounds" />
+
     <TextView
+        android:id="@+id/textLevelSelection"
+        android:layout_width="127dp"
+        android:layout_height="36dp"
+        android:fontFamily="cursive"
+        android:text="Level Selection"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.831" />
+
+    <TextView
+        android:id="@+id/textLexicon"
+        android:layout_width="75dp"
+        android:layout_height="28dp"
+        android:fontFamily="cursive"
+        android:text="Lexicon"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.832"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.189" />
+
+    <TextView
+        android:id="@+id/textSettings"
+        android:layout_width="75dp"
+        android:layout_height="28dp"
+        android:fontFamily="cursive"
+        android:text="Settings"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.977"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.189" />
+
+    <TextView
+        android:id="@+id/textAbilityUpgrades"
+        android:layout_width="127dp"
+        android:layout_height="36dp"
+        android:fontFamily="cursive"
+        android:text="Ability Upgrades"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.114"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.914" />
+
+    <TextView
+        android:id="@+id/textTowerUpgrades"
+        android:layout_width="127dp"
+        android:layout_height="36dp"
+        android:fontFamily="cursive"
+        android:text="Tower Upgrades"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.887"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.992" />
+
+    <ImageButton
+        android:id="@+id/imageButtonSettings"
+        android:layout_width="91dp"
+        android:layout_height="77dp"
+        android:background="#00FFFFFF"
+        android:scaleX="1.3"
+        android:scaleY="1.3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.975"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.047"
+        app:srcCompat="@android:drawable/ic_menu_compass" />
+
+    <pl.droidsonroids.gif.GifImageButton
+        android:id="@+id/buttonLevelSelection"
+        android:layout_width="205dp"
+        android:layout_height="229dp"
+        android:background="#00FFFFFF"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
+        android:src="@drawable/demon_idle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.591" />
+
+    <pl.droidsonroids.gif.GifImageButton
+        android:id="@+id/buttonSpellSelection"
+        android:layout_width="98dp"
+        android:layout_height="143dp"
+        android:background="#00FFFFFF"
+        android:src="@drawable/mage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.14"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.817" />
+
+    <pl.droidsonroids.gif.GifImageButton
+        android:id="@+id/buttonTowerSelection"
+        android:layout_width="108dp"
+        android:layout_height="194dp"
+        android:layout_marginStart="526dp"
+        android:layout_marginTop="93dp"
+        android:layout_marginBottom="28dp"
+        android:background="#00FFFFFF"
+        android:scaleX="1.1"
+        android:scaleY="1.1"
+        android:src="@drawable/obelisk"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.357"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButtonLexikon"
+        android:layout_width="69dp"
+        android:layout_height="58dp"
+        android:background="#00FFFFFF"
+        android:scaleX="1.3"
+        android:scaleY="1.3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.809"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.076"
+        app:srcCompat="?android:attr/actionModeFindDrawable" />
+
+    <Button
+        android:id="@+id/buttonswitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:layout_marginStart="194dp"
+        android:layout_marginTop="92dp"
+        android:layout_marginEnd="503dp"
+        android:layout_marginBottom="253dp"
+        android:text="switch"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
 
 </android.support.constraint.ConstraintLayout>
