@@ -1,5 +1,7 @@
 package de.hda.tdpro.core.tower;
 
+import android.util.Log;
+
 import de.hda.tdpro.core.EnemyObserver;
 import de.hda.tdpro.core.Position;
 import de.hda.tdpro.core.enemy.Enemy;
@@ -8,7 +10,7 @@ import de.hda.tdpro.core.enemy.Enemy;
  * @author Marian Thiel
  *  Abstract Class representing a tower
  */
-abstract public class Tower implements EnemyObserver {
+abstract public class Tower implements EnemyObserver, Runnable {
 
     protected int radius;
     protected int damage;
@@ -16,6 +18,7 @@ abstract public class Tower implements EnemyObserver {
     protected int price;
     protected Position pos;
 
+    private boolean running;
 
     public static final int MAX_LEVEL = 5;
 
@@ -28,6 +31,7 @@ abstract public class Tower implements EnemyObserver {
         this.speed = speed;
         this.price = price;
         sphere = null;
+        running = true;
     }
 
     public Position getPos() {
@@ -72,7 +76,11 @@ abstract public class Tower implements EnemyObserver {
     }
 
     public void fireMissile(){
-        sphere.hitEnemy(damage);
+        if(getSphere().hasEnemyInside()){
+            Log.println(Log.ASSERT,"enemy_targeting", this.getClass()+" ENEMY_WAS_HIT - DMG: " + getDamage());
+            getSphere().hitEnemy(this.getDamage());
+        }
+
     }
 
     public int getLevel(){
@@ -83,13 +91,33 @@ abstract public class Tower implements EnemyObserver {
         return sphere;
     }
 
+    public void terminate(){
+        running = false;
+    }
     @Override
     public void onEnemyMovement(Enemy e) {
         Position p = e.getPosition();
-        if(sphere.intersects(p)){
-            //enqueue
-            sphere.targetEnemy(e);
+        if(getSphere().containsEnemy(e)){
+            if(!getSphere().intersects(p)){
+                getSphere().releaseEnemy(e);
+            }
+        }else{ // !sphere.containsEnemy(e)
+            if(getSphere().intersects(p)){
+                getSphere().targetEnemy(e);
+            }
         }
 
+    }
+
+    @Override
+    public void run() {
+        while(running){
+            fireMissile();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

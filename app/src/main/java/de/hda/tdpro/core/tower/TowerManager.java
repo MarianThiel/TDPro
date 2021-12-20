@@ -8,7 +8,7 @@ public class TowerManager {
 
     private final int MAX_TOWER_NUMBER;
 
-    private Tower[] towers;
+    private final Tower[] towers;
 
     public TowerManager(int MAX_TOWER_NUMBER) {
         this.MAX_TOWER_NUMBER = MAX_TOWER_NUMBER;
@@ -22,14 +22,16 @@ public class TowerManager {
                 if(upgradePossible(i)){
                     switch (upg){
                         case DMG_UPGRADE:
+                            towers[i].terminate();
                             towers[i] = new TowerDMGUpgrade(towers[i]);
+                            Thread th = new Thread(towers[i]);
+                            th.start();
                             break;
                         case RANGE_UPGRADE:
                             break;
                     }
                     return true;
                 }
-
             }
         }
             return false;

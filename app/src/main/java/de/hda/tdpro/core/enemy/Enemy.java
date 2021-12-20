@@ -55,6 +55,7 @@ public class Enemy implements IntersectionObservable {
 
     public void setPosition(Position position) {
         this.position = position;
+        notifyObservers();
     }
 
     @Override
