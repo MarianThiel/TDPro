@@ -1,5 +1,7 @@
 package de.hda.tdpro.core.tower;
 
+import android.util.Log;
+
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -26,7 +28,12 @@ public class RangeSphere {
     }
 
     public void hitEnemy(int dmg){
-
+        Enemy e = queue.peek();
+        e.setHp(e.getHp()-dmg);
+        if(e.getHp()<=0){
+            queue.poll();
+            Log.println(Log.ASSERT,"enemy_targeting", "ENEMY_WAS_DEFEATED");
+        }
     }
 
     public boolean intersects(Position p){
@@ -44,6 +51,17 @@ public class RangeSphere {
 
     public int getNumberOfIntersectedEnemies(){
         return queue.size();
+    }
+
+    public boolean hasEnemyInside(){
+        return !queue.isEmpty();
+    }
+
+    public boolean containsEnemy(Enemy e){
+        return queue.contains(e);
+    }
+    public void releaseEnemy(Enemy e){
+        queue.remove(e);
     }
 
 }
