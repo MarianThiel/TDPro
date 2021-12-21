@@ -1,5 +1,7 @@
 package de.hda.tdpro.core;
 
+import java.util.Objects;
+
 public class Position {
     private int xVal;
     private int yVal;
@@ -24,5 +26,18 @@ public class Position {
 
     public void setyVal(int yVal) {
         this.yVal = yVal;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Position)) return false;
+        Position position = (Position) o;
+        return xVal == position.xVal && yVal == position.yVal;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(xVal, yVal);
     }
 }

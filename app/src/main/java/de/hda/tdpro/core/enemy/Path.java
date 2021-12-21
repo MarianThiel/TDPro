@@ -38,6 +38,12 @@ public class Path {
         for (AscPoint p = start; p!= null; p = p.getNextPoint()){
             list.addAll(p.calculatePositions());
         }
-        return list;
+        List<Position> noDupList = new ArrayList<>();
+        for(Position p : list){
+            if(!noDupList.contains(p)){
+                noDupList.add(p);
+            }
+        }
+        return noDupList;
     }
 }
