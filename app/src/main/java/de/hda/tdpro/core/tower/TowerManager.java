@@ -42,7 +42,9 @@ public class TowerManager {
             if(towers[i] == null){
                 switch (type){
                     case FIRE_TOWER:
-                            towers[i] = TowerFactory.getInstance().createFireTower();
+                        towers[i] = TowerFactory.getInstance().createFireTower();
+                        Thread t = new Thread(towers[i]);
+                        t.start();
                         break;
                     case ICE_TOWER:
 
