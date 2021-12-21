@@ -19,7 +19,11 @@ public class Path {
 
     }
 
-
+    /**
+     * adds a Point to Path
+     * @param x X-Coordinate
+     * @param y Y-Coordinate
+     */
     public void addPoint(int x, int y){
         if(start == null){
             start = new AscPoint(x,y);
@@ -33,6 +37,10 @@ public class Path {
         }
     }
 
+    /**
+     * Generates all point of the path by calling calculatePosition on each point
+     * @return
+     */
     public List<Position> generateAllPositions(){
         List<Position> list = new ArrayList<>();
         for (AscPoint p = start; p!= null; p = p.getNextPoint()){

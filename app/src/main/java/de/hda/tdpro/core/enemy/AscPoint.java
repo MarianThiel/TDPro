@@ -51,7 +51,7 @@ public class AscPoint {
      * basic linear algebra - normalized direction vector from v2 - v1 was
      * build and multiplied by a factor
      *
-     * @return a list with all the Positions
+     * @return a list with all the Positions if point is not the last point, an empty list if point is the last one
      */
     List<Position> calculatePositions(){
 
