@@ -6,9 +6,16 @@ import de.hda.tdpro.core.EnemyObserver;
 import de.hda.tdpro.core.IntersectionObservable;
 import de.hda.tdpro.core.Position;
 
-public class Enemy implements IntersectionObservable {
-
-
+/**
+ * @author Marian Thiel
+ * @version 1.1
+ *
+ * @implNote used as Observable - observed by Towers
+ * Thread functionality for walking purposes
+ *
+ * Class representing an Enemy in the Game
+ */
+public class Enemy implements IntersectionObservable, Runnable {
 
     private int hp;
     private int armor;
@@ -73,5 +80,10 @@ public class Enemy implements IntersectionObservable {
         for(EnemyObserver o : observers){
             o.onEnemyMovement(this);
         }
+    }
+
+    @Override
+    public void run() {
+
     }
 }
