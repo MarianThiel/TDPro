@@ -1,6 +1,9 @@
 package de.hda.tdpro.core.enemy;
 
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
 
 import de.hda.tdpro.core.EnemyObserver;
 import de.hda.tdpro.core.IntersectionObservable;
@@ -20,8 +23,13 @@ public class Enemy implements IntersectionObservable, Runnable {
     private int hp;
     private int armor;
     private float velocity;
-
+    private boolean living;
     private Position position;
+
+    private Thread walkingThread;
+    private boolean walking;
+    private List<Position> path;
+    private Iterator<Position> iterator;
 
     private final LinkedList<EnemyObserver> observers;
 
@@ -29,6 +37,7 @@ public class Enemy implements IntersectionObservable, Runnable {
         this.hp = hp;
         this.armor = armor;
         this.velocity = velocity;
+        living = true;
         observers = new LinkedList<>();
     }
 
@@ -38,6 +47,10 @@ public class Enemy implements IntersectionObservable, Runnable {
 
     public void setHp(int hp) {
         this.hp = hp;
+        if(hp <= 0){
+            this.hp = 0;
+            living = false;
+        }
     }
 
     public int getArmor() {
@@ -65,6 +78,45 @@ public class Enemy implements IntersectionObservable, Runnable {
         notifyObservers();
     }
 
+    public boolean isLiving() {
+        return living;
+    }
+
+    public boolean isWalking() {
+        return walking;
+    }
+
+    public boolean isFinished(){
+        return position.equals(path.get(path.size() - 1));
+    }
+
+    public void initWalking(){
+        walking = true;
+        walkingThread = new Thread(this);
+        walkingThread.start();
+    }
+    public void stopWalking(){
+        walking = false;
+        try {
+            walkingThread.join();
+        } catch (InterruptedException e) {
+
+        }
+    }
+
+    public void setWalkingPath(Path p){
+        path = p.generateAllPositions();
+        iterator = path.listIterator();
+    }
+
+    private void walkStep(){
+        if(iterator.hasNext()){
+            setPosition(iterator.next());
+        }else{
+            stopWalking();
+        }
+    }
+
     @Override
     public void addEnemyObserver(EnemyObserver o) {
         observers.add(o);
@@ -84,6 +136,13 @@ public class Enemy implements IntersectionObservable, Runnable {
 
     @Override
     public void run() {
-
+        while(walking){
+            walkStep();
+            try {
+                Thread.sleep((long) (1000 / velocity));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
