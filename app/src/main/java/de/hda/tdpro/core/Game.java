@@ -24,22 +24,24 @@ public class Game implements Drawable{
         }
 
         e = new Enemy(1000,1,100,img);
-        e2 = new Enemy(1000,1,100,img);
+        e2 = new Enemy(1000,1,1000,img);
 
         Path path = new Path();
-        path.addPoint(10,10);
+        path.addPoint(15,15);
         path.addPoint(100,100);
+
         path.addPoint(100,150);
         path.addPoint(300,150);
         path.addPoint(300,1500);
+        path.addPoint(100,100);
 
         Path path2 = new Path();
-        path.addPoint(15,15);
-        path.addPoint(100,150);
-        path.addPoint(130,150);
-        path.addPoint(360,150);
-        path.addPoint(300,1500);
-        e2.setWalkingPath(path2);
+        path2.addPoint(15,10);
+        path2.addPoint(100,150);
+        path2.addPoint(130,150);
+        path2.addPoint(30,150);
+        path2.addPoint(350,200);
+        e2.setWalkingPath(path);
         e.setWalkingPath(path);
 
 
@@ -48,8 +50,8 @@ public class Game implements Drawable{
     }
 
     public void start(){
-        e.start();
-        e2.start();
+        e.initWalking();
+        e2.initWalking();
     }
 
     @Override

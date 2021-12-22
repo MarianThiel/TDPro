@@ -20,11 +20,13 @@ import de.hda.tdpro.core.Position;
  *
  * Class representing an Enemy in the Game
  */
-public class Enemy extends Thread implements IntersectionObservable, Drawable {
+public class Enemy implements IntersectionObservable, Drawable, Runnable {
 
     private int hp;
     private int armor;
     private float velocity;
+
+    private Thread thread;
 
     private List<Position> walkingPath;
     private final boolean walking = true;
@@ -39,6 +41,7 @@ public class Enemy extends Thread implements IntersectionObservable, Drawable {
         this.armor = armor;
         this.velocity = velocity;
         this.image = image;
+        thread = new Thread(this);
         observers = new LinkedList<>();
     }
 
@@ -90,6 +93,7 @@ public class Enemy extends Thread implements IntersectionObservable, Drawable {
     }
 
     private void walkPath(){
+        if(curpos<walkingPath.size())
         setPosition(walkingPath.get(curpos++));
     }
     @Override
@@ -126,5 +130,9 @@ public class Enemy extends Thread implements IntersectionObservable, Drawable {
     public void draw(Canvas canvas) {
         if(image!=null)
         canvas.drawBitmap(image, position.getxVal(),position.getyVal(),null);
+    }
+
+    public void initWalking(){
+        thread.start();
     }
 }
