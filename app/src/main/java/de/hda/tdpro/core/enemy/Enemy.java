@@ -1,7 +1,12 @@
 package de.hda.tdpro.core.enemy;
 
-import java.util.LinkedList;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import de.hda.tdpro.core.Drawable;
 import de.hda.tdpro.core.EnemyObserver;
 import de.hda.tdpro.core.IntersectionObservable;
 import de.hda.tdpro.core.Position;
@@ -15,15 +20,27 @@ import de.hda.tdpro.core.Position;
  *
  * Class representing an Enemy in the Game
  */
-public class Enemy implements IntersectionObservable, Runnable {
+public class Enemy extends Thread implements IntersectionObservable, Drawable {
 
     private int hp;
     private int armor;
     private float velocity;
 
-    private Position position;
+    private List<Position> walkingPath;
+    private final boolean walking = true;
+    private int curpos = 0;
 
+    private Position position;
+    private Bitmap image;
     private final LinkedList<EnemyObserver> observers;
+
+    public Enemy(int hp, int armor, float velocity, Bitmap image) {
+        this.hp = hp;
+        this.armor = armor;
+        this.velocity = velocity;
+        this.image = image;
+        observers = new LinkedList<>();
+    }
 
     public Enemy(int hp, int armor, float velocity) {
         this.hp = hp;
@@ -32,8 +49,15 @@ public class Enemy implements IntersectionObservable, Runnable {
         observers = new LinkedList<>();
     }
 
+    public void setWalkingPath(Path p){
+        walkingPath = p.generateAllPositions();
+    }
+
     public int getHp() {
         return hp;
+    }
+    public void setImage(Bitmap img){
+        this.image = img;
     }
 
     public void setHp(int hp) {
@@ -65,6 +89,9 @@ public class Enemy implements IntersectionObservable, Runnable {
         notifyObservers();
     }
 
+    private void walkPath(){
+        setPosition(walkingPath.get(curpos++));
+    }
     @Override
     public void addEnemyObserver(EnemyObserver o) {
         observers.add(o);
@@ -84,6 +111,20 @@ public class Enemy implements IntersectionObservable, Runnable {
 
     @Override
     public void run() {
+        while(walking){
+            walkPath();
 
+            try {
+                Thread.sleep((long) (1000/velocity));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        if(image!=null)
+        canvas.drawBitmap(image, position.getxVal(),position.getyVal(),null);
     }
 }
