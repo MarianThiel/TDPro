@@ -1,7 +1,11 @@
 package de.hda.tdpro.core.tower;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.Log;
 
+import de.hda.tdpro.core.Drawable;
 import de.hda.tdpro.core.EnemyObserver;
 import de.hda.tdpro.core.Position;
 import de.hda.tdpro.core.enemy.Enemy;
@@ -10,7 +14,7 @@ import de.hda.tdpro.core.enemy.Enemy;
  * @author Marian Thiel
  *  Abstract Class representing a tower
  */
-abstract public class Tower implements EnemyObserver, Runnable {
+abstract public class Tower implements EnemyObserver, Runnable, Drawable {
 
     protected int radius;
     protected int damage;
@@ -102,10 +106,12 @@ abstract public class Tower implements EnemyObserver, Runnable {
                 getSphere().releaseEnemy(e);
             }
         }else{ // !sphere.containsEnemy(e)
-            if(getSphere().intersects(p)){
+            if(getSphere().intersects(p) && e.getHp()>0){
                 getSphere().targetEnemy(e);
+                Log.println(Log.ASSERT,"tower","Enemy is in range");
             }
         }
+        Log.println(Log.ASSERT,"test", "Number: " + sphere.getNumberOfIntersectedEnemies());
 
     }
 
@@ -119,5 +125,14 @@ abstract public class Tower implements EnemyObserver, Runnable {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        Paint p = new Paint();
+        p.setStyle(Paint.Style.STROKE);
+        p.setColor(Color.BLACK);
+        p.setStrokeWidth(10);
+        canvas.drawCircle(pos.getxVal(),pos.getyVal(),radius,p);
     }
 }
