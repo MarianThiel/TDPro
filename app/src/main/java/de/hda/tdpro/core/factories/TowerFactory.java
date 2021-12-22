@@ -19,6 +19,6 @@ public class TowerFactory {
 
     public FireTower createFireTower(){
 
-        return new FireTower(50,100,1,80);
+        return new FireTower(200,100,1,80);
     }
 }

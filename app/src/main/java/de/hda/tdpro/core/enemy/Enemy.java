@@ -2,6 +2,7 @@ package de.hda.tdpro.core.enemy;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -65,6 +66,7 @@ public class Enemy implements IntersectionObservable, Runnable, Drawable {
         if(hp <= 0){
             this.hp = 0;
             living = false;
+            stopWalking();
         }
     }
 
@@ -163,6 +165,13 @@ public class Enemy implements IntersectionObservable, Runnable, Drawable {
 
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(image, position.getxVal(), position.getyVal(),null);
+        if(position!=null){
+            canvas.drawBitmap(image, position.getxVal(), position.getyVal(),null);
+            String s = Integer.toString(hp);
+            Paint p = new Paint();
+            p.setTextSize(50);
+            canvas.drawText(s,position.getxVal(),position.getyVal()+10,p);
+        }
+
     }
 }

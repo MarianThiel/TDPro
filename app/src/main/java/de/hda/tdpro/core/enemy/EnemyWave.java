@@ -35,6 +35,7 @@ public class EnemyWave implements Runnable, Drawable {
     @Override
     public void run() {
         for(Enemy e : enemies){
+            if(e!=null)
             e.initWalking();
             try {
                 Thread.sleep((long) (Math.random() * 1000));
@@ -47,6 +48,7 @@ public class EnemyWave implements Runnable, Drawable {
     @Override
     public void draw(Canvas canvas) {
         for(Enemy e : enemies){
+            if(e!=null)
             e.draw(canvas);
         }
     }
