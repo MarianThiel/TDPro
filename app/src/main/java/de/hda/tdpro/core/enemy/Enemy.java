@@ -1,10 +1,14 @@
 package de.hda.tdpro.core.enemy;
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
+import de.hda.tdpro.core.Drawable;
 import de.hda.tdpro.core.EnemyObserver;
 import de.hda.tdpro.core.IntersectionObservable;
 import de.hda.tdpro.core.Position;
@@ -18,7 +22,7 @@ import de.hda.tdpro.core.Position;
  *
  * Class representing an Enemy in the Game
  */
-public class Enemy implements IntersectionObservable, Runnable {
+public class Enemy implements IntersectionObservable, Runnable, Drawable {
 
     private int hp;
     private int armor;
@@ -31,7 +35,18 @@ public class Enemy implements IntersectionObservable, Runnable {
     private List<Position> path;
     private Iterator<Position> iterator;
 
+    private Bitmap image;
+
     private final LinkedList<EnemyObserver> observers;
+
+    public Enemy(int hp, int armor, float velocity, Bitmap img) {
+        this.hp = hp;
+        this.armor = armor;
+        this.velocity = velocity;
+        living = true;
+        image = img;
+        observers = new LinkedList<>();
+    }
 
     public Enemy(int hp, int armor, float velocity) {
         this.hp = hp;
@@ -144,5 +159,10 @@ public class Enemy implements IntersectionObservable, Runnable {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        canvas.drawBitmap(image, position.getxVal(), position.getyVal(),null);
     }
 }

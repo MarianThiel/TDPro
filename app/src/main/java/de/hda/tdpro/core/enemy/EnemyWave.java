@@ -1,6 +1,10 @@
 package de.hda.tdpro.core.enemy;
 
-public class EnemyWave implements Runnable {
+import android.graphics.Canvas;
+
+import de.hda.tdpro.core.Drawable;
+
+public class EnemyWave implements Runnable, Drawable {
 
     private final int ENEMIES_IN_WAVE;
 
@@ -37,6 +41,13 @@ public class EnemyWave implements Runnable {
             } catch (InterruptedException interruptedException) {
                 interruptedException.printStackTrace();
             }
+        }
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        for(Enemy e : enemies){
+            e.draw(canvas);
         }
     }
 }
