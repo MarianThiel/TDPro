@@ -1,7 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.TowerUpgradeActivity"/>
+    tools:context=".activity.TowerUpgradeActivity"
+    android:background="@mipmap/background"
+    >
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/damage1"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/custom_button1"
+            android:contentDescription="@string/app_name"
+            android:src="@mipmap/damage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+            tools:ignore="DuplicateSpeakableTextCheck" />
+
+        <ImageButton
+            android:id="@+id/damage3"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/custom_button1"
+            android:contentDescription="@string/app_name"
+            android:src="@mipmap/damage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+        <ImageButton
+            android:id="@+id/weit3"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/custom_button1"
+            android:contentDescription="@string/app_name"
+            android:src="@mipmap/range"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/speed3" />
+
+        <ImageButton
+            android:id="@+id/weit2"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/custom_button1"
+            android:contentDescription="@string/app_name"
+            android:src="@mipmap/range"
+            app:layout_constraintStart_toEndOf="@+id/weit1"
+            app:layout_constraintTop_toBottomOf="@+id/speed2" />
+
+        <ImageButton
+            android:id="@+id/weit1"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="28dp"
+            android:contentDescription="@string/app_name"
+            android:src="@mipmap/range"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/speed1" />
+
+        <ImageButton
+            android:id="@+id/speed3"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/custom_button1"
+            android:contentDescription="@string/app_name"
+            android:src="@mipmap/damage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/damage3" />
+
+        <ImageButton
+            android:id="@+id/speed2"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/custom_button1"
+            android:contentDescription="@string/app_name"
+            android:src="@mipmap/damage"
+            app:layout_constraintStart_toEndOf="@+id/speed1"
+            app:layout_constraintTop_toBottomOf="@+id/damage2" />
+
+        <ImageButton
+            android:id="@+id/speed1"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/custom_button1"
+            android:contentDescription="@string/app_name"
+            android:src="@mipmap/damage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/damage1" />
+
+        <ImageButton
+            android:id="@+id/damage2"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/custom_button1"
+            android:contentDescription="@string/app_name"
+            android:src="@mipmap/damage"
+            app:layout_constraintEnd_toStartOf="@+id/damage3"
+            app:layout_constraintHorizontal_bias="0.484"
+            app:layout_constraintStart_toEndOf="@+id/damage1"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+        <ImageButton
+            android:id="@+id/returnButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_revert" />
+
+        <TextView
+            android:id="@+id/money"
+            android:layout_width="65dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="16dp"
+            android:text="100$"
+            android:textColor="#FFFF00"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="374dp"
+            android:layout_height="106dp"
+            android:layout_marginTop="72dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/message"
+                android:layout_width="236dp"
+                android:layout_height="109dp"
+                android:textColor="#FFFF00"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/button"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.333"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="28dp"
+                android:text="Buy"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+</FrameLayout>
