@@ -4,27 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/backgroundsetting"
+    android:background="@mipmap/background"
     tools:context=".activity.SettingsActivity">
 
     <SeekBar
         android:id="@+id/seekBar"
         android:layout_width="180dp"
         android:layout_height="58dp"
-        android:layout_marginTop="192dp"
-        app:layout_constraintEnd_toStartOf="@+id/plusSound"
-        app:layout_constraintHorizontal_bias="0.328"
-        app:layout_constraintStart_toEndOf="@+id/minusSound"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/minusSound"
+        app:layout_constraintHorizontal_bias="0.705"
+        app:layout_constraintStart_toEndOf="@+id/plusSound"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="76dp"
         android:layout_height="46dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="72dp"
         android:text="Sound"
-        android:textColor="#000"
+        android:textColor="#FFFF00"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -33,70 +34,70 @@
         android:id="@+id/textView2"
         android:layout_width="84dp"
         android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="68dp"
         android:text="Contrast"
-        android:textColor="#000"
+        android:textColor="#FFFF00"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/minusSound" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <SeekBar
         android:id="@+id/seekBar2"
         android:layout_width="183dp"
         android:layout_height="49dp"
-        android:layout_marginTop="152dp"
-        app:layout_constraintEnd_toStartOf="@+id/plusContrast"
-        app:layout_constraintHorizontal_bias="0.403"
-        app:layout_constraintStart_toEndOf="@+id/minusContrast"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toStartOf="@+id/minusContrast"
+        app:layout_constraintHorizontal_bias="0.425"
+        app:layout_constraintStart_toEndOf="@+id/plusContrast"
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
     <Button
         android:id="@+id/minusSound"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="168dp"
         android:text="-"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/plusSound"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:layout_marginTop="192dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="60dp"
         android:text="+"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/minusContrast"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="164dp"
         android:text="-"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/minusSound" />
 
     <Button
         android:id="@+id/plusContrast"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:layout_marginTop="152dp"
-        android:layout_marginEnd="44dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="64dp"
         android:text="+"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/plusSound" />
 
     <ImageButton
         android:id="@+id/returnFromSetting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginBottom="52dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@android:drawable/ic_menu_revert"
