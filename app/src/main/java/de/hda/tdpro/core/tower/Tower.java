@@ -18,7 +18,9 @@ abstract public class Tower implements EnemyObserver, Runnable {
     protected int price;
     protected Position pos;
 
-    private boolean running;
+    private Thread aimThread;
+
+    private boolean aiming;
 
     public static final int MAX_LEVEL = 5;
 
@@ -31,7 +33,7 @@ abstract public class Tower implements EnemyObserver, Runnable {
         this.speed = speed;
         this.price = price;
         sphere = null;
-        running = true;
+        aiming = true;
     }
 
     public Position getPos() {
@@ -75,12 +77,30 @@ abstract public class Tower implements EnemyObserver, Runnable {
         this.price = price;
     }
 
+    public boolean isAiming() {
+        return aiming;
+    }
+
     public void fireMissile(){
         if(getSphere().hasEnemyInside()){
             Log.println(Log.ASSERT,"enemy_targeting", this.getClass()+" ENEMY_WAS_HIT - DMG: " + getDamage());
             getSphere().hitEnemy(this.getDamage());
         }
 
+    }
+
+    public void startAiming(){
+        aiming = true;
+        aimThread = new Thread(this);
+        aimThread.start();
+    }
+    public void stopAiming(){
+        aiming = false;
+        try {
+            aimThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public int getLevel(){
@@ -91,9 +111,7 @@ abstract public class Tower implements EnemyObserver, Runnable {
         return sphere;
     }
 
-    public void terminate(){
-        running = false;
-    }
+
     @Override
     public void onEnemyMovement(Enemy e) {
         Position p = e.getPosition();
@@ -111,7 +129,7 @@ abstract public class Tower implements EnemyObserver, Runnable {
 
     @Override
     public void run() {
-        while(running){
+        while(aiming){
             fireMissile();
             try {
                 Thread.sleep ((long) (1000/getSpeed()));
