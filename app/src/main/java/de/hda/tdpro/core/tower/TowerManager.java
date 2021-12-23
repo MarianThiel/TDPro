@@ -20,16 +20,16 @@ public class TowerManager {
         if(i >= 0 && i < towers.length){
             if(towers[i] != null){
                 if(upgradePossible(i)){
+                    towers[i].stopAiming();
                     switch (upg){
                         case DMG_UPGRADE:
-                            towers[i].terminate();
                             towers[i] = new TowerDMGUpgrade(towers[i]);
-                            Thread th = new Thread(towers[i]);
-                            th.start();
+
                             break;
                         case RANGE_UPGRADE:
                             break;
                     }
+                    towers[i].startAiming();
                     return true;
                 }
             }
@@ -43,8 +43,6 @@ public class TowerManager {
                 switch (type){
                     case FIRE_TOWER:
                         towers[i] = TowerFactory.getInstance().createFireTower();
-                        Thread t = new Thread(towers[i]);
-                        t.start();
                         break;
                     case ICE_TOWER:
 
