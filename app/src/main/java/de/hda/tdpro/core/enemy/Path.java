@@ -1,8 +1,13 @@
 package de.hda.tdpro.core.enemy;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hda.tdpro.core.Drawable;
 import de.hda.tdpro.core.Position;
 
 /**
@@ -12,7 +17,7 @@ import de.hda.tdpro.core.Position;
  * Class representing the path of a map or an Enemy
  * works like a linked list
  */
-public class Path {
+public class Path implements Drawable {
     AscPoint start;
 
     public Path() {
@@ -53,5 +58,16 @@ public class Path {
             }
         }
         return noDupList;
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        Paint p = new Paint();
+        p.setColor(Color.LTGRAY);
+        p.setStrokeWidth(40);
+
+        for(AscPoint pt = start; pt.getNextPoint() != null; pt = pt.getNextPoint()){
+            canvas.drawLine(pt.getX(),pt.getY(),pt.getNextPoint().getX(),pt.getNextPoint().getY(),p);
+        }
     }
 }
