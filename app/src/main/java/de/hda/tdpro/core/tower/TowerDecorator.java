@@ -6,7 +6,7 @@ import de.hda.tdpro.core.Position;
 public class TowerDecorator extends Tower {
     Tower embeddedTower;
     public TowerDecorator(Tower uTower) {
-        super(0,0,0,0);
+        super(0,0,0,0,null);
         embeddedTower = uTower;
     }
 

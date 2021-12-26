@@ -1,8 +1,8 @@
 package de.hda.tdpro.core.tower;
 
+import android.content.Context;
+
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 
 import de.hda.tdpro.core.Position;
 import de.hda.tdpro.core.factories.TowerFactory;
@@ -15,11 +15,14 @@ public class TowerManager {
 
     private int idx;
 
-    public TowerManager(int MAX_TOWER_NUMBER) {
+    private Context context;
+
+    public TowerManager(int MAX_TOWER_NUMBER, Context context) {
         this.MAX_TOWER_NUMBER = MAX_TOWER_NUMBER;
         towers = new Tower[MAX_TOWER_NUMBER];
         idx = 0;
         Arrays.fill(towers, null);
+        this.context = context;
     }
 
     private int getIndex(Tower tower){
@@ -54,13 +57,14 @@ public class TowerManager {
                 if(idx<MAX_TOWER_NUMBER){
                     switch (type){
                         case FIRE_TOWER:
-                            towers[idx] = TowerFactory.getInstance().createFireTower();
+                            towers[idx] = TowerFactory.getInstance().createFireTower(context);
                             break;
                         case ICE_TOWER:
 
                             break;
                     }
                     towers[idx].setPos(position);
+                    towers[idx].startAiming();
                     ++idx;
                     return true;
                 }else
