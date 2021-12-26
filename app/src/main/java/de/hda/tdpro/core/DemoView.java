@@ -82,7 +82,7 @@ public class DemoView extends SurfaceView implements Runnable{
         playing = true;
         gameThread = new Thread(this);
         gameThread.start();
-        game.startDemo();
+        game.startNextWave();
     }
 
     @Override
