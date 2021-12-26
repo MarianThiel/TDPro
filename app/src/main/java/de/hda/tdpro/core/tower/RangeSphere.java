@@ -1,16 +1,19 @@
 package de.hda.tdpro.core.tower;
 
+import android.graphics.Canvas;
 import android.util.Log;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+import de.hda.tdpro.core.Drawable;
 import de.hda.tdpro.core.Position;
 import de.hda.tdpro.core.enemy.Enemy;
+import de.hda.tdpro.core.tower.priority.EnemyHPMaxComparator;
 import de.hda.tdpro.core.tower.priority.EnemyHPMinComparator;
 import de.hda.tdpro.core.tower.priority.Priority;
 
-public class RangeSphere {
+public class RangeSphere implements Drawable {
 
     private final int range;
 
@@ -22,9 +25,11 @@ public class RangeSphere {
 
     private final Tower tower;
 
+    Projectile projectile;
+
     public RangeSphere(Tower t, int range) {
         this.range = range;
-        cmp = new EnemyHPMinComparator();
+        cmp = new EnemyHPMaxComparator();
         queue = new PriorityQueue<>(cmp);
         this.tower = t;
 
@@ -32,6 +37,7 @@ public class RangeSphere {
 
     public void hitEnemy(int dmg){
         Enemy e = queue.peek();
+        projectile =  new Projectile(tower.pos.getxVal(),tower.pos.getyVal(),e.getPosition().getxVal(),e.getPosition().getyVal(),0,null);
         e.setHp(e.getHp()-dmg);
         if(e.getHp()<=0){
             queue.poll();
@@ -70,5 +76,11 @@ public class RangeSphere {
 
     public void setPriority(Priority type) {
 
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        if(projectile!=null)
+        projectile.draw(canvas);
     }
 }

@@ -46,7 +46,13 @@ public class Game implements Drawable{
         path.addPoint(50,300);
         path.addPoint(300,500);
         path.addPoint(500,550);
-        path.addPoint(1500,650);
+        path.addPoint(500,650);
+        path.addPoint(1000,750);
+        path.addPoint(1000,450);
+        path.addPoint(500,450);
+        path.addPoint(500,250);
+        path.addPoint(1500,250);
+        path.addPoint(1500,1250);
         wave = new EnemyWave(9,path);
 
         Enemy e1 = new Enemy(2000,1,20, BitmapFactory.decodeResource(context.getResources(), R.drawable.test3));
