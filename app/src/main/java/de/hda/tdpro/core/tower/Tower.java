@@ -9,6 +9,7 @@ import de.hda.tdpro.core.Drawable;
 import de.hda.tdpro.core.EnemyObserver;
 import de.hda.tdpro.core.Position;
 import de.hda.tdpro.core.enemy.Enemy;
+import de.hda.tdpro.core.tower.priority.Priority;
 
 /**
  * @author Marian Thiel
@@ -16,16 +17,41 @@ import de.hda.tdpro.core.enemy.Enemy;
  */
 abstract public class Tower implements EnemyObserver, Runnable, Drawable {
 
+    /**
+     * radius as integer value in pixel
+     */
     protected int radius;
+    /**
+     * damage of the tower
+     */
     protected int damage;
+    /**
+     * value indicates the attack speed 1 means 1 hit per second 2 = 2 hits per second
+     */
     protected float speed;
+    /**
+     * price of placing tower
+     */
     protected int price;
+    /**
+     * position of the tower on the map
+     */
     protected Position pos;
-
-    private boolean running;
-
+    /**
+     * thread holds instance of the tower, is used for attacking enemies in sphere
+     */
+    private Thread aimThread;
+    /**
+     * true if tower is aiming an enemy - means thread is running
+     */
+    private boolean aiming;
+    /**
+     * Max level of tower
+     */
     public static final int MAX_LEVEL = 5;
-
+    /**
+     * the sphere of the tower
+     */
     protected RangeSphere sphere;
 
 
@@ -35,7 +61,7 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
         this.speed = speed;
         this.price = price;
         sphere = null;
-        running = true;
+        aiming = true;
     }
 
     public Position getPos() {
@@ -79,12 +105,30 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
         this.price = price;
     }
 
+    public boolean isAiming() {
+        return aiming;
+    }
+
     public void fireMissile(){
         if(getSphere().hasEnemyInside()){
-            Log.println(Log.ASSERT,"enemy_targeting", this.getClass()+" ENEMY_WAS_HIT - DMG: " + getDamage());
+            Log.println(Log.ASSERT,"enemy_targeting", this.getClass() + " ENEMY_WAS_HIT - DMG: " + getDamage());
             getSphere().hitEnemy(this.getDamage());
         }
 
+    }
+
+    public void startAiming(){
+        aiming = true;
+        aimThread = new Thread(this);
+        aimThread.start();
+    }
+    public void stopAiming(){
+        aiming = false;
+        try {
+            aimThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public int getLevel(){
@@ -95,11 +139,16 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
         return sphere;
     }
 
-    public void terminate(){
-        running = false;
+    public void setHitPriority(Priority type){
+
+        sphere.setPriority(type);
+
     }
+
+
     @Override
     public void onEnemyMovement(Enemy e) {
+
         Position p = e.getPosition();
         if(getSphere().containsEnemy(e)){
             if(!getSphere().intersects(p)){
@@ -117,7 +166,7 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
 
     @Override
     public void run() {
-        while(running){
+        while(aiming){
             fireMissile();
             try {
                 Thread.sleep ((long) (1000/getSpeed()));

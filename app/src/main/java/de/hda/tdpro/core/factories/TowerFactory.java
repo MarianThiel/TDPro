@@ -1,5 +1,7 @@
 package de.hda.tdpro.core.factories;
 
+import android.content.Context;
+
 import de.hda.tdpro.core.tower.FireTower;
 import de.hda.tdpro.core.tower.Tower;
 

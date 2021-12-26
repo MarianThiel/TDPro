@@ -1,6 +1,7 @@
 package de.hda.tdpro.core;
 
 import android.content.Context;
+<<<<<<< HEAD
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
@@ -8,10 +9,15 @@ import de.hda.tdpro.R;
 import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.enemy.EnemyWave;
 import de.hda.tdpro.core.enemy.Path;
+=======
+
+import de.hda.tdpro.core.enemy.WaveManager;
+>>>>>>> Branch_Marian
 import de.hda.tdpro.core.tower.Tower;
 import de.hda.tdpro.core.tower.TowerManager;
 import de.hda.tdpro.core.tower.TowerType;
 
+<<<<<<< HEAD
 public class Game implements Drawable{
 
     EnemyWave wave;
@@ -64,4 +70,53 @@ public class Game implements Drawable{
         wave.draw(canvas);
         towerManager.getTower(0).draw(canvas);
     }
+=======
+/**
+ * Game controls all towers and waves. it draws the entire screen
+ */
+public class Game {
+    /**
+     * control waves
+     */
+    private WaveManager waveManager;
+    /**
+     * control towers
+     */
+    private TowerManager towerManager;
+
+    /**
+     * basic constructor for Game class
+     * @param context
+     */
+    public Game(Context context){
+
+    }
+
+    /**
+     * connects all towers as observer to each enemy for the next wave
+     */
+    private void prepareNextWave(){
+
+    }
+
+    /**
+     * starts the next wave
+     * @return true if possible, false if wave is currently running
+     */
+    public boolean startNextWave(){
+        return true;
+    }
+
+    /**
+     *
+     * @param type the tower type to build
+     * @param x coordinate on game board
+     * @param y coordinate on game board
+     * @return true if max tower not reached, false if max tower reached
+     */
+    public boolean placeTowerAt(TowerType type, int x, int y){
+        return towerManager.placeTower(type,new Position(x,y));
+    }
+
+>>>>>>> Branch_Marian
 }
