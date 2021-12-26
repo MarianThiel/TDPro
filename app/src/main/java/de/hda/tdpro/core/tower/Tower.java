@@ -1,5 +1,7 @@
 package de.hda.tdpro.core.tower;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -54,14 +56,18 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
      */
     protected RangeSphere sphere;
 
+    private Context context;
 
-    public Tower(int radius, int damage, float speed, int price) {
+    protected Bitmap img;
+
+    public Tower(int radius, int damage, float speed, int price, Context context) {
         this.radius = radius;
         this.damage = damage;
         this.speed = speed;
         this.price = price;
+        this.context = context;
         sphere = null;
-        aiming = true;
+        aiming = false;
     }
 
     public Position getPos() {

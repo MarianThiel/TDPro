@@ -3,11 +3,11 @@ package de.hda.tdpro.core.enemy;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 
 import de.hda.tdpro.core.Drawable;
 import de.hda.tdpro.core.EnemyObserver;
@@ -28,7 +28,7 @@ public class Enemy implements IntersectionObservable, Runnable, Drawable {
     private int hp;
     private int armor;
     private float velocity;
-    private boolean living;
+    private boolean alive;
     private Position position;
 
     private Thread walkingThread;
@@ -44,7 +44,7 @@ public class Enemy implements IntersectionObservable, Runnable, Drawable {
         this.hp = hp;
         this.armor = armor;
         this.velocity = velocity;
-        living = true;
+        alive = true;
         image = img;
         observers = new LinkedList<>();
     }
@@ -53,7 +53,7 @@ public class Enemy implements IntersectionObservable, Runnable, Drawable {
         this.hp = hp;
         this.armor = armor;
         this.velocity = velocity;
-        living = true;
+        alive = true;
         observers = new LinkedList<>();
     }
 
@@ -65,7 +65,7 @@ public class Enemy implements IntersectionObservable, Runnable, Drawable {
         this.hp = hp;
         if(hp <= 0){
             this.hp = 0;
-            living = false;
+            alive = false;
             stopWalking();
         }
     }
@@ -95,8 +95,8 @@ public class Enemy implements IntersectionObservable, Runnable, Drawable {
         notifyObservers();
     }
 
-    public boolean isLiving() {
-        return living;
+    public boolean isAlive() {
+        return alive;
     }
 
     public boolean isWalking() {
@@ -129,8 +129,10 @@ public class Enemy implements IntersectionObservable, Runnable, Drawable {
     private void walkStep(){
         if(iterator.hasNext()){
             setPosition(iterator.next());
+            Log.println(Log.ASSERT,"walk","walk");
         }else{
             stopWalking();
+            Log.println(Log.ASSERT,"walk","stop walking");
         }
     }
 
@@ -165,7 +167,7 @@ public class Enemy implements IntersectionObservable, Runnable, Drawable {
 
     @Override
     public void draw(Canvas canvas) {
-        if(position!=null){
+        if(position!=null && isAlive()){
             canvas.drawBitmap(image, position.getxVal(), position.getyVal(),null);
             String s = Integer.toString(hp);
             Paint p = new Paint();
