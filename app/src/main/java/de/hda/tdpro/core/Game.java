@@ -2,16 +2,14 @@ package de.hda.tdpro.core;
 
 import android.content.Context;
 
-import android.graphics.Bitmap;
+
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-
 import de.hda.tdpro.R;
 import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.enemy.EnemyWave;
 import de.hda.tdpro.core.enemy.Path;
 import de.hda.tdpro.core.enemy.WaveManager;
-import de.hda.tdpro.core.tower.Tower;
 import de.hda.tdpro.core.tower.TowerManager;
 import de.hda.tdpro.core.tower.TowerType;
 
