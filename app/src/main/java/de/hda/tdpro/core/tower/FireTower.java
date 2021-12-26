@@ -16,6 +16,7 @@ public class FireTower extends Tower {
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        canvas.drawBitmap(img, getPos().getxVal(),getPos().getyVal(),null);
+        canvas.drawBitmap(img, getPos().getxVal()-(img.getWidth()/2),getPos().getyVal()-(img.getHeight()/2),null);
+
     }
 }

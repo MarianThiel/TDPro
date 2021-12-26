@@ -68,6 +68,7 @@ public class Path implements Drawable {
 
         for(AscPoint pt = start; pt.getNextPoint() != null; pt = pt.getNextPoint()){
             canvas.drawLine(pt.getX(),pt.getY(),pt.getNextPoint().getX(),pt.getNextPoint().getY(),p);
+            canvas.drawCircle(pt.getNextPoint().getX(),pt.getNextPoint().getY(),20,p);
         }
     }
 }

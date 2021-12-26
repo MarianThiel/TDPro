@@ -60,6 +60,8 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
 
     protected Bitmap img;
 
+    protected Projectile missile;
+
     public Tower(int radius, int damage, float speed, int price, Context context) {
         this.radius = radius;
         this.damage = damage;
@@ -117,6 +119,7 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
 
     public void fireMissile(){
         if(getSphere().hasEnemyInside()){
+
             Log.println(Log.ASSERT,"enemy_targeting", this.getClass() + " ENEMY_WAS_HIT - DMG: " + getDamage());
             getSphere().hitEnemy(this.getDamage());
         }
@@ -184,6 +187,7 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
 
     @Override
     public void draw(Canvas canvas) {
+        sphere.draw(canvas);
         Paint p = new Paint();
         p.setStyle(Paint.Style.STROKE);
         p.setColor(Color.BLACK);
