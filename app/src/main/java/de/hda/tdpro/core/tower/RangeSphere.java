@@ -7,6 +7,8 @@ import java.util.PriorityQueue;
 
 import de.hda.tdpro.core.Position;
 import de.hda.tdpro.core.enemy.Enemy;
+import de.hda.tdpro.core.tower.priority.EnemyHPMinComparator;
+import de.hda.tdpro.core.tower.priority.Priority;
 
 public class RangeSphere {
 
@@ -22,9 +24,10 @@ public class RangeSphere {
 
     public RangeSphere(Tower t, int range) {
         this.range = range;
-        cmp = new EnemyHPComparator();
+        cmp = new EnemyHPMinComparator();
         queue = new PriorityQueue<>(cmp);
         this.tower = t;
+
     }
 
     public void hitEnemy(int dmg){
@@ -60,8 +63,12 @@ public class RangeSphere {
     public boolean containsEnemy(Enemy e){
         return queue.contains(e);
     }
+
     public void releaseEnemy(Enemy e){
         queue.remove(e);
     }
 
+    public void setPriority(Priority type) {
+
+    }
 }
