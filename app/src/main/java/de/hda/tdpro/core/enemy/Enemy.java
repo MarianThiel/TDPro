@@ -61,7 +61,7 @@ public class Enemy implements IntersectionObservable, Runnable, Drawable {
         return hp;
     }
 
-    public void setHp(int hp) {
+    synchronized public void setHp(int hp) {
         this.hp = hp;
         if(hp <= 0){
             this.hp = 0;
