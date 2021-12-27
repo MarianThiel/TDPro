@@ -91,4 +91,11 @@ public class TowerManager {
     private boolean upgradePossible(int i){
         return towers[i].getLevel()<Tower.MAX_LEVEL;
     }
+
+    public void deselectAllTowers(){
+        for (Tower t : towers){
+            if(t!=null)
+                t.setActive(false);
+        }
+    }
 }
