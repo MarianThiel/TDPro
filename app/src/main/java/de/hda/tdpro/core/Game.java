@@ -3,6 +3,7 @@ package de.hda.tdpro.core;
 import android.content.Context;
 
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import de.hda.tdpro.R;
@@ -10,6 +11,7 @@ import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.enemy.EnemyWave;
 import de.hda.tdpro.core.enemy.Path;
 import de.hda.tdpro.core.enemy.WaveManager;
+import de.hda.tdpro.core.tower.Tower;
 import de.hda.tdpro.core.tower.TowerManager;
 import de.hda.tdpro.core.tower.TowerType;
 
@@ -31,12 +33,23 @@ public class Game implements Drawable{
 
     private Path path;
 
+    private Bitmap bg;
+
+    private PointingMode pointingMode;
     /**
      * basic constructor for Game class
      * @param context necessary for accessing resources
      */
     public Game(Context context){
-        towerManager = new TowerManager(3, context);
+
+        pointingMode = PointingMode.SELECTION_MODE;
+
+        initDemoData(context);
+    }
+
+    private void initDemoData(Context context) {
+
+        towerManager = new TowerManager(4, context);
         towerManager.placeTower(TowerType.FIRE_TOWER,new Position(400,400));
         towerManager.placeTower(TowerType.FIRE_TOWER,new Position(800,400));
         towerManager.placeTower(TowerType.FIRE_TOWER,new Position(600,600));
@@ -55,11 +68,11 @@ public class Game implements Drawable{
         path.addPoint(1500,1250);
         wave = new EnemyWave(9,path);
 
-        Enemy e1 = new Enemy(2000,1,20, BitmapFactory.decodeResource(context.getResources(), R.drawable.test3));
+        Enemy e1 = new Enemy(2000,1,300, BitmapFactory.decodeResource(context.getResources(), R.drawable.test3));
         Enemy e2 = new Enemy(200,1,60, BitmapFactory.decodeResource(context.getResources(), R.drawable.test3));
         Enemy e3 = new Enemy(200,1,70, BitmapFactory.decodeResource(context.getResources(), R.drawable.test3));
-        Enemy e4 = new Enemy(500,1,100, BitmapFactory.decodeResource(context.getResources(), R.drawable.test3));
-        Enemy e5 = new Enemy(500,1,100, BitmapFactory.decodeResource(context.getResources(), R.drawable.test3));
+        Enemy e4 = new Enemy(500,1,200, BitmapFactory.decodeResource(context.getResources(), R.drawable.test3));
+        Enemy e5 = new Enemy(500,1,200, BitmapFactory.decodeResource(context.getResources(), R.drawable.test3));
         Enemy e6 = new Enemy(500,1,200, BitmapFactory.decodeResource(context.getResources(), R.drawable.test3));
         Enemy e7 = new Enemy(500,1,200, BitmapFactory.decodeResource(context.getResources(), R.drawable.test3));
         Enemy e8 = new Enemy(500,1,200, BitmapFactory.decodeResource(context.getResources(), R.drawable.test3));
@@ -104,12 +117,17 @@ public class Game implements Drawable{
         wave.addEnemy(e7);
         wave.addEnemy(e8);
         wave.addEnemy(e9);
-
-
-
-
     }
 
+
+    public Tower selectTower(int x, int y){
+        towerManager.deselectAllTowers();
+        Tower t = towerManager.getTowerByPosition(x, y);
+        if(t != null){
+            t.setActive(true);
+        }
+        return t;
+    }
     /**
      * connects all towers as observer to each enemy for the next wave
      */
@@ -137,12 +155,24 @@ public class Game implements Drawable{
         return towerManager.placeTower(type,new Position(x,y));
     }
 
+    public PointingMode getPointingMode() {
+        return pointingMode;
+    }
+
+    public void setPointingMode(PointingMode pointingMode) {
+        this.pointingMode = pointingMode;
+    }
+
     @Override
     public void draw(Canvas canvas) {
+
         path.draw(canvas);
         wave.draw(canvas);
         towerManager.getTower(0).draw(canvas);
         towerManager.getTower(1).draw(canvas);
         towerManager.getTower(2).draw(canvas);
+        if(towerManager.getTower(3)!=null){
+            towerManager.getTower(3).draw(canvas);
+        }
     }
 }
