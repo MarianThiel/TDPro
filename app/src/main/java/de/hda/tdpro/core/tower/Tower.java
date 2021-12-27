@@ -56,6 +56,8 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
      */
     protected RangeSphere sphere;
 
+    protected boolean active;
+
     private Context context;
 
     protected Bitmap img;
@@ -70,6 +72,7 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
         this.context = context;
         sphere = null;
         aiming = false;
+        active = false;
     }
 
     public Position getPos() {
@@ -154,6 +157,13 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
 
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     @Override
     public void onEnemyMovement(Enemy e) {
@@ -188,10 +198,12 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
     @Override
     public void draw(Canvas canvas) {
         sphere.draw(canvas);
-        Paint p = new Paint();
-        p.setStyle(Paint.Style.STROKE);
-        p.setColor(Color.BLACK);
-        p.setStrokeWidth(10);
-        canvas.drawCircle(pos.getxVal(),pos.getyVal(),radius,p);
+        if(isActive()){
+            Paint p = new Paint();
+            p.setStyle(Paint.Style.STROKE);
+            p.setColor(Color.BLACK);
+            p.setStrokeWidth(10);
+            canvas.drawCircle(pos.getxVal(),pos.getyVal(),radius,p);
+        }
     }
 }
