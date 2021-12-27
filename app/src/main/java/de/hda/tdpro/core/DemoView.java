@@ -5,8 +5,13 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+
+import de.hda.tdpro.core.tower.Tower;
 
 public class DemoView extends SurfaceView implements Runnable{
 
@@ -18,7 +23,7 @@ public class DemoView extends SurfaceView implements Runnable{
     private Paint paint;
     private Canvas canvas;
 
-    Game game;
+    public Game game;
 
     public DemoView(Context context) {
         super(context);
@@ -40,6 +45,26 @@ public class DemoView extends SurfaceView implements Runnable{
         game = new Game(context);
         surfaceHolder = getHolder();
         paint = new Paint();
+
+        this.setOnTouchListener((OnTouchListener) (view, motionEvent) -> {
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                switch (game.getPointingMode()){
+                    case SELECTION_MODE:
+                        handleSelection((int)motionEvent.getX(),(int)motionEvent.getY());
+                        break;
+                }
+            }
+            return true;
+        });
+    }
+
+    private void handleSelection(int x, int y){
+        Tower t = game.selectTower(x, y);
+        if(t != null){
+            //TODO: show Upgrade menu and priorities
+        }else {
+            //TODO: Hide above
+        }
     }
 
     private void draw(){
@@ -92,4 +117,6 @@ public class DemoView extends SurfaceView implements Runnable{
             control();
         }
     }
+
+
 }
