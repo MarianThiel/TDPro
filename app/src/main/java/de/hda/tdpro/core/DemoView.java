@@ -10,20 +10,27 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
+import de.hda.tdpro.R;
 import de.hda.tdpro.core.tower.Tower;
 
-public class DemoView extends SurfaceView implements Runnable{
+public class DemoView extends SurfaceView implements Runnable, GameListener{
 
     volatile boolean playing;
 
     private Thread gameThread;
 
     private SurfaceHolder surfaceHolder;
-    private Paint paint;
+
     private Canvas canvas;
 
     public Game game;
+
+
 
     public DemoView(Context context) {
         super(context);
@@ -42,11 +49,12 @@ public class DemoView extends SurfaceView implements Runnable{
 
     void init(Context context){
 
-        game = new Game(context);
-        surfaceHolder = getHolder();
-        paint = new Paint();
 
-        this.setOnTouchListener((OnTouchListener) (view, motionEvent) -> {
+        surfaceHolder = getHolder();
+
+
+
+        this.setOnTouchListener((view, motionEvent) -> {
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN){
                 switch (game.getPointingMode()){
                     case SELECTION_MODE:
@@ -59,12 +67,8 @@ public class DemoView extends SurfaceView implements Runnable{
     }
 
     private void handleSelection(int x, int y){
-        Tower t = game.selectTower(x, y);
-        if(t != null){
-            //TODO: show Upgrade menu and priorities
-        }else {
-            //TODO: Hide above
-        }
+       game.selectTower(x, y);
+
     }
 
     private void draw(){
@@ -107,8 +111,14 @@ public class DemoView extends SurfaceView implements Runnable{
         playing = true;
         gameThread = new Thread(this);
         gameThread.start();
-        game.startNextWave();
+
     }
+
+    public void setGameModel(Game g){
+        this.game = g;
+    }
+
+
 
     @Override
     public void run() {
@@ -119,4 +129,8 @@ public class DemoView extends SurfaceView implements Runnable{
     }
 
 
+    @Override
+    public void updateOnSelection() {
+
+    }
 }
