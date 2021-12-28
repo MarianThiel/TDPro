@@ -50,21 +50,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:src="@drawable/selector_toggle_button_ff"
             app:layout_constraintEnd_toStartOf="@+id/btnSettings"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_media_ff" />
+            />
 
         <ImageButton
             android:id="@+id/btnPausePlay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:src="@drawable/selector_toggle_button_pause_play"
             app:layout_constraintEnd_toStartOf="@+id/btnFastForward"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_media_pause" />
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <ImageButton
-            android:id="@+id/imageButton5"
+            android:id="@+id/btnCreateTower"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -78,7 +80,7 @@
             android:layout_width="128dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageButton5"
+            app:layout_constraintTop_toBottomOf="@+id/btnCreateTower"
             tools:layout_editor_absoluteX="1dp">
 
             <LinearLayout
