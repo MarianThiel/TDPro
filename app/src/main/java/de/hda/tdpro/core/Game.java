@@ -6,6 +6,11 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import de.hda.tdpro.GameObservable;
 import de.hda.tdpro.R;
 import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.enemy.EnemyWave;
@@ -19,7 +24,7 @@ import de.hda.tdpro.core.tower.TowerType;
 /**
  * Game controls all towers and waves. it draws the entire screen
  */
-public class Game implements Drawable{
+public class Game implements Drawable, GameObservable {
     /**
      * control waves
      */
@@ -28,14 +33,21 @@ public class Game implements Drawable{
      * control towers
      */
     private TowerManager towerManager;
-
+    /**
+     * just one wave for demonstration
+     */
     private EnemyWave wave;
 
     private Path path;
 
-    private Bitmap bg;
-
     private PointingMode pointingMode;
+
+    private Tower selectedTower;
+
+    private final List<GameListener> listeners;
+
+    private boolean runningWave;
+
     /**
      * basic constructor for Game class
      * @param context necessary for accessing resources
@@ -43,7 +55,8 @@ public class Game implements Drawable{
     public Game(Context context){
 
         pointingMode = PointingMode.SELECTION_MODE;
-
+        listeners = new ArrayList<>();
+        runningWave = false;
         initDemoData(context);
     }
 
@@ -120,13 +133,15 @@ public class Game implements Drawable{
     }
 
 
-    public Tower selectTower(int x, int y){
+    public void selectTower(int x, int y){
         towerManager.deselectAllTowers();
         Tower t = towerManager.getTowerByPosition(x, y);
         if(t != null){
             t.setActive(true);
+            selectedTower = t;
+
         }
-        return t;
+
     }
     /**
      * connects all towers as observer to each enemy for the next wave
@@ -140,8 +155,12 @@ public class Game implements Drawable{
      * @return true if possible, false if wave is currently running
      */
     public boolean startNextWave(){
-        wave.startWave();
-        return true;
+        if(!runningWave){
+            runningWave = true;
+            wave.startWave();
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -163,6 +182,14 @@ public class Game implements Drawable{
         this.pointingMode = pointingMode;
     }
 
+    public Tower getSelectedTower() {
+        return selectedTower;
+    }
+
+    public boolean isRunningWave() {
+        return runningWave;
+    }
+
     @Override
     public void draw(Canvas canvas) {
 
@@ -173,6 +200,18 @@ public class Game implements Drawable{
         towerManager.getTower(2).draw(canvas);
         if(towerManager.getTower(3)!=null){
             towerManager.getTower(3).draw(canvas);
+        }
+    }
+
+    @Override
+    public void addGameListener(GameListener listener) {
+        listeners.add(listener);
+    }
+
+    @Override
+    public void notifyOnSelection() {
+        for(GameListener l : listeners){
+            l.updateOnSelection();
         }
     }
 }
