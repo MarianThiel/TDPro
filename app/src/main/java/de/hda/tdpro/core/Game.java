@@ -261,7 +261,10 @@ public class Game implements Drawable, GameObservable {
      * connects all towers as observer to each enemy for the next wave
      */
     private void prepareNextWave(){
-
+        List<Enemy> lst = waveManager.getEnemiesOfCurrentWave();
+        for(Enemy e : lst){
+            towerManager.addTowerAsListener(e);
+        }
     }
 
     /**
