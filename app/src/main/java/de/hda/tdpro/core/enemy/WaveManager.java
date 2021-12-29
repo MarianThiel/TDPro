@@ -1,9 +1,13 @@
 package de.hda.tdpro.core.enemy;
 
+import android.graphics.Canvas;
+
 import java.util.LinkedList;
 import java.util.List;
 
-public class WaveManager {
+import de.hda.tdpro.core.Drawable;
+
+public class WaveManager implements Drawable {
 
     private final int NUMBER_OF_WAVES;
 
@@ -40,5 +44,10 @@ public class WaveManager {
             }
         }
         return lst;
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        waves[currentWave].draw(canvas);
     }
 }
