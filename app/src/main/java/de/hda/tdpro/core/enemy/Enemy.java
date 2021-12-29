@@ -11,7 +11,7 @@ import java.util.List;
 
 import de.hda.tdpro.core.Drawable;
 import de.hda.tdpro.core.EnemyObserver;
-import de.hda.tdpro.core.IntersectionObservable;
+import de.hda.tdpro.core.EnemyObservable;
 import de.hda.tdpro.core.Position;
 
 /**
@@ -23,7 +23,7 @@ import de.hda.tdpro.core.Position;
  *
  * Class representing an Enemy in the Game
  */
-public class Enemy implements IntersectionObservable, Runnable, Drawable {
+public class Enemy implements EnemyObservable, Runnable, Drawable {
 
     private int hp;
     private int armor;
@@ -40,6 +40,13 @@ public class Enemy implements IntersectionObservable, Runnable, Drawable {
 
     private final LinkedList<EnemyObserver> observers;
 
+    /**
+     *
+     * @param hp
+     * @param armor
+     * @param velocity
+     * @param img
+     */
     public Enemy(int hp, int armor, float velocity, Bitmap img) {
         this.hp = hp;
         this.armor = armor;
@@ -49,6 +56,12 @@ public class Enemy implements IntersectionObservable, Runnable, Drawable {
         observers = new LinkedList<>();
     }
 
+    /**
+     * constructor for TestBench
+     * @param hp Hit points of an Enemy
+     * @param armor Armor of an Enemy
+     * @param velocity velocity of an Enemy
+     */
     public Enemy(int hp, int armor, float velocity) {
         this.hp = hp;
         this.armor = armor;
@@ -92,7 +105,7 @@ public class Enemy implements IntersectionObservable, Runnable, Drawable {
 
     public void setPosition(Position position) {
         this.position = position;
-        notifyObservers();
+        notifyOnMovement();
     }
 
     public boolean isAlive() {
@@ -147,7 +160,7 @@ public class Enemy implements IntersectionObservable, Runnable, Drawable {
     }
 
     @Override
-    public void notifyObservers() {
+    public void notifyOnMovement() {
         for(EnemyObserver o : observers){
             o.onEnemyMovement(this);
         }

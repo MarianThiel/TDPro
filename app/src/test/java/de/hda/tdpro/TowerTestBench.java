@@ -9,12 +9,13 @@ import de.hda.tdpro.core.tower.Tower;
 import de.hda.tdpro.core.tower.TowerManager;
 import de.hda.tdpro.core.tower.TowerType;
 import de.hda.tdpro.core.tower.UpgradeType;
+import de.hda.tdpro.core.tower.upgrades.MetaUpgrade;
 
 public class TowerTestBench {
 
     @Test
     public void placeTowerTest(){
-        TowerManager tm = new TowerManager(1, null);
+        TowerManager tm = new TowerManager(1, null,null);
         tm.placeTower(TowerType.FIRE_TOWER, null);
 
         assertNotNull(tm.getTower(0));
@@ -23,28 +24,28 @@ public class TowerTestBench {
 
     @Test
     public void upgradeTowerTest(){
-        TowerManager tm = new TowerManager(1, null);
+        TowerManager tm = new TowerManager(1,null,null);
         tm.placeTower(TowerType.FIRE_TOWER, null);
-        tm.upgradeTower(0, UpgradeType.DMG_UPGRADE);
+        tm.upgradeTower(tm.getTower(0),new MetaUpgrade("test",10,0,0, 100));
         assertEquals(tm.getTower(0).getDamage(),110);
         assertEquals(tm.getTower(0).getLevel(),2);
     }
 
     @Test
     public void maxLevelTowerTest(){
-        TowerManager tm = new TowerManager(1, null);
+        TowerManager tm = new TowerManager(1, null, null);
         tm.placeTower(TowerType.FIRE_TOWER, null);
-        tm.upgradeTower(0, UpgradeType.DMG_UPGRADE);
-        tm.upgradeTower(0, UpgradeType.DMG_UPGRADE);
-        tm.upgradeTower(0, UpgradeType.DMG_UPGRADE);
-        tm.upgradeTower(0, UpgradeType.DMG_UPGRADE);
+        tm.upgradeTower(tm.getTower(0),new MetaUpgrade("test",10,0,0, 100));
+        tm.upgradeTower(tm.getTower(0),new MetaUpgrade("test",10,0,0, 100));
+        tm.upgradeTower(tm.getTower(0),new MetaUpgrade("test",10,0,0, 100));
+        tm.upgradeTower(tm.getTower(0),new MetaUpgrade("test",10,0,0, 100));
         assertEquals(tm.getTower(0).getDamage(),140);
         assertEquals(tm.getTower(0).getLevel(),5);
     }
 
     @Test
     public void intersectionCenterTest(){
-        TowerManager tm = new TowerManager(1, null);
+        TowerManager tm = new TowerManager(1,null, null);
         tm.placeTower(TowerType.FIRE_TOWER, null);
         Tower t = tm.getTower(0);
         Enemy enemy = new Enemy(1,1,1);
@@ -56,7 +57,7 @@ public class TowerTestBench {
 
     @Test
     public void  intersectionFrameTest(){
-        TowerManager tm = new TowerManager(1, null);
+        TowerManager tm = new TowerManager(1,null, null);
         tm.placeTower(TowerType.FIRE_TOWER, null);
         Tower t = tm.getTower(0);
         Enemy enemy = new Enemy(1,1,1);
@@ -68,7 +69,7 @@ public class TowerTestBench {
 
     @Test
     public void  intersectionFailTest(){
-        TowerManager tm = new TowerManager(1, null);
+        TowerManager tm = new TowerManager(1,null, null);
         tm.placeTower(TowerType.FIRE_TOWER, null);
         Tower t = tm.getTower(0);
         Enemy enemy = new Enemy(1,1,1);

@@ -63,8 +63,11 @@ public class Projectile implements Drawable, Runnable {
         Vector2D locVec = v2.dif(v1);
         locVec.normalize();
 
-        for(double i = 0; x != v2.x && y != v2.y; i = i + 2){
-            Vector2D l = (locVec.mul(i));
+        Vector2D v3 = locVec.mul(0);
+        Vector2D l;
+        for(double i = 0; v3.compareTo(v2.dif(v1)) < 0 ; i = i + 4){
+            l = (locVec.mul(i));
+            v3 = (locVec.mul(i));
             l = l.add(v1);
             x = (int) l.x;
             y = (int) l.y;

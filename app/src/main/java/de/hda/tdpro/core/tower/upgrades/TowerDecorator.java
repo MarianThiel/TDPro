@@ -1,6 +1,8 @@
-package de.hda.tdpro.core.tower;
+package de.hda.tdpro.core.tower.upgrades;
 
 import de.hda.tdpro.core.Position;
+import de.hda.tdpro.core.tower.RangeSphere;
+import de.hda.tdpro.core.tower.Tower;
 
 
 public class TowerDecorator extends Tower {

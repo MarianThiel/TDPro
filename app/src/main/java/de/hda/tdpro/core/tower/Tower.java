@@ -55,13 +55,19 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
      * the sphere of the tower
      */
     protected RangeSphere sphere;
-
+    /**
+     * active is the selection state
+     */
     protected boolean active;
 
-    private Context context;
-
+    private final Context context;
+    /**
+     * Image of the Tower as Bitmap
+     */
     protected Bitmap img;
-
+    /**
+     * Projectile of the Tower
+     */
     protected Projectile missile;
 
     public Tower(int radius, int damage, float speed, int price, Context context) {
@@ -176,11 +182,8 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
         }else{ // !sphere.containsEnemy(e)
             if(getSphere().intersects(p) && e.getHp()>0){
                 getSphere().targetEnemy(e);
-                Log.println(Log.ASSERT,"tower","Enemy is in range");
             }
         }
-        Log.println(Log.ASSERT,"test", "Number: " + sphere.getNumberOfIntersectedEnemies());
-
     }
 
     @Override

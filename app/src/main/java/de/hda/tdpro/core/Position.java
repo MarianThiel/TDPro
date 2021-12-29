@@ -2,6 +2,9 @@ package de.hda.tdpro.core;
 
 import java.util.Objects;
 
+/**
+ * Position on the Screen in pixels
+ */
 public class Position {
     private int xVal;
     private int yVal;

@@ -1,4 +1,4 @@
-package de.hda.tdpro.core;
+package de.hda.tdpro.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -16,9 +16,11 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import de.hda.tdpro.R;
+import de.hda.tdpro.core.Game;
+import de.hda.tdpro.core.GameListener;
 import de.hda.tdpro.core.tower.Tower;
 
-public class DemoView extends SurfaceView implements Runnable, GameListener{
+public class DemoView extends SurfaceView implements Runnable, GameListener {
 
     volatile boolean playing;
 
@@ -89,7 +91,7 @@ public class DemoView extends SurfaceView implements Runnable, GameListener{
 
     private void control(){
         try {
-            Thread.sleep(1);
+            Thread.sleep(5);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
