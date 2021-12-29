@@ -39,6 +39,11 @@ public class EnemyWave implements Runnable, Drawable {
         thread.start();
     }
 
+    public Enemy getEnemy(int i){
+        return enemies[i];
+    }
+
+
     @Override
     public void run() {
         for(Enemy e : enemies){
@@ -50,6 +55,10 @@ public class EnemyWave implements Runnable, Drawable {
                 interruptedException.printStackTrace();
             }
         }
+    }
+
+    public int getENEMIES_IN_WAVE() {
+        return ENEMIES_IN_WAVE;
     }
 
     @Override
