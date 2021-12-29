@@ -1,5 +1,8 @@
 package de.hda.tdpro.core.enemy;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class WaveManager {
 
     private final int NUMBER_OF_WAVES;
@@ -27,5 +30,15 @@ public class WaveManager {
     public void startCurrentWave(){
         waves[currentWave].startWave();
         currentWave++;
+    }
+
+    public List<Enemy> getEnemiesOfCurrentWave(){
+        List<Enemy> lst = new LinkedList<>();
+        for(int i = 0; i < waves[currentWave].getENEMIES_IN_WAVE(); i++){
+            if(waves[currentWave].getEnemy(i) != null){
+                lst.add(waves[currentWave].getEnemy(i));
+            }
+        }
+        return lst;
     }
 }
