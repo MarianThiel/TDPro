@@ -29,7 +29,7 @@ public class RangeSphere implements Drawable {
 
     public RangeSphere(Tower t, int range) {
         this.range = range;
-        cmp = new EnemyHPMaxComparator();
+        cmp = new EnemyHPMinComparator();
         queue = new PriorityQueue<>(cmp);
         this.tower = t;
 

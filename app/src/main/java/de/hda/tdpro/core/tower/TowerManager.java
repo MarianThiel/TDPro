@@ -3,9 +3,14 @@ package de.hda.tdpro.core.tower;
 import android.content.Context;
 
 import java.util.Arrays;
+import java.util.Map;
 
 import de.hda.tdpro.core.Position;
+import de.hda.tdpro.core.enemy.Enemy;
+import de.hda.tdpro.core.enemy.WaveManager;
 import de.hda.tdpro.core.factories.TowerFactory;
+import de.hda.tdpro.core.tower.upgrades.MetaUpgrade;
+import de.hda.tdpro.core.tower.upgrades.SimpleDMGUpgrade;
 
 public class TowerManager {
 
@@ -15,9 +20,11 @@ public class TowerManager {
 
     private int idx;
 
-    private Context context;
+    private final Context context;
 
-    public TowerManager(int MAX_TOWER_NUMBER, Context context) {
+    private WaveManager waveManager;
+
+    public TowerManager(int MAX_TOWER_NUMBER, WaveManager waveManager, Context context) {
         this.MAX_TOWER_NUMBER = MAX_TOWER_NUMBER;
         towers = new Tower[MAX_TOWER_NUMBER];
         idx = 0;
@@ -33,24 +40,17 @@ public class TowerManager {
         }
         return -1;
     }
-    public boolean upgradeTower(int i,  UpgradeType upg){
-        if(i >= 0 && i < towers.length){
-            if(towers[i] != null){
-                if(upgradePossible(i)){
-                    towers[i].stopAiming();
-                    switch (upg){
-                        case DMG_UPGRADE:
-                            towers[i] = new TowerDMGUpgrade(towers[i]);
-                            break;
-                        case RANGE_UPGRADE:
-                            break;
-                    }
-                    towers[i].startAiming();
-                    return true;
-                }
-            }
+    public boolean upgradeTower(Tower t, MetaUpgrade upgrade){
+
+        int i = getIndex(t);
+        if(upgradePossible(i)){
+            towers[i].stopAiming();
+            towers[i] = new SimpleDMGUpgrade(towers[i]);
+            towers[i].startAiming();
+            return true;
         }
-            return false;
+
+        return false;
     }
 
     public boolean placeTower(TowerType type, Position position){
@@ -92,10 +92,17 @@ public class TowerManager {
         return towers[i].getLevel()<Tower.MAX_LEVEL;
     }
 
+    public void addTowerAsListener(Enemy e){
+        for(int i = 0; i < MAX_TOWER_NUMBER; i++){
+            e.addEnemyObserver(towers[i]);
+        }
+    }
+
     public void deselectAllTowers(){
         for (Tower t : towers){
             if(t!=null)
                 t.setActive(false);
         }
     }
+
 }

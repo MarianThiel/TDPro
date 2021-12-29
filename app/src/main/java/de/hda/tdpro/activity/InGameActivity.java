@@ -4,18 +4,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import de.hda.tdpro.R;
-import de.hda.tdpro.core.DemoView;
+import de.hda.tdpro.core.tower.upgrades.MetaUpgrade;
+import de.hda.tdpro.view.DemoView;
 import de.hda.tdpro.core.Game;
 import de.hda.tdpro.core.GameListener;
 import de.hda.tdpro.core.PointingMode;
 import de.hda.tdpro.core.tower.Tower;
-import de.hda.tdpro.core.tower.TowerType;
+import de.hda.tdpro.view.TowerStatView;
+import de.hda.tdpro.view.TowerUpgradeView;
 
 public class InGameActivity extends AppCompatActivity implements GameListener {
 
@@ -132,12 +133,25 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
     private void showSelectionContext(Tower t){
         if(t != null){
             //TODO: present tower attributes and upgrade/sell options
+            showTowerSelection();
         }else{
             hideContextMenu();
         }
     }
     private void showTowerSelection(){
+        contextMenuLayout.removeAllViews();
+        TowerStatView view = new TowerStatView(this);
+        view.initTower(gameModel.getSelectedTower());
 
+        for(MetaUpgrade meta : gameModel.getUpgrades()){
+            TowerUpgradeView tuv = new TowerUpgradeView(this);
+            tuv.updateView(meta);
+            view.AddUpgradeView(tuv);
+
+        }
+
+        contextMenuLayout.addView(view);
+        contextMenu.setVisibility(View.VISIBLE);
     }
     private void hideContextMenu(){
         contextMenu.setVisibility(View.GONE);

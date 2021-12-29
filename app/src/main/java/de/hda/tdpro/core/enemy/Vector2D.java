@@ -6,7 +6,7 @@ package de.hda.tdpro.core.enemy;
  *
  * Mathematical construct class for 2D vectors
  */
-public class Vector2D {
+public class Vector2D implements Comparable<Vector2D>{
 
     public double x;
 
@@ -42,4 +42,12 @@ public class Vector2D {
         return Math.sqrt((x*x)+(y*y));
     }
 
+
+    @Override
+    public int compareTo(Vector2D o) {
+        double l1 = norm();
+        double l2 = o.norm();
+
+        return Double.compare(l1, l2);
+    }
 }
