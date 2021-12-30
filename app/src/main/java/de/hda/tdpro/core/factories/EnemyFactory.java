@@ -5,6 +5,13 @@ import android.graphics.BitmapFactory;
 import de.hda.tdpro.R;
 import de.hda.tdpro.core.enemy.Enemy;
 
+/**
+ * @author Marian Thiel
+ * @version 1.0
+ *
+ * Singelton class
+ * creates Enemies
+ */
 public class EnemyFactory {
 
     private static EnemyFactory instance;
@@ -20,6 +27,10 @@ public class EnemyFactory {
         return instance;
     }
 
+    /**
+     * creates random Enemy
+     * @return a random Enemy
+     */
     public Enemy createRandomEnemy(){
         return new Enemy((int)(100 + Math.random()*1500),0,(float) (50 + (Math.random()*175)), BitmapFactory.decodeResource(res, R.drawable.test3));
     }
