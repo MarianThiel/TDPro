@@ -66,15 +66,18 @@ public class RangeSphere implements Drawable {
      * @param dmg damage to deal
      */
     public void hitEnemy(int dmg){
-        Enemy e = queue.peek();
-        if(e != null){
-            if(!removeDeadEnemy(e)){
-                projectile =  new Projectile(tower.pos.getxVal(),tower.pos.getyVal(),e.getPosition().getxVal(),e.getPosition().getyVal(),0,null);
-                e.setHp(e.getHp()-dmg);
+        if(!queue.isEmpty()){
+            Enemy e = queue.peek();
+            if(e != null){
+                if(!removeDeadEnemy(e)){
+                    projectile =  new Projectile(tower.pos.getxVal(),tower.pos.getyVal(),e.getPosition().getxVal(),e.getPosition().getyVal(),0,null);
+                    e.setHp(e.getHp()-dmg);
+                }
+                if(e!=null)
+                    removeDeadEnemy(e);
             }
-            if(e!=null)
-            removeDeadEnemy(e);
         }
+
 
     }
 
