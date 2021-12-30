@@ -1,18 +1,19 @@
 package de.hda.tdpro.core.tower;
 
 import android.content.Context;
+import android.graphics.Canvas;
 
 import java.util.Arrays;
-import java.util.Map;
 
+
+import de.hda.tdpro.core.Drawable;
 import de.hda.tdpro.core.Position;
 import de.hda.tdpro.core.enemy.Enemy;
-import de.hda.tdpro.core.enemy.WaveManager;
 import de.hda.tdpro.core.factories.TowerFactory;
 import de.hda.tdpro.core.tower.upgrades.MetaUpgrade;
 import de.hda.tdpro.core.tower.upgrades.SimpleDMGUpgrade;
 
-public class TowerManager {
+public class TowerManager implements Drawable {
 
     private final int MAX_TOWER_NUMBER;
 
@@ -22,9 +23,8 @@ public class TowerManager {
 
     private final Context context;
 
-    private WaveManager waveManager;
 
-    public TowerManager(int MAX_TOWER_NUMBER, WaveManager waveManager, Context context) {
+    public TowerManager(int MAX_TOWER_NUMBER, Context context) {
         this.MAX_TOWER_NUMBER = MAX_TOWER_NUMBER;
         towers = new Tower[MAX_TOWER_NUMBER];
         idx = 0;
@@ -106,5 +106,12 @@ public class TowerManager {
     }
 
 
-
+    @Override
+    public void draw(Canvas canvas) {
+        for (int i = 0; i < MAX_TOWER_NUMBER; i++){
+            if(towers[i] != null){
+                towers[i].draw(canvas);
+            }
+        }
+    }
 }

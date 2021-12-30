@@ -15,7 +15,7 @@ public class TowerTestBench {
 
     @Test
     public void placeTowerTest(){
-        TowerManager tm = new TowerManager(1, null,null);
+        TowerManager tm = new TowerManager(1,null);
         tm.placeTower(TowerType.FIRE_TOWER, null);
 
         assertNotNull(tm.getTower(0));
@@ -24,7 +24,7 @@ public class TowerTestBench {
 
     @Test
     public void upgradeTowerTest(){
-        TowerManager tm = new TowerManager(1,null,null);
+        TowerManager tm = new TowerManager(1,null);
         tm.placeTower(TowerType.FIRE_TOWER, null);
         tm.upgradeTower(tm.getTower(0),new MetaUpgrade("test",10,0,0, 100));
         assertEquals(tm.getTower(0).getDamage(),110);
@@ -33,7 +33,7 @@ public class TowerTestBench {
 
     @Test
     public void maxLevelTowerTest(){
-        TowerManager tm = new TowerManager(1, null, null);
+        TowerManager tm = new TowerManager(1, null);
         tm.placeTower(TowerType.FIRE_TOWER, null);
         tm.upgradeTower(tm.getTower(0),new MetaUpgrade("test",10,0,0, 100));
         tm.upgradeTower(tm.getTower(0),new MetaUpgrade("test",10,0,0, 100));
@@ -45,7 +45,7 @@ public class TowerTestBench {
 
     @Test
     public void intersectionCenterTest(){
-        TowerManager tm = new TowerManager(1,null, null);
+        TowerManager tm = new TowerManager(1, null);
         tm.placeTower(TowerType.FIRE_TOWER, null);
         Tower t = tm.getTower(0);
         Enemy enemy = new Enemy(1,1,1);
@@ -57,7 +57,7 @@ public class TowerTestBench {
 
     @Test
     public void  intersectionFrameTest(){
-        TowerManager tm = new TowerManager(1,null, null);
+        TowerManager tm = new TowerManager(1,null);
         tm.placeTower(TowerType.FIRE_TOWER, null);
         Tower t = tm.getTower(0);
         Enemy enemy = new Enemy(1,1,1);
@@ -69,7 +69,7 @@ public class TowerTestBench {
 
     @Test
     public void  intersectionFailTest(){
-        TowerManager tm = new TowerManager(1,null, null);
+        TowerManager tm = new TowerManager(1, null);
         tm.placeTower(TowerType.FIRE_TOWER, null);
         Tower t = tm.getTower(0);
         Enemy enemy = new Enemy(1,1,1);

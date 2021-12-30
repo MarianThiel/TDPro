@@ -142,7 +142,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
     private void walkStep(){
         if(iterator.hasNext()){
             setPosition(iterator.next());
-            Log.println(Log.ASSERT,"walk","walk");
+            //Log.println(Log.ASSERT,"walk","walk");
         }else{
             stopWalking();
             Log.println(Log.ASSERT,"walk","stop walking");

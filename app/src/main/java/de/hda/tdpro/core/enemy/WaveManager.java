@@ -1,5 +1,6 @@
 package de.hda.tdpro.core.enemy;
 
+import android.content.Context;
 import android.graphics.Canvas;
 
 import java.util.LinkedList;
@@ -15,7 +16,9 @@ public class WaveManager implements Drawable {
 
     private final Path path;
 
-    private int currentWave;
+    private Context context;
+
+    private final int currentWave;
 
     public WaveManager(int NUMBER_OF_WAVES, Path path) {
         this.NUMBER_OF_WAVES = NUMBER_OF_WAVES;
@@ -24,16 +27,25 @@ public class WaveManager implements Drawable {
         this.path = path;
     }
 
+    public WaveManager(int NUMBER_OF_WAVES, Path path, Context context) {
+        this.NUMBER_OF_WAVES = NUMBER_OF_WAVES;
+        waves = new EnemyWave[NUMBER_OF_WAVES];
+        currentWave = 0;
+        this.path = path;
+        this.context = context;
+    }
+
     public void initDemoData(){
         for(int i = 0; i < NUMBER_OF_WAVES;i++){
-            waves[i] = new EnemyWave(30, path);
+            waves[i] = new EnemyWave(32, path, context);
             waves[i].initDemoEnemies();
         }
     }
 
     public void startCurrentWave(){
+
         waves[currentWave].startWave();
-        currentWave++;
+
     }
 
     public List<Enemy> getEnemiesOfCurrentWave(){
