@@ -3,7 +3,10 @@ package de.hda.tdpro.core.tower.priority;
 import java.util.Comparator;
 
 import de.hda.tdpro.core.enemy.Enemy;
-
+/**
+ * Priority for RangeSphere
+ * Comparator for PriorityQueue Max HP
+ */
 public class EnemyHPMaxComparator implements Comparator<Enemy> {
     @Override
     public int compare(Enemy o1, Enemy o2) {
