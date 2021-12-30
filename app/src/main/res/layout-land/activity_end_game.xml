@@ -23,11 +23,12 @@
         android:id="@+id/ReturnToLevelSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/ReturnToLevelSelect"
+        android:contentDescription="@string/returnButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EndGame"
-        app:srcCompat="@android:drawable/ic_menu_revert" />
+        app:srcCompat="@android:drawable/ic_menu_revert"
+        tools:ignore="RedundantDescriptionCheck" />
 
 </android.support.constraint.ConstraintLayout>
