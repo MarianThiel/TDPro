@@ -85,7 +85,7 @@ public class RangeSphere implements Drawable {
     }
 
     private boolean removeDeadEnemy(Enemy e){
-        if(e.getHp() <= 0){
+        if(e != null && e.getHp() <= 0){
             queue.poll();
             return true;
         }
