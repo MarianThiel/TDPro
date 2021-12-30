@@ -4,6 +4,10 @@ import java.util.Comparator;
 
 import de.hda.tdpro.core.enemy.Enemy;
 
+/**
+ * Priority for RangeSphere
+ * Comparator for PriorityQueue Min HP
+ */
 public class EnemyHPMinComparator implements Comparator<Enemy> {
     @Override
     public int compare(Enemy o1, Enemy o2) {
