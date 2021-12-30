@@ -92,10 +92,10 @@ public class Game implements Drawable, GameObservable {
         path.addPoint(500,250);
         path.addPoint(1500,250);
         path.addPoint(1500,1250);
-        wave = new EnemyWave(13,path);
-        waveManager = new WaveManager(2,path);
-
-        towerManager = new TowerManager(10, waveManager, context);
+        //wave = new EnemyWave(13,path);
+        waveManager = new WaveManager(1,path,context);
+        waveManager.initDemoData();
+        towerManager = new TowerManager(10, context);
         towerManager.placeTower(TowerType.FIRE_TOWER,new Position(400,400));
         towerManager.placeTower(TowerType.FIRE_TOWER,new Position(800,400));
         towerManager.placeTower(TowerType.FIRE_TOWER,new Position(600,600));
@@ -106,7 +106,7 @@ public class Game implements Drawable, GameObservable {
         towerManager.placeTower(TowerType.FIRE_TOWER,new Position(500,500));
         towerManager.placeTower(TowerType.FIRE_TOWER,new Position(500,500));
         towerManager.placeTower(TowerType.FIRE_TOWER,new Position(500,500));
-
+        /*
         Enemy e1 = EnemyFactory.getInstance(context.getResources()).createRandomEnemy();
         Enemy e2 = EnemyFactory.getInstance(context.getResources()).createRandomEnemy();
         Enemy e3 = EnemyFactory.getInstance(context.getResources()).createRandomEnemy();
@@ -244,7 +244,7 @@ public class Game implements Drawable, GameObservable {
         wave.addEnemy(e10);
         wave.addEnemy(e11);
         wave.addEnemy(e12);
-        wave.addEnemy(e13);
+        wave.addEnemy(e13);*/
     }
 
 
@@ -274,7 +274,9 @@ public class Game implements Drawable, GameObservable {
     public boolean startNextWave(){
         if(!runningWave){
             runningWave = true;
-            wave.startWave();
+            prepareNextWave();
+            waveManager.startCurrentWave();
+
             return true;
         }
         return false;
@@ -319,7 +321,8 @@ public class Game implements Drawable, GameObservable {
     public void draw(Canvas canvas) {
 
         path.draw(canvas);
-        wave.draw(canvas);
+        waveManager.draw(canvas);
+
         towerManager.getTower(0).draw(canvas);
         towerManager.getTower(1).draw(canvas);
         towerManager.getTower(2).draw(canvas);
