@@ -1,5 +1,8 @@
 package de.hda.tdpro.core.tower.upgrades;
 
+/**
+ * MetaUpgrade defines values for simple upgrades
+ */
 public class MetaUpgrade {
 
     private final String NAME;
