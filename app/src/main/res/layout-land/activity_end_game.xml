@@ -8,24 +8,25 @@
 
     <TextView
         android:id="@+id/EndGame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="131dp"
+        android:layout_height="68dp"
         android:text="@string/EndGame"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="GAME OVER!" />
+        tools:text="GAMEOVER!" />
 
-    <Button
-        android:id="@+id/button"
+    <ImageButton
+        android:id="@+id/ReturnToLevelSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:text="@string/returnButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EndGame"
-        tools:text="Return" />
+        app:srcCompat="@android:drawable/ic_menu_revert" />
+
 </android.support.constraint.ConstraintLayout>
