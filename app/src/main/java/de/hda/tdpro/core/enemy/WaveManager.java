@@ -37,7 +37,7 @@ public class WaveManager implements Drawable {
 
     public void initDemoData(){
         for(int i = 0; i < NUMBER_OF_WAVES;i++){
-            waves[i] = new EnemyWave(32, path, context);
+            waves[i] = new EnemyWave(10000, path, context);
             waves[i].initDemoEnemies();
         }
     }

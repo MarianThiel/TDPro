@@ -24,24 +24,53 @@ import de.hda.tdpro.core.Position;
  * Class representing an Enemy in the Game
  */
 public class Enemy implements EnemyObservable, Runnable, Drawable {
-
+    /**
+     *  Hit points of enemy
+     */
     private int hp;
+    /**
+     * armor of enemy | note useless until now
+     */
     private int armor;
+    /**
+     * velocity of enemy in steps/seconds
+     */
     private float velocity;
+    /**
+     * alive state of enemy
+     */
     private boolean alive;
+    /**
+     * the current Position of an Enemy
+     */
     private Position position;
-
+    /**
+     * Thread for Walking behavior
+     */
     private Thread walkingThread;
+    /**
+     * termination variable of thread
+     */
     private boolean walking;
+    /**
+     * absolute path to walk
+     */
     private List<Position> path;
+    /**
+     * iterator of positions
+     */
     private Iterator<Position> iterator;
-
+    /**
+     * Image of enemy
+     */
     private Bitmap image;
-
+    /**
+     * observers of enemy
+     */
     private final LinkedList<EnemyObserver> observers;
 
     /**
-     *
+     * default constructor
      * @param hp
      * @param armor
      * @param velocity
@@ -74,6 +103,12 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
         return hp;
     }
 
+    /**
+     * method sets the hp of an Enemy
+     * synchronized because multiple tower threads access method
+     * stops walking if hp <= 0
+     * @param hp hp to be set
+     */
     synchronized public void setHp(int hp) {
         this.hp = hp;
         if(hp <= 0){
@@ -103,6 +138,10 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
         return position;
     }
 
+    /**
+     * sets current Positon of enemy notifies observers on movement
+     * @param position
+     */
     public void setPosition(Position position) {
         this.position = position;
         notifyOnMovement();
@@ -120,11 +159,18 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
         return position.equals(path.get(path.size() - 1));
     }
 
+    /**
+     * starts the thread
+     */
     public void initWalking(){
         walking = true;
         walkingThread = new Thread(this);
         walkingThread.start();
     }
+
+    /**
+     * stops the thread
+     */
     public void stopWalking(){
         walking = false;
         try {
@@ -134,11 +180,22 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
         }
     }
 
-    public void setWalkingPath(Path p){
-        path = p.generateAllPositions();
-        iterator = path.listIterator();
+    /**
+     * sets the path as List of Positions
+     * inits the Iterator
+     * @param path
+     */
+    public void setWalkingPath(List<Position> path){
+        this.path = path;
+        iterator = this.path.listIterator();
     }
 
+    /**
+     * Current position is next position
+     * when end of list is reached walking stops
+     * Note: the else condition means Enemy has reached end of path
+     *       important for loosing condition
+     */
     private void walkStep(){
         if(iterator.hasNext()){
             setPosition(iterator.next());
