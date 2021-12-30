@@ -6,6 +6,12 @@ import android.graphics.Canvas;
 
 import de.hda.tdpro.R;
 
+/**
+ * @author Marian Thiel
+ * @version 1.1
+ * special tower overrides draw method to draw different tower image
+ * inits the sphere
+ */
 public class FireTower extends Tower {
     public FireTower(int radius, int damage, float speed, int price, Context context) {
         super(radius, damage, speed, price, context);
