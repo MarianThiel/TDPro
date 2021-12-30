@@ -10,21 +10,41 @@ import de.hda.tdpro.core.Position;
 import de.hda.tdpro.core.factories.EnemyFactory;
 
 public class EnemyWave implements Runnable, Drawable {
-
+    /**
+     * constant for enemies in a single wave
+     */
     private final int ENEMIES_IN_WAVE;
-
+    /**
+     * Array of Enemies
+     */
     private final Enemy[] enemies;
-
+    /**
+     * thread for ejection enemies in wave
+     */
     private Thread thread;
-
+    /**
+     * context for Resource purpose
+     */
     private Context context;
-
+    /**
+     * last position in Array for insert
+     * note: inconsistent with generate Data
+     */
     private int lastEnemyPosition;
-
+    /**
+     * main path of enemies
+     */
     private final Path mainPath;
-
+    /**
+     * list of positions generated from path
+     */
     private final List<Position> positions;
 
+    /**
+     * test constructor
+     * @param ENEMIES_IN_WAVE number of enemies
+     * @param path Path reference
+     */
     public EnemyWave(int ENEMIES_IN_WAVE, Path path) {
         this.ENEMIES_IN_WAVE = ENEMIES_IN_WAVE;
         enemies = new Enemy[ENEMIES_IN_WAVE];
@@ -33,6 +53,12 @@ public class EnemyWave implements Runnable, Drawable {
         positions = path.generateAllPositions();
     }
 
+    /**
+     * casual constructor
+     * @param ENEMIES_IN_WAVE number of enemies
+     * @param path path reference
+     * @param context context for resources
+     */
     public EnemyWave(int ENEMIES_IN_WAVE, Path path, Context context) {
         this.ENEMIES_IN_WAVE = ENEMIES_IN_WAVE;
         enemies = new Enemy[ENEMIES_IN_WAVE];
@@ -42,11 +68,19 @@ public class EnemyWave implements Runnable, Drawable {
         positions = path.generateAllPositions();
     }
 
-
+    /**
+     * @deprecated method is inconsistent
+     * @param e enemy to insert
+     */
     public void addEnemy(Enemy e){
         e.setWalkingPath(positions);
         enemies[lastEnemyPosition++] = e;
     }
+
+    /**
+     * method for demonstration purposes
+     * creates random enemies on each position
+     */
     public void initDemoEnemies(){
         for (int i = 0; i < ENEMIES_IN_WAVE; i++){
             enemies[i] = EnemyFactory.getInstance(context.getResources()).createRandomEnemy();
@@ -54,16 +88,29 @@ public class EnemyWave implements Runnable, Drawable {
         }
     }
 
+    /**
+     * starts the wave by starting thread
+     */
     public void startWave(){
         thread = new Thread(this);
         thread.start();
     }
 
+    /**
+     * get the enemy at position in array
+     * @param i index of Array
+     * @return desired Enemy or null
+     */
     public Enemy getEnemy(int i){
         return enemies[i];
     }
+    public int getENEMIES_IN_WAVE() {
+        return ENEMIES_IN_WAVE;
+    }
 
-
+    /**
+     * ejects enemies in wave by a random value in range 0 - 1 sec
+     */
     @Override
     public void run() {
         for(Enemy e : enemies){
@@ -77,9 +124,6 @@ public class EnemyWave implements Runnable, Drawable {
         }
     }
 
-    public int getENEMIES_IN_WAVE() {
-        return ENEMIES_IN_WAVE;
-    }
 
     @Override
     public void draw(Canvas canvas) {
