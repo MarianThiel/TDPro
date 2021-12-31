@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import de.hda.tdpro.R;
 import de.hda.tdpro.StaticContext;
 import de.hda.tdpro.core.enemy.Enemy;
+import de.hda.tdpro.core.enemy.EnemyType;
 
 /**
  * @author Marian Thiel
@@ -35,4 +36,15 @@ public class EnemyFactory {
     public Enemy createRandomEnemy(){
         return new Enemy((int)(100 + Math.random()*1500),0,(float) (50 + (Math.random()*175)), BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.test3));
     }
+
+    public Enemy createEnemyByType(EnemyType type){
+        Enemy e = null;
+        switch (type){
+            case RANDOM:
+                e = createRandomEnemy();
+                break;
+        }
+        return e;
+    }
+
 }
