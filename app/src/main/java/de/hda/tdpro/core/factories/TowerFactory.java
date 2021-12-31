@@ -20,6 +20,6 @@ public class TowerFactory {
 
     public FireTower createFireTower(Context context){
 
-        return new FireTower(200,100,2,80, context);
+        return new FireTower(200,100,2,80);
     }
 }

@@ -8,7 +8,11 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
+import java.io.InputStream;
+
 import de.hda.tdpro.R;
+import de.hda.tdpro.StaticContext;
+import de.hda.tdpro.core.factories.GameFactory;
 import de.hda.tdpro.core.tower.upgrades.MetaUpgrade;
 import de.hda.tdpro.view.DemoView;
 import de.hda.tdpro.core.Game;
@@ -48,12 +52,15 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StaticContext.setContext(this);
         //gameView = new DemoView(this);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_in_game);
         gameView = findViewById(R.id.view);
         init();
         hideContextMenu();
+
+        GameFactory.getInstance().createLevelOne(getApplicationContext());
         run = true;
 
     }

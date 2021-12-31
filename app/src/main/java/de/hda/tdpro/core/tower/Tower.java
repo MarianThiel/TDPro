@@ -60,7 +60,6 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
      */
     protected boolean active;
 
-    private final Context context;
     /**
      * Image of the Tower as Bitmap
      */
@@ -70,12 +69,12 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
      */
     protected Projectile missile;
 
-    public Tower(int radius, int damage, float speed, int price, Context context) {
+    public Tower(int radius, int damage, float speed, int price) {
         this.radius = radius;
         this.damage = damage;
         this.speed = speed;
         this.price = price;
-        this.context = context;
+
         sphere = null;
         aiming = false;
         active = false;
