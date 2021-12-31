@@ -28,10 +28,7 @@ public class WaveManager implements Drawable {
      * passed by path
      */
     private final Path path;
-    /**
-     * context for resources
-     */
-    private Context context;
+
     /**
      * integer for current wave have to be consistent while wave is running
      */
@@ -49,19 +46,7 @@ public class WaveManager implements Drawable {
         this.path = path;
     }
 
-    /**
-     * casual constructor
-     * @param NUMBER_OF_WAVES number of waves
-     * @param path path for enemies
-     * @param context context for resources
-     */
-    public WaveManager(int NUMBER_OF_WAVES, Path path, Context context) {
-        this.NUMBER_OF_WAVES = NUMBER_OF_WAVES;
-        waves = new EnemyWave[NUMBER_OF_WAVES];
-        currentWave = 0;
-        this.path = path;
-        this.context = context;
-    }
+
 
     /**
      * create waves for demonstration purpose
@@ -69,7 +54,7 @@ public class WaveManager implements Drawable {
      */
     public void initDemoData(){
         for(int i = 0; i < NUMBER_OF_WAVES;i++){
-            waves[i] = new EnemyWave(10000, path, context);
+            waves[i] = new EnemyWave(10000, path);
             waves[i].initDemoEnemies();
         }
     }

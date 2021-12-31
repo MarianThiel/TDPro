@@ -14,7 +14,7 @@ import de.hda.tdpro.core.tower.Tower;
 public class TowerDecorator extends Tower {
     Tower embeddedTower;
     public TowerDecorator(Tower uTower) {
-        super(0,0,0,0,null);
+        super(0,0,0,0);
         embeddedTower = uTower;
     }
 

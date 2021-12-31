@@ -1,10 +1,10 @@
 package de.hda.tdpro.core.tower;
 
-import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
 import de.hda.tdpro.R;
+import de.hda.tdpro.StaticContext;
 
 /**
  * @author Marian Thiel
@@ -13,10 +13,10 @@ import de.hda.tdpro.R;
  * inits the sphere
  */
 public class FireTower extends Tower {
-    public FireTower(int radius, int damage, float speed, int price, Context context) {
-        super(radius, damage, speed, price, context);
+    public FireTower(int radius, int damage, float speed, int price) {
+        super(radius, damage, speed, price);
         this.sphere = new RangeSphere(this, radius);
-        img = BitmapFactory.decodeResource(context.getResources(), R.drawable.ft_test);
+        img = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.ft_test);
     }
 
     @Override

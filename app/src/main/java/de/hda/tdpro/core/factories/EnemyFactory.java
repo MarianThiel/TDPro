@@ -3,6 +3,7 @@ package de.hda.tdpro.core.factories;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import de.hda.tdpro.R;
+import de.hda.tdpro.StaticContext;
 import de.hda.tdpro.core.enemy.Enemy;
 
 /**
@@ -15,14 +16,14 @@ import de.hda.tdpro.core.enemy.Enemy;
 public class EnemyFactory {
 
     private static EnemyFactory instance;
-    private final Resources res;
-    private EnemyFactory(Resources res){
-        this.res = res;
+
+    private EnemyFactory(){
+
     }
 
-    public static EnemyFactory getInstance(Resources res) {
+    public static EnemyFactory getInstance() {
         if(instance == null) {
-            instance = new EnemyFactory(res);
+            instance = new EnemyFactory();
         }
         return instance;
     }
@@ -32,6 +33,6 @@ public class EnemyFactory {
      * @return a random Enemy
      */
     public Enemy createRandomEnemy(){
-        return new Enemy((int)(100 + Math.random()*1500),0,(float) (50 + (Math.random()*175)), BitmapFactory.decodeResource(res, R.drawable.test3));
+        return new Enemy((int)(100 + Math.random()*1500),0,(float) (50 + (Math.random()*175)), BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.test3));
     }
 }

@@ -22,10 +22,7 @@ public class EnemyWave implements Runnable, Drawable {
      * thread for ejection enemies in wave
      */
     private Thread thread;
-    /**
-     * context for Resource purpose
-     */
-    private Context context;
+
     /**
      * last position in Array for insert
      * note: inconsistent with generate Data
@@ -53,20 +50,7 @@ public class EnemyWave implements Runnable, Drawable {
         positions = path.generateAllPositions();
     }
 
-    /**
-     * casual constructor
-     * @param ENEMIES_IN_WAVE number of enemies
-     * @param path path reference
-     * @param context context for resources
-     */
-    public EnemyWave(int ENEMIES_IN_WAVE, Path path, Context context) {
-        this.ENEMIES_IN_WAVE = ENEMIES_IN_WAVE;
-        enemies = new Enemy[ENEMIES_IN_WAVE];
-        mainPath = path;
-        lastEnemyPosition = 0;
-        this.context = context;
-        positions = path.generateAllPositions();
-    }
+
 
     /**
      * @deprecated method is inconsistent
@@ -83,7 +67,7 @@ public class EnemyWave implements Runnable, Drawable {
      */
     public void initDemoEnemies(){
         for (int i = 0; i < ENEMIES_IN_WAVE; i++){
-            enemies[i] = EnemyFactory.getInstance(context.getResources()).createRandomEnemy();
+            enemies[i] = EnemyFactory.getInstance().createRandomEnemy();
             enemies[i].setWalkingPath(positions);
         }
     }
