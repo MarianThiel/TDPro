@@ -13,10 +13,13 @@
         <activity android:name=".activity.EndGameActivity" />
         <activity android:name=".activity.LexiconActivity" />
         <activity android:name=".activity.SettingsActivity" />
-        <activity android:name=".activity.LevelSelectionActivity" />
+        <activity android:name=".activity.LevelSelectionActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".activity.TowerUpgradeActivity" />
         <activity android:name=".activity.AbilityUpgradeActivity" />
-        <activity android:name=".activity.MainMenuActivity">
+        <activity
+            android:name=".activity.MainMenuActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
