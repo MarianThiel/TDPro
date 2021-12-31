@@ -53,12 +53,14 @@ public class EnemyWave implements Runnable, Drawable {
 
 
     /**
-     * @deprecated method is inconsistent
+     *
      * @param e enemy to insert
      */
     public void addEnemy(Enemy e){
-        e.setWalkingPath(positions);
-        enemies[lastEnemyPosition++] = e;
+        if(lastEnemyPosition < ENEMIES_IN_WAVE){
+            e.setWalkingPath(positions);
+            enemies[lastEnemyPosition++] = e;
+        }
     }
 
     /**

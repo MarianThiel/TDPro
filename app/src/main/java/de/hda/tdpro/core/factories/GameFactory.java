@@ -20,8 +20,11 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import de.hda.tdpro.StaticContext;
 import de.hda.tdpro.core.Game;
+import de.hda.tdpro.core.enemy.EnemyType;
 import de.hda.tdpro.core.enemy.EnemyWave;
+import de.hda.tdpro.core.enemy.Path;
 import de.hda.tdpro.core.enemy.WaveManager;
 
 public class GameFactory {
@@ -43,10 +46,10 @@ public class GameFactory {
         return instance;
     }
 
-    public Game createLevelOne(Context c){
-
+    public Game createLevelOne(){
+        Path p = PathFactory.getInstance().createLevelOnePath();
         try {
-            return parseGameConfig("level_one_config.xml",c);
+            return parseGameConfig("level_one_config.xml", p);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -57,14 +60,14 @@ public class GameFactory {
         return null;
     }
 
-    private Game parseGameConfig(String filename,Context c) throws ParserConfigurationException, IOException, SAXException {
+    private Game parseGameConfig(String filename,Path path) throws ParserConfigurationException, IOException, SAXException {
         //documentBuilderFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING,false);
 
-        int NUMBER_OF_WAVES = 0;
+        int NUMBER_OF_WAVES;
 
 
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-        InputStream is = c.getAssets().open(CONFIG_PATH + filename);
+        InputStream is = StaticContext.getContext().getAssets().open(CONFIG_PATH + filename);
         Document doc = documentBuilder.parse(is);
         Element element = doc.getDocumentElement();
         element.normalize();
@@ -76,18 +79,12 @@ public class GameFactory {
 
         nodes =  element.getElementsByTagName("wave");
 
-        getWaves(nodes);
-        /*
-        for (int i = 0; i < nodes.getLength(); i++) {
-            Node node = nodes.item(i);
-            if (node.getNodeType() == Node.ELEMENT_NODE) {
-                Element element2 = (Element) node;
-                Log.println(Log.ASSERT,"parse", element2.getAttribute("num_waves"));
-                //Log.println(Log.ASSERT,"parse", String.valueOf(NUMBER_OF_WAVES));
+        List<EnemyWave> waves = getWaves(nodes,path);
 
-            }
-        }*/
-        return null;
+        WaveManager waveManager = new WaveManager(NUMBER_OF_WAVES,path);
+        waveManager.addAll(waves);
+        Game g = new Game(waveManager,path);
+        return g;
     }
     private String getValue(String tag, Element element) {
         NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
@@ -106,20 +103,28 @@ public class GameFactory {
         return 0;
     }
 
-    private List<EnemyWave> getWaves(NodeList lst){
+    private List<EnemyWave> getWaves(NodeList lst, Path path){
         List<EnemyWave> l = new LinkedList<>();
         for(int i = 0; i < lst.getLength(); i++){
             //EnemyWave wave = new EnemyWave();
             Node node = lst.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element2 = (Element) node;
-                Log.println(Log.ASSERT,"parse", element2.getAttribute("num_enemies"));
+
+
+                EnemyWave wave = new EnemyWave(Integer.parseInt(element2.getAttribute("num_enemies")),path);
                 NodeList sub = element2.getElementsByTagName("enemy");
+
                 for (int j = 0; j < sub.getLength(); j++){
                     Node enemyNode = sub.item(j);
                     if (enemyNode.getNodeType() == Node.ELEMENT_NODE){
                         Element enem = (Element) enemyNode;
-                        Log.println(Log.ASSERT,"parse", enem.getAttribute("type") + " " + enem.getAttribute("count"));
+                        int enemyCount = Integer.parseInt(enem.getAttribute("count"));
+                        for(int k = 0; k < enemyCount; k++){
+                            wave.addEnemy(EnemyFactory.getInstance().createEnemyByType(EnemyType.valueOf(enem.getAttribute("type"))));
+                        }
+
+                        l.add(wave);
                     }
                 }
             }

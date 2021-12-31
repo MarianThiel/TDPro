@@ -21,15 +21,15 @@ public class TowerManager implements Drawable {
 
     private int idx;
 
-    private final Context context;
 
 
-    public TowerManager(int MAX_TOWER_NUMBER, Context context) {
+
+    public TowerManager(int MAX_TOWER_NUMBER) {
         this.MAX_TOWER_NUMBER = MAX_TOWER_NUMBER;
         towers = new Tower[MAX_TOWER_NUMBER];
         idx = 0;
         Arrays.fill(towers, null);
-        this.context = context;
+
     }
 
     private int getIndex(Tower tower){
@@ -57,7 +57,7 @@ public class TowerManager implements Drawable {
                 if(idx<MAX_TOWER_NUMBER){
                     switch (type){
                         case FIRE_TOWER:
-                            towers[idx] = TowerFactory.getInstance().createFireTower(context);
+                            towers[idx] = TowerFactory.getInstance().createFireTower();
                             break;
                         case ICE_TOWER:
 
@@ -94,6 +94,7 @@ public class TowerManager implements Drawable {
 
     public void addTowerAsListener(Enemy e){
         for(int i = 0; i < MAX_TOWER_NUMBER; i++){
+            if(towers[i]!=null)
             e.addEnemyObserver(towers[i]);
         }
     }

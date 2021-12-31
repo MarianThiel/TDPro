@@ -18,7 +18,7 @@ public class TowerFactory {
         return instance;
     }
 
-    public FireTower createFireTower(Context context){
+    public FireTower createFireTower(){
 
         return new FireTower(200,100,2,80);
     }

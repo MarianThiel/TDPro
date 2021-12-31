@@ -60,7 +60,7 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
         init();
         hideContextMenu();
 
-        GameFactory.getInstance().createLevelOne(getApplicationContext());
+
         run = true;
 
     }
@@ -79,7 +79,7 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
 
     private void init(){
 
-        gameModel = new Game(this);
+        gameModel = GameFactory.getInstance().createLevelOne();
         gameModel.addGameListener(this);
         gameModel.addGameListener(gameView);
         gameView.setGameModel(gameModel);

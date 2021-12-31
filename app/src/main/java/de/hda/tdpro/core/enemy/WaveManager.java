@@ -34,6 +34,8 @@ public class WaveManager implements Drawable {
      */
     private final int currentWave;
 
+    private int lastWaveInserted;
+
     /**
      * test constructor
      * @param NUMBER_OF_WAVES number of enemies
@@ -43,6 +45,7 @@ public class WaveManager implements Drawable {
         this.NUMBER_OF_WAVES = NUMBER_OF_WAVES;
         waves = new EnemyWave[NUMBER_OF_WAVES];
         currentWave = 0;
+        lastWaveInserted = 0;
         this.path = path;
     }
 
@@ -66,6 +69,13 @@ public class WaveManager implements Drawable {
 
         waves[currentWave].startWave();
 
+    }
+
+    public void addAll(List<EnemyWave> waves){
+        for (EnemyWave w : waves){
+            if(lastWaveInserted < NUMBER_OF_WAVES)
+            this.waves[lastWaveInserted++] = w;
+        }
     }
 
     /**

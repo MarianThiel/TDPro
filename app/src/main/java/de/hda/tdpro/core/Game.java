@@ -38,10 +38,7 @@ public class Game implements Drawable, GameObservable {
      * control towers
      */
     private TowerManager towerManager;
-    /**
-     * just one wave for demonstration
-     */
-    private EnemyWave wave;
+
 
     private Path path;
 
@@ -59,19 +56,22 @@ public class Game implements Drawable, GameObservable {
 
     /**
      * basic constructor for Game class
-     * @param context necessary for accessing resources
+     * @param waveManager r
      */
-    public Game(Context context){
+    public Game(WaveManager waveManager, Path path){
 
         pointingMode = PointingMode.SELECTION_MODE;
         listeners = new ArrayList<>();
         upgrades = new HashMap<>();
+        towerManager = new TowerManager(5);
+        this.path = path;
+        this.waveManager = waveManager;
 
         runningWave = false;
-        initDemoData(context);
+        //initDemoData();
     }
 
-    private void initDemoData(Context context) {
+    private void initDemoData() {
 
 
         addUpgrade(new MetaUpgrade("DMG-1",10,0,0,20));
@@ -95,7 +95,7 @@ public class Game implements Drawable, GameObservable {
         //wave = new EnemyWave(13,path);
         waveManager = new WaveManager(1,path);
         waveManager.initDemoData();
-        towerManager = new TowerManager(10, context);
+        towerManager = new TowerManager(10);
         towerManager.placeTower(TowerType.FIRE_TOWER,new Position(400,400));
         towerManager.placeTower(TowerType.FIRE_TOWER,new Position(800,400));
         towerManager.placeTower(TowerType.FIRE_TOWER,new Position(600,600));
@@ -184,7 +184,7 @@ public class Game implements Drawable, GameObservable {
 
         path.draw(canvas);
         waveManager.draw(canvas);
-
+        /*
         towerManager.getTower(0).draw(canvas);
         towerManager.getTower(1).draw(canvas);
         towerManager.getTower(2).draw(canvas);
@@ -194,7 +194,7 @@ public class Game implements Drawable, GameObservable {
         towerManager.getTower(7).draw(canvas);
         if(towerManager.getTower(3)!=null){
             towerManager.getTower(3).draw(canvas);
-        }
+        }*/
     }
 
     @Override
