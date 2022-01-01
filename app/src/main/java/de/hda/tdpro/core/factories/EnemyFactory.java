@@ -37,12 +37,18 @@ public class EnemyFactory {
         return new Enemy((int)(100 + Math.random()*1500),0,(float) (50 + (Math.random()*175)), BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.test3));
     }
 
+    public Enemy createL1Tank(){
+        return new Enemy(1000,50, 50,BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.fire_tower));
+    }
+
     public Enemy createEnemyByType(EnemyType type){
         Enemy e = null;
         switch (type){
             case RANDOM:
                 e = createRandomEnemy();
                 break;
+            case L1TANK:
+                e = createL1Tank();
         }
         return e;
     }
