@@ -1,10 +1,6 @@
 package de.hda.tdpro.core;
 
-import android.content.Context;
 
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
 import java.util.ArrayList;
@@ -14,12 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 import de.hda.tdpro.GameObservable;
-import de.hda.tdpro.R;
 import de.hda.tdpro.core.enemy.Enemy;
-import de.hda.tdpro.core.enemy.EnemyWave;
 import de.hda.tdpro.core.enemy.Path;
 import de.hda.tdpro.core.enemy.WaveManager;
-import de.hda.tdpro.core.factories.EnemyFactory;
 import de.hda.tdpro.core.tower.Tower;
 import de.hda.tdpro.core.tower.TowerManager;
 import de.hda.tdpro.core.tower.TowerType;
@@ -81,17 +74,17 @@ public class Game implements Drawable, GameObservable {
 
 
         path = new Path();
-        path.addPoint(0,0);
-        path.addPoint(50,300);
-        path.addPoint(300,500);
-        path.addPoint(500,550);
-        path.addPoint(500,650);
-        path.addPoint(1000,750);
-        path.addPoint(1000,450);
-        path.addPoint(500,450);
-        path.addPoint(500,250);
-        path.addPoint(1500,250);
-        path.addPoint(1500,1250);
+        path.addStaticPoint(0,0);
+        path.addStaticPoint(50,300);
+        path.addStaticPoint(300,500);
+        path.addStaticPoint(500,550);
+        path.addStaticPoint(500,650);
+        path.addStaticPoint(1000,750);
+        path.addStaticPoint(1000,450);
+        path.addStaticPoint(500,450);
+        path.addStaticPoint(500,250);
+        path.addStaticPoint(1500,250);
+        path.addStaticPoint(1500,1250);
         //wave = new EnemyWave(13,path);
         waveManager = new WaveManager(1,path);
         waveManager.initDemoData();

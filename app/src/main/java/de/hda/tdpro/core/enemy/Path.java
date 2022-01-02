@@ -29,7 +29,7 @@ public class Path implements Drawable {
      * @param x X-Coordinate
      * @param y Y-Coordinate
      */
-    public void addPoint(int x, int y){
+    public void addStaticPoint(int x, int y){
         if(start == null){
             start = new AscPoint(x,y);
 
@@ -40,6 +40,19 @@ public class Path implements Drawable {
                 return;
             }
         }
+    }
+
+    public void addRelativePoint(int x, int y){
+        if(start == null){
+            start = new RelativePoint(x,y);
+
+        }else
+            for(AscPoint p = start; p != null; p = p.getNextPoint()){
+                if(p.getNextPoint()==null){
+                    p.setNextPoint(new RelativePoint(x,y));
+                    return;
+                }
+            }
     }
 
     /**
@@ -64,11 +77,11 @@ public class Path implements Drawable {
     public void draw(Canvas canvas) {
         Paint p = new Paint();
         p.setColor(Color.LTGRAY);
-        p.setStrokeWidth(40);
+        p.setStrokeWidth(80);
 
         for(AscPoint pt = start; pt.getNextPoint() != null; pt = pt.getNextPoint()){
             canvas.drawLine(pt.getX(),pt.getY(),pt.getNextPoint().getX(),pt.getNextPoint().getY(),p);
-            canvas.drawCircle(pt.getNextPoint().getX(),pt.getNextPoint().getY(),20,p);
+            canvas.drawCircle(pt.getNextPoint().getX(),pt.getNextPoint().getY(),40,p);
         }
     }
 }

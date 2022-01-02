@@ -78,5 +78,4 @@ public class TowerTestBench {
         t.onEnemyMovement(enemy);
         assertEquals(0, t.getSphere().getNumberOfIntersectedEnemies());
     }
-
 }

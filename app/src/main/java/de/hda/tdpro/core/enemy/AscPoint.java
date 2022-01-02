@@ -63,10 +63,13 @@ public class AscPoint {
         Vector2D v2 = new Vector2D(nextPoint.getX(), nextPoint.getY());
 
         Vector2D locVec = v2.dif(v1);
+
         locVec.normalize();
+        Vector2D loc = locVec.mul(0);
         int x=0,y=0;
-        for(double i = 0; x != v2.x || y != v2.y; i = i + 1){
+        for(double i = 0; loc.compareTo(v2.dif(v1)) < 0; i = i + 1){
             Vector2D l = (locVec.mul(i));
+            loc = (locVec.mul(i));
             l = l.add(v1);
             x = (int) l.x;
             y = (int) l.y;
