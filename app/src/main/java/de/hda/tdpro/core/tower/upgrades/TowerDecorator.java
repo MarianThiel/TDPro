@@ -1,12 +1,20 @@
-package de.hda.tdpro.core.tower;
+package de.hda.tdpro.core.tower.upgrades;
 
 import de.hda.tdpro.core.Position;
+import de.hda.tdpro.core.tower.RangeSphere;
+import de.hda.tdpro.core.tower.Tower;
 
-
+/**
+ * @author Marian Thiel
+ * @version 1.2
+ *
+ * class decorates a tower with upgrade
+ * the attribute values are accumulated
+ */
 public class TowerDecorator extends Tower {
     Tower embeddedTower;
     public TowerDecorator(Tower uTower) {
-        super(0,0,0,0);
+        super(0,0,0,0,null);
         embeddedTower = uTower;
     }
 
@@ -35,11 +43,19 @@ public class TowerDecorator extends Tower {
         return 1 + embeddedTower.getLevel();
     }
 
+    /**
+     * get the Sphere
+     * @return returns the sphere of base tower
+     */
     @Override
     public RangeSphere getSphere() {
         return embeddedTower.getSphere();
     }
 
+    /**
+     * get the current Position
+     * @return Position of the base Tower
+     */
     @Override
     public Position getPos() {
         return embeddedTower.getPos();

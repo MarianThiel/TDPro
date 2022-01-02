@@ -1,37 +1,84 @@
 package de.hda.tdpro.core.tower;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.Log;
 
+import de.hda.tdpro.core.Drawable;
 import de.hda.tdpro.core.EnemyObserver;
 import de.hda.tdpro.core.Position;
 import de.hda.tdpro.core.enemy.Enemy;
+import de.hda.tdpro.core.tower.priority.Priority;
 
 /**
  * @author Marian Thiel
  *  Abstract Class representing a tower
  */
-abstract public class Tower implements EnemyObserver, Runnable {
+abstract public class Tower implements EnemyObserver, Runnable, Drawable {
 
+    /**
+     * radius as integer value in pixel
+     */
     protected int radius;
+    /**
+     * damage of the tower
+     */
     protected int damage;
+    /**
+     * value indicates the attack speed 1 means 1 hit per second 2 = 2 hits per second
+     */
     protected float speed;
+    /**
+     * price of placing tower
+     */
     protected int price;
+    /**
+     * position of the tower on the map
+     */
     protected Position pos;
-
-    private boolean running;
-
+    /**
+     * thread holds instance of the tower, is used for attacking enemies in sphere
+     */
+    private Thread aimThread;
+    /**
+     * true if tower is aiming an enemy - means thread is running
+     */
+    private boolean aiming;
+    /**
+     * Max level of tower
+     */
     public static final int MAX_LEVEL = 5;
-
+    /**
+     * the sphere of the tower
+     */
     protected RangeSphere sphere;
+    /**
+     * active is the selection state
+     */
+    protected boolean active;
 
+    private final Context context;
+    /**
+     * Image of the Tower as Bitmap
+     */
+    protected Bitmap img;
+    /**
+     * Projectile of the Tower
+     */
+    protected Projectile missile;
 
-    public Tower(int radius, int damage, float speed, int price) {
+    public Tower(int radius, int damage, float speed, int price, Context context) {
         this.radius = radius;
         this.damage = damage;
         this.speed = speed;
         this.price = price;
+        this.context = context;
         sphere = null;
-        running = true;
+        aiming = false;
+        active = false;
     }
 
     public Position getPos() {
@@ -75,12 +122,31 @@ abstract public class Tower implements EnemyObserver, Runnable {
         this.price = price;
     }
 
+    public boolean isAiming() {
+        return aiming;
+    }
+
     public void fireMissile(){
         if(getSphere().hasEnemyInside()){
-            Log.println(Log.ASSERT,"enemy_targeting", this.getClass()+" ENEMY_WAS_HIT - DMG: " + getDamage());
+
+            Log.println(Log.ASSERT,"enemy_targeting", this.getClass() + " ENEMY_WAS_HIT - DMG: " + getDamage());
             getSphere().hitEnemy(this.getDamage());
         }
 
+    }
+
+    public void startAiming(){
+        aiming = true;
+        aimThread = new Thread(this);
+        aimThread.start();
+    }
+    public void stopAiming(){
+        aiming = false;
+        try {
+            aimThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public int getLevel(){
@@ -91,33 +157,56 @@ abstract public class Tower implements EnemyObserver, Runnable {
         return sphere;
     }
 
-    public void terminate(){
-        running = false;
+    public void setHitPriority(Priority type){
+
+        sphere.setPriority(type);
+
     }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     @Override
     public void onEnemyMovement(Enemy e) {
+
         Position p = e.getPosition();
         if(getSphere().containsEnemy(e)){
             if(!getSphere().intersects(p)){
                 getSphere().releaseEnemy(e);
             }
         }else{ // !sphere.containsEnemy(e)
-            if(getSphere().intersects(p)){
+            if(getSphere().intersects(p) && e.getHp()>0){
                 getSphere().targetEnemy(e);
             }
         }
-
     }
 
     @Override
     public void run() {
-        while(running){
+        while(aiming){
             fireMissile();
             try {
                 Thread.sleep ((long) (1000/getSpeed()));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        sphere.draw(canvas);
+        if(isActive()){
+            Paint p = new Paint();
+            p.setStyle(Paint.Style.STROKE);
+            p.setColor(Color.BLACK);
+            p.setStrokeWidth(10);
+            canvas.drawCircle(pos.getxVal(),pos.getyVal(),radius,p);
         }
     }
 }
