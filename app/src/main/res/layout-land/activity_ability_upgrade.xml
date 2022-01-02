@@ -16,8 +16,8 @@
         android:layout_marginEnd="40dp"
         app:layout_constraintEnd_toStartOf="@+id/imageButton4"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:src="@mipmap/deathschroud"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/imageButton2"
@@ -27,8 +27,9 @@
         android:layout_marginEnd="40dp"
         app:layout_constraintEnd_toStartOf="@+id/imageButton5"
         app:layout_constraintTop_toBottomOf="@+id/imageButton"
+        android:src="@mipmap/forestfriend2"
         tools:ignore="SpeakableTextPresentCheck"
-        tools:srcCompat="@tools:sample/avatars" />
+        />
 
     <ImageButton
         android:id="@+id/imageButton3"
@@ -39,8 +40,9 @@
         app:layout_constraintEnd_toStartOf="@+id/imageButton6"
         app:layout_constraintTop_toBottomOf="@+id/imageButton2"
         app:layout_constraintVertical_bias="0.589"
+        android:src="@mipmap/interference3"
         tools:ignore="SpeakableTextPresentCheck"
-        tools:srcCompat="@tools:sample/avatars" />
+        />
 
     <ImageButton
         android:id="@+id/imageButton4"
@@ -50,8 +52,9 @@
         android:layout_marginEnd="40dp"
         app:layout_constraintEnd_toStartOf="@+id/imageButton7"
         app:layout_constraintTop_toTopOf="parent"
+        android:src="@mipmap/deathschroud"
         tools:ignore="SpeakableTextPresentCheck"
-        tools:srcCompat="@tools:sample/avatars" />
+       />
 
     <ImageButton
         android:id="@+id/imageButton5"
@@ -61,8 +64,9 @@
         android:layout_marginEnd="40dp"
         app:layout_constraintEnd_toStartOf="@+id/imageButton8"
         app:layout_constraintTop_toBottomOf="@+id/imageButton4"
+        android:src="@mipmap/forestfriend2"
         tools:ignore="SpeakableTextPresentCheck"
-        tools:srcCompat="@tools:sample/avatars" />
+         />
 
     <ImageButton
         android:id="@+id/imageButton6"
@@ -73,8 +77,9 @@
         app:layout_constraintEnd_toStartOf="@+id/imageButton9"
         app:layout_constraintTop_toBottomOf="@+id/imageButton5"
         app:layout_constraintVertical_bias="0.564"
+        android:src="@mipmap/interference3"
         tools:ignore="SpeakableTextPresentCheck"
-        tools:srcCompat="@tools:sample/avatars" />
+      />
 
     <ImageButton
         android:id="@+id/imageButton7"
@@ -84,8 +89,9 @@
         android:layout_marginEnd="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:src="@mipmap/deathschroud"
         tools:ignore="SpeakableTextPresentCheck"
-        tools:srcCompat="@tools:sample/avatars" />
+        />
 
     <ImageButton
         android:id="@+id/imageButton8"
@@ -95,8 +101,9 @@
         android:layout_marginEnd="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton7"
+        android:src="@mipmap/forestfriend2"
         tools:ignore="SpeakableTextPresentCheck"
-        tools:srcCompat="@tools:sample/avatars" />
+         />
 
     <ImageButton
         android:id="@+id/imageButton9"
@@ -107,8 +114,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton8"
         app:layout_constraintVertical_bias="0.564"
+        android:src="@mipmap/interference3"
         tools:ignore="SpeakableTextPresentCheck"
-        tools:srcCompat="@tools:sample/avatars" />
+         />
 
     <TextView
         android:id="@+id/deathschroud"
