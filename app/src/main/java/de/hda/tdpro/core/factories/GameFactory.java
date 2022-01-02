@@ -47,7 +47,7 @@ public class GameFactory {
     }
 
     public Game createLevelOne(){
-        Path p = PathFactory.getInstance().createLevelOnePath();
+        Path p = PathFactory.getInstance().createRelativePathTest();
         try {
             return parseGameConfig("level_one_config.xml", p);
         } catch (ParserConfigurationException e) {

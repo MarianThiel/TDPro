@@ -20,19 +20,29 @@ public class PathFactory {
 
     public Path createLevelOnePath(){
         Path path = new Path();
-        path.addPoint(0,0);
-        path.addPoint(50,300);
-        path.addPoint(300,500);
-        path.addPoint(500,550);
-        path.addPoint(500,650);
-        path.addPoint(1000,750);
-        path.addPoint(1000,450);
-        path.addPoint(500,450);
-        path.addPoint(500,250);
-        path.addPoint(1500,250);
-        path.addPoint(1500,1250);
+        path.addStaticPoint(0,0);
+        path.addStaticPoint(50,300);
+        path.addStaticPoint(300,500);
+        path.addStaticPoint(500,550);
+        path.addStaticPoint(500,650);
+        path.addStaticPoint(1000,750);
+        path.addStaticPoint(1000,450);
+        path.addStaticPoint(500,450);
+        path.addStaticPoint(500,250);
+        path.addStaticPoint(1500,250);
+        path.addStaticPoint(1500,1250);
 
         return path;
+    }
+
+    public Path createRelativePathTest(){
+        Path p = new Path();
+        p.addRelativePoint(0,0);
+        p.addRelativePoint(500,500);
+        p.addRelativePoint(200,0);
+
+
+        return p;
     }
 
 }
