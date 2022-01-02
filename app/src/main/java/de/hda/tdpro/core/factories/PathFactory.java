@@ -1,6 +1,7 @@
 package de.hda.tdpro.core.factories;
 
 import de.hda.tdpro.core.enemy.Path;
+import de.hda.tdpro.core.enemy.RelativePath;
 
 public class PathFactory {
     private static PathFactory instance;
@@ -36,10 +37,11 @@ public class PathFactory {
     }
 
     public Path createRelativePathTest(){
-        Path p = new Path();
-        p.addRelativePoint(0,0);
-        p.addRelativePoint(500,500);
-        p.addRelativePoint(200,0);
+        RelativePath p = new RelativePath();
+        p.addStaticPoint(0,0);
+        p.addStaticPoint(0,400);
+        p.addStaticPoint(300,0);
+
 
 
         return p;
