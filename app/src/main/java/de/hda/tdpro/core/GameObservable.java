@@ -20,4 +20,6 @@ public interface GameObservable {
     void notifyOnSelection();
 
     void notifyOnGameOver();
+
+    void notifyOnChange();
 }

@@ -8,4 +8,6 @@ public interface GameListener {
 
     void updateOnGameOver();
 
+    void updateOnChange();
+
 }
