@@ -124,9 +124,10 @@ public class GameFactory {
                             wave.addEnemy(EnemyFactory.getInstance().createEnemyByType(EnemyType.valueOf(enem.getAttribute("type"))));
                         }
 
-                        l.add(wave);
+
                     }
                 }
+                l.add(wave);
             }
         }
         return l;
