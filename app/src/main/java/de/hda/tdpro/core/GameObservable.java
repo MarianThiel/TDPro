@@ -1,4 +1,4 @@
-package de.hda.tdpro;
+package de.hda.tdpro.core;
 
 import de.hda.tdpro.core.GameListener;
 
@@ -18,4 +18,6 @@ public interface GameObservable {
      * notifies Observer when tower was selected
      */
     void notifyOnSelection();
+
+    void notifyOnGameOver();
 }

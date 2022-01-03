@@ -168,4 +168,9 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
     public void updateOnSelection() {
         showSelectionContext(gameModel.getSelectedTower());
     }
+
+    @Override
+    public void updateOnGameOver() {
+
+    }
 }

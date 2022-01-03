@@ -12,4 +12,8 @@ public interface EnemyObserver {
      * @param e the Enemy which calls the method
      */
     void onEnemyMovement(Enemy e);
+
+    void onEnemySuccess(Enemy e);
+
+    void onEnemyDying(Enemy e);
 }
