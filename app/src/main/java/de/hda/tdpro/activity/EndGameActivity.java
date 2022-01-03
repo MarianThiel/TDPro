@@ -1,45 +1,18 @@
 package de.hda.tdpro.activity;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
+import android.view.WindowManager;
 
 import de.hda.tdpro.R;
 
 public class EndGameActivity extends AppCompatActivity {
 
-    private TextView endGameMessage;
-    private ImageButton backButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_end_game);
-
-        endGameMessage = findViewById(R.id.EndGameMessage);
-        backButton = findViewById(R.id.ReturnToLevelSelect);
-
-        Intent intent = getIntent();
-        boolean win = intent.getBooleanExtra("WIN", false);
-
-        if(win)
-        {
-            endGameMessage.setText("Du hast gewonnen!");
-        }
-        else
-        {
-            endGameMessage.setText("Du hast verloren!");
-        }
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent1 = new Intent(EndGameActivity.this, MainMenuActivity.class);
-                startActivity(intent1);
-            }
-        });
     }
 }
