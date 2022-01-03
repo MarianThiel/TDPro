@@ -235,9 +235,9 @@
 
         <Button
             android:id="@+id/button"
-            android:layout_width="70dp"
-            android:layout_height="37dp"
-            android:layout_marginTop="52dp"
+            android:layout_width="93dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="36dp"
             android:text="Buy"
             app:layout_constraintEnd_toStartOf="@+id/returnButton"
             app:layout_constraintHorizontal_bias="0.0"
