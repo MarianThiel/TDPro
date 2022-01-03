@@ -1,4 +1,4 @@
-package de.hda.tdpro.activity;
+package de.hda.tdpro.core.config;
 
 
 public final class SettingSaving {

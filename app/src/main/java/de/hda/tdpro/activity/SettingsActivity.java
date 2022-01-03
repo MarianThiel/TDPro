@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 
 import de.hda.tdpro.R;
+import de.hda.tdpro.core.config.SettingSaving;
 
 public class SettingsActivity extends AppCompatActivity {
     private SeekBar seekbar;
