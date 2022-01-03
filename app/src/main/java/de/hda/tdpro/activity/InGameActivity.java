@@ -94,7 +94,7 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
             gameModel.startNextWave();
         });
         btnSettings.setOnClickListener(e->{
-
+            
         });
         btnTowerCreate.setOnClickListener(e->{
             showTowerBuyView();
