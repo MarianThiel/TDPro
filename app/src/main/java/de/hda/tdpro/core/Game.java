@@ -1,7 +1,10 @@
 package de.hda.tdpro.core;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +12,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import de.hda.tdpro.GameObservable;
+import de.hda.tdpro.R;
+import de.hda.tdpro.StaticContext;
 import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.enemy.Path;
 import de.hda.tdpro.core.enemy.WaveManager;
@@ -22,7 +26,7 @@ import de.hda.tdpro.core.tower.upgrades.MetaUpgrade;
 /**
  * Game controls all towers and waves. it draws the entire screen
  */
-public class Game implements Drawable, GameObservable {
+public class Game implements Drawable, GameObservable, EnemyObserver {
     /**
      * control waves
      */
@@ -32,6 +36,7 @@ public class Game implements Drawable, GameObservable {
      */
     private TowerManager towerManager;
 
+    private int health;
 
     private Path path;
 
@@ -43,6 +48,9 @@ public class Game implements Drawable, GameObservable {
 
     private final Map<String, MetaUpgrade> upgrades;
 
+    private final Bitmap bg;
+
+    private boolean prepared;
 
 
     private boolean runningWave;
@@ -59,8 +67,10 @@ public class Game implements Drawable, GameObservable {
         towerManager = new TowerManager(5);
         this.path = path;
         this.waveManager = waveManager;
-
+        bg = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.grass_template2);
         runningWave = false;
+        prepared = false;
+        health = 2000; // test
         //initDemoData();
     }
 
@@ -116,8 +126,10 @@ public class Game implements Drawable, GameObservable {
      * connects all towers as observer to each enemy for the next wave
      */
     private void prepareNextWave(){
+
         List<Enemy> lst = waveManager.getEnemiesOfCurrentWave();
         for(Enemy e : lst){
+            e.addEnemyObserver(this);
             towerManager.addTowerAsListener(e);
         }
     }
@@ -128,8 +140,13 @@ public class Game implements Drawable, GameObservable {
      */
     public boolean startNextWave(){
         if(!runningWave){
+            Log.println(Log.ASSERT,"WAVE","WAVE STARTED");
             runningWave = true;
-            prepareNextWave();
+            if(!prepared){
+                prepareNextWave();
+                prepared = true;
+            }
+
             waveManager.startCurrentWave();
 
             return true;
@@ -172,9 +189,33 @@ public class Game implements Drawable, GameObservable {
         return new LinkedList<>(upgrades.values());
     }
 
+    public int getHealth() {
+        return health;
+    }
+
+    public synchronized void setHealth(int health) {
+
+        this.health = health;
+        if(health<=0){
+            notifyOnGameOver();
+        }
+    }
+
+    public void setRunningWave(boolean runningWave) {
+        this.runningWave = runningWave;
+    }
+
+
+    public int getMaxWaves(){
+        return waveManager.getNUMBER_OF_WAVES();
+    }
+    public int getCurrentWave(){
+        return waveManager.getCurrentWave()+1;
+    }
+
     @Override
     public void draw(Canvas canvas) {
-
+        canvas.drawBitmap(bg,0,0,null);
         path.draw(canvas);
         waveManager.draw(canvas);
         /*
@@ -199,6 +240,52 @@ public class Game implements Drawable, GameObservable {
     public void notifyOnSelection() {
         for(GameListener l : listeners){
             l.updateOnSelection();
+        }
+    }
+
+    @Override
+    public void notifyOnGameOver() {
+        for(GameListener l : listeners){
+            l.updateOnGameOver();
+        }
+    }
+
+    @Override
+    public void notifyOnChange() {
+        for(GameListener l : listeners){
+            l.updateOnChange();
+        }
+    }
+
+    @Override
+    public void onEnemyMovement(Enemy e) {
+
+    }
+
+    @Override
+    public void onEnemySuccess(Enemy e) {
+        setHealth(getHealth() - e.getHp());
+        prepareOnEvent();
+        notifyOnChange();
+        //Log.println(Log.ASSERT,"WAVE","WAVE STARTED");
+    }
+
+
+    @Override
+    public void onEnemyDying(Enemy e) {
+        prepareOnEvent();
+        notifyOnChange();
+        //Log.println(Log.ASSERT,"WAVE","WAVE STARTED");
+    }
+
+    private void prepareOnEvent() {
+        if (waveManager.isCurrentWaveFinished()) {
+
+            runningWave = false;
+            waveManager.prepare();
+            prepareNextWave();
+            prepared = true;
+
         }
     }
 }
