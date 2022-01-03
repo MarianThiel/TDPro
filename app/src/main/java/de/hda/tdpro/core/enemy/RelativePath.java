@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,25 +25,31 @@ public class RelativePath extends Path{
         for (AscPoint p = start; p.getNextPoint() != null; p = p.getNextPoint()){
             vStart = sum;
             vEnd = vStart.add(new Vector2D(p.getNextPoint().getX(),p.getNextPoint().getY()));
-            sum = vStart.add(vEnd);
-            Vector2D l = sum.mul(1);
+
+            Vector2D l = vEnd.dif(vStart);
             l.normalize();
             Vector2D term = l.mul(0);
-            for(int i = 0; term.compareTo(sum)<=0; i++){
+            for(int i = 0; term.compareTo(vStart.dif(vEnd))<=0; i = i+4){
                 term = l.mul(i);
                 Vector2D t = vStart.add(term);
                 lst.add(new Position((int) t.x,(int) t.y));
-                //Log.println(Log.ASSERT,"PATH",term.x + "|" + term.y);
+
+            }
+            sum = vEnd;
+        }
+        List<Position> noDupList = new ArrayList<>();
+        for(Position p : lst){
+            if(!noDupList.contains(p)){
+                noDupList.add(p);
             }
         }
-
-        return lst;
+        return noDupList;
     }
 
     @Override
     public void draw(Canvas canvas) {
         Paint p = new Paint();
-        p.setColor(Color.LTGRAY);
+        p.setColor(Color.parseColor("#4d320c"));
         p.setStrokeWidth(80);
         Vector2D sum = new Vector2D(start.getX(), start.getY());
         Vector2D vStart;
@@ -50,8 +57,9 @@ public class RelativePath extends Path{
         for(AscPoint pt = start; pt.getNextPoint() != null; pt = pt.getNextPoint()){
             vStart = sum;
             vEnd = vStart.add(new Vector2D(pt.getNextPoint().getX(),pt.getNextPoint().getY()));
-            sum = vStart.add(vEnd);
+            sum = vEnd;
             canvas.drawLine((float) vStart.x,(float) vStart.y,(float) vEnd.x,(float) vEnd.y,p);
+            canvas.drawCircle((float) vEnd.x,(float) vEnd.y,40,p);
         }
     }
 }
