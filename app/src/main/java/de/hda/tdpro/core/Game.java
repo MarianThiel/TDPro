@@ -38,6 +38,8 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
 
     private int health;
 
+    private int gold;
+
     private Path path;
 
     private PointingMode pointingMode;
@@ -71,6 +73,7 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
         runningWave = false;
         prepared = false;
         health = 2000; // test
+        gold = 200; // test
         //initDemoData();
     }
 
@@ -211,6 +214,14 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
     }
     public int getCurrentWave(){
         return waveManager.getCurrentWave()+1;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
     }
 
     @Override

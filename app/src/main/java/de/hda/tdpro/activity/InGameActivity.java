@@ -158,7 +158,7 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
             public void run() {
                 txt_health.setText(Integer.toString(gameModel.getHealth()));
                 txt_waves.setText(gameModel.getCurrentWave() + "/" + gameModel.getMaxWaves());
-                txt_health.setText(Integer.toString(gameModel.getHealth()));
+                txt_gold.setText(Integer.toString(gameModel.getGold()));
             }
         });
 
