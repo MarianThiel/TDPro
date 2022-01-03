@@ -9,26 +9,41 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.InGameActivity">
-
-        </activity>
+        <activity android:name=".activity.InGameActivity"></activity>
         <activity android:name=".activity.EndGameActivity" />
-        <activity android:name=".activity.LexiconActivity" />
-        <activity android:name=".activity.SettingsActivity" />
-        <activity android:name=".activity.LevelSelectionActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".activity.TowerUpgradeActivity" />
-        <activity android:name=".activity.AbilityUpgradeActivity" />
-        <activity
-            android:name=".activity.MainMenuActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".activity.LexiconActivity"/>
+        <activity android:name=".activity.SettingsActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity android:name=".activity.LevelSelectionActivity" />
+        <activity android:name=".activity.TowerUpgradeActivity" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity android:name=".activity.AbilityUpgradeActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+
+        <activity android:name=".activity.MainMenuActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
     </application>
 
 </manifest>
