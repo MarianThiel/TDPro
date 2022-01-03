@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -60,9 +61,11 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         StaticContext.setContext(this);
-        //gameView = new DemoView(this);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        // gameView = new DemoView(this);
+        // this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_in_game);
         gameView = findViewById(R.id.view);
         init();
