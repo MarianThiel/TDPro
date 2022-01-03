@@ -103,7 +103,7 @@ public class EnemyWave implements Runnable, Drawable {
             if(e!=null)
             e.initWalking();
             try {
-                Thread.sleep((long) (Math.random() * 1000));
+                Thread.sleep((long) (Math.random() * 200));
             } catch (InterruptedException interruptedException) {
                 interruptedException.printStackTrace();
             }
@@ -114,7 +114,7 @@ public class EnemyWave implements Runnable, Drawable {
     @Override
     public void draw(Canvas canvas) {
         for(Enemy e : enemies){
-            if(e!=null)
+            if(e!=null && e.isAlive() && e.isWalking())
             e.draw(canvas);
         }
     }
