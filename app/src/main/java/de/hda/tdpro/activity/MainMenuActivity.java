@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 
@@ -15,6 +16,8 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         GifImageButton levelSelect = (GifImageButton) findViewById(R.id.buttonLevelSelection);
         levelSelect.setOnClickListener((View.OnClickListener) this);
@@ -26,8 +29,7 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
         lexikonSelect.setOnClickListener((View.OnClickListener) this);
         ImageButton settingsSelect = (ImageButton) findViewById(R.id.imageButtonSettings);
         settingsSelect.setOnClickListener((View.OnClickListener) this);
-        Button switchbutton = (Button) findViewById(R.id.buttonswitch);
-        switchbutton.setOnClickListener((View.OnClickListener) this);
+
     }
 
     public void onClick(View view) {
@@ -36,7 +38,7 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
         GifImageButton towerSelect = findViewById(R.id.buttonTowerSelection);
         ImageButton settingsSelect = findViewById(R.id.imageButtonSettings);
         ImageButton lexikonSelect = findViewById(R.id.imageButtonLexikon);
-        Button switchbutton = findViewById(R.id.buttonswitch);
+
         if (view == levelSelect) {
             Intent fp = new Intent(getApplicationContext(), LevelSelectionActivity.class);
             startActivity(fp);

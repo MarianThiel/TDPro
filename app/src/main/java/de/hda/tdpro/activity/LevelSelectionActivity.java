@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -33,15 +34,15 @@ public class LevelSelectionActivity extends AppCompatActivity implements View.On
         next.setOnClickListener((View.OnClickListener) this);
         ImageButton previous = (ImageButton) findViewById(R.id.imageButtonPrevious);
         previous.setOnClickListener((View.OnClickListener) this);
-
-
-
+        Button start = (Button) findViewById(R.id.buttonStart);
+        start.setOnClickListener((View.OnClickListener) this);
     }
 
     public void onClick(View view) {
         ImageButton back = findViewById(R.id.imageButtonBack);
         ImageButton next = findViewById(R.id.imageButtonNext);
         ImageButton previous = findViewById(R.id.imageButtonPrevious);
+        Button start = findViewById(R.id.buttonStart);
         if (view == back) {
             Intent fp = new Intent(getApplicationContext(), MainMenuActivity.class);
             startActivity(fp);
@@ -51,6 +52,12 @@ public class LevelSelectionActivity extends AppCompatActivity implements View.On
         }
         else if (view == previous){
             clickPrevious();
+        }
+        else if (view == start){
+            if ( level == 0 ) {
+                Intent fp = new Intent(getApplicationContext(), InGameActivity.class);
+                startActivity(fp);
+            }
         }
     }
 

@@ -21,11 +21,13 @@ import de.hda.tdpro.core.Game;
 import de.hda.tdpro.core.GameListener;
 import de.hda.tdpro.core.PointingMode;
 import de.hda.tdpro.core.tower.Tower;
+import de.hda.tdpro.view.TowerBuyView;
 import de.hda.tdpro.view.TowerStatView;
 import de.hda.tdpro.view.TowerUpgradeView;
 
 public class InGameActivity extends AppCompatActivity implements GameListener {
 
+    private int showsBuyTowers = 0;
     /**
      * The demo view
      */
@@ -127,7 +129,25 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
         });
     }
 
-
+    private void validateContextMenu(PointingMode mode){
+        switch (mode){
+            case SELECTION_MODE:
+                //TODO: write code for displaying tower selection context
+                if(gameView.game.getSelectedTower() != null){
+                    showSelectionContext(gameView.game.getSelectedTower());
+                }else{
+                    showSelectionContext(null);
+                    hideContextMenu();
+                }
+                break;
+            case PLACE_TOWER_MODE:
+                //TODO: list al tower Types to select from
+                break;
+            case USE_ABILITY_MODE:
+                //TODO: handle ability context
+                break;
+        }
+    }
     private void showSelectionContext(Tower t){
         if(t != null){
             //TODO: present tower attributes and upgrade/sell options
@@ -135,6 +155,22 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
         }else{
             hideContextMenu();
         }
+    }
+    private void showTowerBuyView() {
+        if ( showsBuyTowers == 0 ) {
+            showTowerBuy();
+            showsBuyTowers = 1;
+        }else if (showsBuyTowers == 1){
+            hideContextMenu();
+            showsBuyTowers = 0;
+        }
+    }
+    private void showTowerBuy(){
+        contextMenuLayout.removeAllViews();
+        TowerBuyView view = new TowerBuyView(this);
+        view.buyFireView();
+        contextMenuLayout.addView(view);
+        contextMenu.setVisibility(View.VISIBLE);
     }
     private void showTowerSelection(){
         contextMenuLayout.removeAllViews();
