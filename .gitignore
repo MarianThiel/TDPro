@@ -51,3 +51,9 @@ output.json
 obj/
 .externalNativeBuild
 !.idea
+/.idea/.name
+/.idea/compiler.xml
+/.idea/gradle.xml
+/.idea/jarRepositories.xml
+/.idea/misc.xml
+/.idea/vcs.xml
