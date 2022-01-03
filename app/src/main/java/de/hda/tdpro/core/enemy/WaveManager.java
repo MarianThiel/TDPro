@@ -2,6 +2,7 @@ package de.hda.tdpro.core.enemy;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.util.Log;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -32,7 +33,7 @@ public class WaveManager implements Drawable {
     /**
      * integer for current wave have to be consistent while wave is running
      */
-    private final int currentWave;
+    private int currentWave;
 
     private int lastWaveInserted;
 
@@ -68,7 +69,7 @@ public class WaveManager implements Drawable {
     public void startCurrentWave(){
 
         waves[currentWave].startWave();
-
+        //currentWave++;
     }
 
     public void addAll(List<EnemyWave> waves){
@@ -90,6 +91,33 @@ public class WaveManager implements Drawable {
             }
         }
         return lst;
+    }
+
+    public boolean isCurrentWaveFinished(){
+       for (int i = 0; i < waves[currentWave].getENEMIES_IN_WAVE(); i++){
+           Log.println(Log.ASSERT,"WAVE","");
+           Enemy e = waves[currentWave].getEnemy(i);
+
+           if(e != null){
+               Log.println(Log.ASSERT,"WAVE",i+ ": " + e.isFinished());
+               if(!e.isFinished()){
+                   return false;
+               }
+           }
+       }
+       return true;
+    }
+
+    public void prepare(){
+        currentWave++;
+    }
+
+    public int getNUMBER_OF_WAVES() {
+        return NUMBER_OF_WAVES;
+    }
+
+    public int getCurrentWave() {
+        return currentWave;
     }
 
     @Override
