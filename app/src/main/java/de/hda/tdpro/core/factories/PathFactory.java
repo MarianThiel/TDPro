@@ -1,5 +1,12 @@
 package de.hda.tdpro.core.factories;
 
+import android.content.Context;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.WindowManager;
+import android.view.WindowMetrics;
+
+import de.hda.tdpro.StaticContext;
 import de.hda.tdpro.core.enemy.Path;
 import de.hda.tdpro.core.enemy.RelativePath;
 
@@ -38,9 +45,25 @@ public class PathFactory {
 
     public Path createRelativePathTest(){
         RelativePath p = new RelativePath();
-        p.addStaticPoint(0,0);
-        p.addStaticPoint(0,400);
-        p.addStaticPoint(300,0);
+        WindowManager wm = ((WindowManager)StaticContext.getContext().getSystemService(Context.WINDOW_SERVICE));
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(metrics);
+
+        int width = metrics.widthPixels;
+        int height = metrics.heightPixels;
+
+        p.addStaticPoint(0,height/4);
+        p.addStaticPoint(width/4,0);
+        p.addStaticPoint(0,height/4);
+        p.addStaticPoint(width/4,0);
+        p.addStaticPoint(0,height/4);
+
+        p.addStaticPoint(width/4,0);
+        p.addStaticPoint(0,-(height/2));
+
+        p.addStaticPoint(width/4,0);
+
 
 
 
