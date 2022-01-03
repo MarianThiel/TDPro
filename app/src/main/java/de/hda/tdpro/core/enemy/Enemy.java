@@ -69,6 +69,8 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
      */
     private final LinkedList<EnemyObserver> observers;
 
+    private boolean fin;
+
     /**
      * default constructor
      * @param hp
@@ -83,6 +85,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
         alive = true;
         image = img;
         observers = new LinkedList<>();
+        fin = false;
     }
 
     /**
@@ -115,6 +118,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
             this.hp = 0;
             alive = false;
             stopWalking();
+            notifyEnemyDying();
         }
     }
 
@@ -156,7 +160,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
     }
 
     public boolean isFinished(){
-        return position.equals(path.get(path.size() - 1));
+        return fin;
     }
 
     /**
@@ -201,10 +205,16 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
             setPosition(iterator.next());
             //Log.println(Log.ASSERT,"walk","walk");
         }else{
-            stopWalking();
             Log.println(Log.ASSERT,"walk","stop walking");
+            fin = true;
+            notifyEnemySuccess();
+            stopWalking();
+
+
         }
     }
+
+
 
     @Override
     public void addEnemyObserver(EnemyObserver o) {
@@ -224,9 +234,27 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
     }
 
     @Override
+    public void notifyEnemyDying() {
+        for(EnemyObserver o : observers){
+            o.onEnemyDying(this);
+        }
+    }
+
+    @Override
+    public void notifyEnemySuccess() {
+        synchronized (observers){
+            for(EnemyObserver o : observers){
+                o.onEnemySuccess(this);
+            }
+        }
+
+    }
+
+    @Override
     public void run() {
         while(walking){
             walkStep();
+
             try {
                 Thread.sleep((long) (1000 / velocity));
             } catch (InterruptedException e) {

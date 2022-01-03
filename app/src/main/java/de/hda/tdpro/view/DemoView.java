@@ -135,4 +135,9 @@ public class DemoView extends SurfaceView implements Runnable, GameListener {
     public void updateOnSelection() {
 
     }
+
+    @Override
+    public void updateOnGameOver() {
+
+    }
 }

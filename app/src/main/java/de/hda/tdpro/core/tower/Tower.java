@@ -208,4 +208,14 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
             canvas.drawCircle(pos.getxVal(),pos.getyVal(),radius,p);
         }
     }
+
+    @Override
+    public void onEnemySuccess(Enemy e) {
+
+    }
+
+    @Override
+    public void onEnemyDying(Enemy e) {
+
+    }
 }
