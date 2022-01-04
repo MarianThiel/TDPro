@@ -34,7 +34,7 @@ public class EnemyFactory {
      * @return a random Enemy
      */
     public Enemy createRandomEnemy(){
-        return new Enemy((int)(100 + Math.random()*1500),0,(float) (50+ (Math.random()*120)), BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.test3));
+        return new Enemy((int)(100 + Math.random()*1500),0,(float) (50+ (Math.random()*70)), BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.test3));
     }
 
     public Enemy createL1Tank(){

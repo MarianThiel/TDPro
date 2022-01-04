@@ -18,7 +18,9 @@ import android.widget.ScrollView;
 import de.hda.tdpro.R;
 import de.hda.tdpro.core.Game;
 import de.hda.tdpro.core.GameListener;
+import de.hda.tdpro.core.PointingMode;
 import de.hda.tdpro.core.tower.Tower;
+import de.hda.tdpro.core.tower.TowerType;
 
 public class DemoView extends SurfaceView implements Runnable, GameListener {
 
@@ -31,6 +33,8 @@ public class DemoView extends SurfaceView implements Runnable, GameListener {
     private Canvas canvas;
 
     public Game game;
+
+    private PointingMode mode;
 
     private int RENDER_TIME;
 
@@ -50,17 +54,21 @@ public class DemoView extends SurfaceView implements Runnable, GameListener {
     }
 
     void init(Context context){
-
-        RENDER_TIME = 10;
+        mode = PointingMode.SELECTION_MODE;
+        RENDER_TIME = 1;
         surfaceHolder = getHolder();
 
 
 
         this.setOnTouchListener((view, motionEvent) -> {
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN){
-                switch (game.getPointingMode()){
+                switch (mode){
                     case SELECTION_MODE:
                         handleSelection((int)motionEvent.getX(),(int)motionEvent.getY());
+                        break;
+                    case PLACE_TOWER_MODE:
+                        handleTowerPlacement(TowerType.FIRE_TOWER,(int)motionEvent.getX(),(int)motionEvent.getY());
+                        setMode(PointingMode.SELECTION_MODE);
                         break;
                 }
             }
@@ -71,6 +79,12 @@ public class DemoView extends SurfaceView implements Runnable, GameListener {
     private void handleSelection(int x, int y){
        game.selectTower(x, y);
 
+    }
+
+    private  void handleTowerPlacement(TowerType type, int x, int y){
+        if(!game.placeTowerAt(type, x, y)){
+            setMode(PointingMode.SELECTION_MODE);
+        }
     }
 
     private void draw(){
@@ -154,5 +168,9 @@ public class DemoView extends SurfaceView implements Runnable, GameListener {
     @Override
     public void updateOnGameWinning() {
 
+    }
+
+    public void setMode(PointingMode mode){
+        this.mode = mode;
     }
 }

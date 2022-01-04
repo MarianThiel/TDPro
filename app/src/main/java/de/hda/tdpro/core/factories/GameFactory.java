@@ -51,8 +51,7 @@ public class GameFactory {
         Path p = PathFactory.getInstance().createRelativePathTest();
         try {
             Game g = parseGameConfig("level_one_config.xml", p);
-            g.placeTowerAt(TowerType.FIRE_TOWER,300,300);
-            g.placeTowerAt(TowerType.FIRE_TOWER,500,600);
+
             return g;
         } catch (ParserConfigurationException e) {
             e.printStackTrace();

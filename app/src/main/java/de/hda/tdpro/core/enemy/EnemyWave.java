@@ -132,7 +132,7 @@ public class EnemyWave implements Runnable, Drawable {
 
     public void pauseWaveEjecting(){
         stopped = true;
-
+        thread.interrupt();
         try {
             thread.join();
         } catch (InterruptedException e) {

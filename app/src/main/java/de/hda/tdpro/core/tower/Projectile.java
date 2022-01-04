@@ -74,7 +74,7 @@ public class Projectile implements Drawable, Runnable {
             x = (int) l.x;
             y = (int) l.y;
             try {
-                Thread.sleep(10);
+                Thread.sleep(15);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
