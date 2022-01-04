@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/NZSE_Project/app/src/main/res/layout/activity_in_game.xml" value="0.4857635893011217" />
         <entry key="app/src/main/res/layout-land/activity_settings.xml" value="0.18077601410934743" />
         <entry key="app/src/main/res/layout-land/activity_tower_upgrade.xml" value="0.18077601410934743" />
         <entry key="app/src/main/res/layout/activity_tower_upgrade.xml" value="0.25" />

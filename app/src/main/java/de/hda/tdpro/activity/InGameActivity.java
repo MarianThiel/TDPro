@@ -64,8 +64,6 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         StaticContext.setContext(this);
-        // gameView = new DemoView(this);
-        // this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_in_game);
         gameView = findViewById(R.id.view);
         init();
@@ -123,6 +121,7 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
                 run = false;
             }else{
                 gameView.resume();
+                gameModel.resume();
                 btnPausePlay.setActivated(!btnPausePlay.isActivated());
                 run = true;
             }
@@ -214,12 +213,24 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
 
     @Override
     public void updateOnGameOver() {
-        //Intent intent = new Intent(InGameActivity.this, EndGameActivity.class);
-        //startActivity(intent);
+        gameView.pause();
+        Intent intent = new Intent(InGameActivity.this, EndGameActivity.class);
+        intent.putExtra("WIN",false);
+        startActivity(intent);
+
+
     }
 
     @Override
     public void updateOnChange() {
         updateStats();
+    }
+
+    @Override
+    public void updateOnGameWinning() {
+        gameView.pause();
+        Intent intent = new Intent(InGameActivity.this, EndGameActivity.class);
+        intent.putExtra("WIN",true);
+        startActivity(intent);
     }
 }

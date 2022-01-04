@@ -26,6 +26,7 @@ import de.hda.tdpro.core.enemy.EnemyType;
 import de.hda.tdpro.core.enemy.EnemyWave;
 import de.hda.tdpro.core.enemy.Path;
 import de.hda.tdpro.core.enemy.WaveManager;
+import de.hda.tdpro.core.tower.TowerType;
 
 public class GameFactory {
     private static GameFactory instance;
@@ -49,7 +50,10 @@ public class GameFactory {
     public Game createLevelOne(){
         Path p = PathFactory.getInstance().createRelativePathTest();
         try {
-            return parseGameConfig("level_one_config.xml", p);
+            Game g = parseGameConfig("level_one_config.xml", p);
+            g.placeTowerAt(TowerType.FIRE_TOWER,300,300);
+            g.placeTowerAt(TowerType.FIRE_TOWER,500,600);
+            return g;
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (IOException e) {

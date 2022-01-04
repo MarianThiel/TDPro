@@ -32,7 +32,7 @@ public class DemoView extends SurfaceView implements Runnable, GameListener {
 
     public Game game;
 
-
+    private int RENDER_TIME;
 
     public DemoView(Context context) {
         super(context);
@@ -51,7 +51,7 @@ public class DemoView extends SurfaceView implements Runnable, GameListener {
 
     void init(Context context){
 
-
+        RENDER_TIME = 10;
         surfaceHolder = getHolder();
 
 
@@ -91,7 +91,7 @@ public class DemoView extends SurfaceView implements Runnable, GameListener {
 
     private void control(){
         try {
-            Thread.sleep(5);
+            Thread.sleep(RENDER_TIME);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -99,21 +99,25 @@ public class DemoView extends SurfaceView implements Runnable, GameListener {
     public void pause() {
         //when the game is paused
         //setting the variable to false
+
+
         playing = false;
         try {
             //stopping the thread
             gameThread.join();
         } catch (InterruptedException e) {
         }
+        game.pause();
     }
 
     public void resume() {
         //when the game is resumed
         //starting the thread again
+        RENDER_TIME = 10;
         playing = true;
         gameThread = new Thread(this);
         gameThread.start();
-
+        //game.resume();
     }
 
     public void setGameModel(Game g){
@@ -128,6 +132,7 @@ public class DemoView extends SurfaceView implements Runnable, GameListener {
             draw();
             control();
         }
+
     }
 
 
@@ -143,6 +148,11 @@ public class DemoView extends SurfaceView implements Runnable, GameListener {
 
     @Override
     public void updateOnChange() {
+
+    }
+
+    @Override
+    public void updateOnGameWinning() {
 
     }
 }

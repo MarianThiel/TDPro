@@ -115,4 +115,8 @@ public class TowerManager implements Drawable {
             }
         }
     }
+
+    public void pause(){
+
+    }
 }

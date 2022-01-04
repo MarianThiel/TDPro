@@ -72,7 +72,7 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
         bg = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.grass_template2);
         runningWave = false;
         prepared = false;
-        health = 2000; // test
+        health = 100000; // test
         gold = 200; // test
         //initDemoData();
     }
@@ -229,6 +229,7 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
         canvas.drawBitmap(bg,0,0,null);
         path.draw(canvas);
         waveManager.draw(canvas);
+        towerManager.draw(canvas);
         /*
         towerManager.getTower(0).draw(canvas);
         towerManager.getTower(1).draw(canvas);
@@ -269,6 +270,13 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
     }
 
     @Override
+    public void notifyOnGameWinning() {
+        for(GameListener l : listeners){
+            l.updateOnGameWinning();
+        }
+    }
+
+    @Override
     public void onEnemyMovement(Enemy e) {
 
     }
@@ -291,12 +299,24 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
 
     private void prepareOnEvent() {
         if (waveManager.isCurrentWaveFinished()) {
-
+            if(waveManager.getCurrentWave()-1 == waveManager.getNUMBER_OF_WAVES())
+                return;
             runningWave = false;
             waveManager.prepare();
             prepareNextWave();
             prepared = true;
 
+
+
         }
+    }
+
+    public void pause(){
+        waveManager.pause();
+
+    }
+
+    public void resume(){
+        waveManager.resume();
     }
 }

@@ -22,4 +22,6 @@ public interface GameObservable {
     void notifyOnGameOver();
 
     void notifyOnChange();
+
+    void notifyOnGameWinning();
 }

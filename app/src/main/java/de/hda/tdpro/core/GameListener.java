@@ -10,4 +10,6 @@ public interface GameListener {
 
     void updateOnChange();
 
+    void updateOnGameWinning();
+
 }

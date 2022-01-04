@@ -37,6 +37,10 @@ public class EnemyWave implements Runnable, Drawable {
      */
     private final List<Position> positions;
 
+    private boolean stopped;
+
+    private int currentEnemy;
+
     /**
      * test constructor
      * @param ENEMIES_IN_WAVE number of enemies
@@ -48,6 +52,8 @@ public class EnemyWave implements Runnable, Drawable {
         mainPath = path;
         lastEnemyPosition = 0;
         positions = path.generateAllPositions();
+        stopped = true;
+        currentEnemy = 0;
     }
 
 
@@ -78,8 +84,10 @@ public class EnemyWave implements Runnable, Drawable {
      * starts the wave by starting thread
      */
     public void startWave(){
+        stopped = false;
         thread = new Thread(this);
         thread.start();
+
     }
 
     /**
@@ -99,9 +107,12 @@ public class EnemyWave implements Runnable, Drawable {
      */
     @Override
     public void run() {
-        for(Enemy e : enemies){
-            if(e!=null)
-            e.initWalking();
+
+        for(int i = currentEnemy; (i < ENEMIES_IN_WAVE) && !stopped; i++){
+            currentEnemy = i;
+            if(enemies[i]!=null)
+            enemies[i].initWalking();
+            currentEnemy = i;
             try {
                 Thread.sleep(700);
             } catch (InterruptedException interruptedException) {
@@ -117,5 +128,22 @@ public class EnemyWave implements Runnable, Drawable {
             if(e!=null && e.isAlive() && e.isWalking())
             e.draw(canvas);
         }
+    }
+
+    public void pauseWaveEjecting(){
+        stopped = true;
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void resumeWaveEjecting(){
+        thread = new Thread(this);
+        stopped = false;
+        thread.start();
+
     }
 }
