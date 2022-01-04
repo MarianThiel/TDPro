@@ -71,6 +71,8 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
 
     private boolean fin;
 
+    private final long SLEEP;
+
     /**
      * default constructor
      * @param hp
@@ -86,6 +88,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
         image = img;
         observers = new LinkedList<>();
         fin = false;
+        SLEEP = (long)(1000/velocity);
     }
 
     /**
@@ -100,6 +103,8 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
         this.velocity = velocity;
         alive = true;
         observers = new LinkedList<>();
+
+        SLEEP = (long)(1000/velocity);
     }
 
     public int getHp() {
@@ -177,6 +182,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
      */
     public void stopWalking(){
         walking = false;
+        walkingThread.interrupt();
         try {
             walkingThread.join();
         } catch (InterruptedException e) {
@@ -259,7 +265,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
             walkStep();
 
             try {
-                Thread.sleep((long) (1000 / velocity));
+                Thread.sleep(SLEEP);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

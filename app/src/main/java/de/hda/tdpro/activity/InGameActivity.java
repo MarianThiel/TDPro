@@ -112,7 +112,8 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
             
         });
         btnTowerCreate.setOnClickListener(e->{
-            showTowerBuyView();
+            //showTowerBuyView();
+            gameView.setMode(PointingMode.PLACE_TOWER_MODE);
         });
         btnPausePlay.setOnClickListener(e->{
             if(run){

@@ -165,7 +165,18 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
      * @return true if max tower not reached, false if max tower reached
      */
     public boolean placeTowerAt(TowerType type, int x, int y){
-        return towerManager.placeTower(type,new Position(x,y));
+        Tower t = towerManager.placeTower(type,new Position(x,y));
+        if(t != null)
+            addTowerAsListener(t);
+        return t != null;
+    }
+
+    private void addTowerAsListener(Tower t){
+        List<Enemy> l = waveManager.getEnemiesOfCurrentWave();
+
+        for(Enemy e : l){
+            e.addEnemyObserver(t);
+        }
     }
 
     public PointingMode getPointingMode() {

@@ -1,6 +1,5 @@
 package de.hda.tdpro.core.tower;
 
-import android.content.Context;
 import android.graphics.Canvas;
 
 import java.util.Arrays;
@@ -53,7 +52,7 @@ public class TowerManager implements Drawable {
         return false;
     }
 
-    public boolean placeTower(TowerType type, Position position){
+    public Tower placeTower(TowerType type, Position position){
                 if(idx<MAX_TOWER_NUMBER){
                     switch (type){
                         case FIRE_TOWER:
@@ -65,10 +64,11 @@ public class TowerManager implements Drawable {
                     }
                     towers[idx].setPos(position);
                     towers[idx].startAiming();
+                    Tower t = towers[idx];
                     ++idx;
-                    return true;
+                    return t;
                 }else
-                return false;
+                return null;
     }
 
     public Tower getTower(int i){
