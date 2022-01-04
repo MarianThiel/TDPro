@@ -80,7 +80,7 @@ public class TowerManager implements Drawable {
     public Tower getTowerByPosition(int x, int y){
         for (Tower  t : towers) {
             if (t != null) {
-                if (t.sphere.intersects(new Position(x, y))) {
+                if (t.inHitBox(new Position(x, y))) {
                     return t;
                 }
             }

@@ -69,6 +69,8 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
      */
     protected Projectile missile;
 
+    protected int hitBox;
+
     public Tower(int radius, int damage, float speed, int price) {
         this.radius = radius;
         this.damage = damage;
@@ -78,6 +80,7 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
         sphere = null;
         aiming = false;
         active = false;
+        hitBox = 50;
     }
 
     public Position getPos() {
@@ -127,7 +130,6 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
 
     public void fireMissile(){
         if(getSphere().hasEnemyInside()){
-
             Log.println(Log.ASSERT,"enemy_targeting", this.getClass() + " ENEMY_WAS_HIT - DMG: " + getDamage());
             getSphere().hitEnemy(this.getDamage());
         }
@@ -170,6 +172,15 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
         this.active = active;
     }
 
+    protected boolean inHitBox(Position p){
+        Position pc = getPos();
+        int px = p.getxVal()-pc.getxVal();
+        int py = p.getyVal()-pc.getyVal();
+        double distance = Math.sqrt((px*px)+(py*py));
+
+        return distance <= hitBox;
+    }
+
     @Override
     public void onEnemyMovement(Enemy e) {
 
@@ -202,9 +213,10 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
         sphere.draw(canvas);
         if(isActive()){
             Paint p = new Paint();
-            p.setStyle(Paint.Style.STROKE);
-            p.setColor(Color.BLACK);
+            p.setStyle(Paint.Style.FILL_AND_STROKE);
+            p.setColor(Color.parseColor("#8fe9ff"));
             p.setStrokeWidth(10);
+            p.setAlpha(80);
             canvas.drawCircle(pos.getxVal(),pos.getyVal(),radius,p);
         }
     }
