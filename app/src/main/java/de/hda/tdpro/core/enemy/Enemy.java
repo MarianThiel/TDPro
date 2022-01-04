@@ -214,6 +214,9 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
         }
     }
 
+    public boolean isOnScreen(){
+        return position != null && !isFinished();
+    }
 
 
     @Override
@@ -265,7 +268,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
 
     @Override
     public void draw(Canvas canvas) {
-        if(position!=null && isAlive()){
+        if(position != null){
             canvas.drawBitmap(image, position.getxVal()-(image.getWidth()/2), position.getyVal()-(image.getHeight()/2),null);
             String s = Integer.toString(hp);
             Paint p = new Paint();

@@ -1,6 +1,5 @@
 package de.hda.tdpro.core.enemy;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.util.Log;
 
@@ -95,12 +94,9 @@ public class WaveManager implements Drawable {
 
     public boolean isCurrentWaveFinished(){
        for (int i = 0; i < waves[currentWave].getENEMIES_IN_WAVE(); i++){
-           Log.println(Log.ASSERT,"WAVE","");
            Enemy e = waves[currentWave].getEnemy(i);
-
            if(e != null){
-               Log.println(Log.ASSERT,"WAVE",i+ ": " + e.isFinished());
-               if(!e.isFinished()){
+               if(!e.isFinished() && e.isAlive()){
                    return false;
                }
            }
@@ -109,7 +105,8 @@ public class WaveManager implements Drawable {
     }
 
     public void prepare(){
-        currentWave++;
+        if(currentWave<NUMBER_OF_WAVES-1)
+            currentWave++;
     }
 
     public int getNUMBER_OF_WAVES() {
@@ -120,8 +117,37 @@ public class WaveManager implements Drawable {
         return currentWave;
     }
 
+    private List<Enemy> getEnemiesOnScreen(){
+        List<Enemy> list = new LinkedList<>();
+
+        for(int i = 0; i < waves[currentWave].getENEMIES_IN_WAVE(); i++){
+            Enemy e = waves[currentWave].getEnemy(i);
+            if(e != null && e.isOnScreen()){
+                list.add(e);
+            }
+        }
+        return list;
+    }
+
     @Override
     public void draw(Canvas canvas) {
         waves[currentWave].draw(canvas);
+    }
+
+    public void pause(){
+      waves[currentWave].pauseWaveEjecting();
+      List<Enemy> lst = getEnemiesOnScreen();
+      for(Enemy e : lst){
+        e.stopWalking();
+      }
+    }
+
+    public void resume(){
+        waves[currentWave].resumeWaveEjecting();
+        List<Enemy> lst = getEnemiesOnScreen();
+        for(Enemy e : lst){
+
+            e.initWalking();
+        }
     }
 }
