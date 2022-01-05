@@ -14,6 +14,8 @@ public class EndGameActivity extends AppCompatActivity {
 
     private TextView endGameMessage;
     private ImageButton backButton;
+    private TextView earnedMoney;
+    private TextView enemiesKilled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,8 @@ public class EndGameActivity extends AppCompatActivity {
 
         endGameMessage = findViewById(R.id.EndGameMessage);
         backButton = findViewById(R.id.ReturnToLevelSelect);
+        earnedMoney = findViewById(R.id.EarnedMoney);
+        enemiesKilled = findViewById(R.id.EnemiesKilled);
 
         Intent intent = getIntent();
         boolean win = intent.getBooleanExtra("WIN", false);
