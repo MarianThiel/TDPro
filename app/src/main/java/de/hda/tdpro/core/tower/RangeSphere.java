@@ -9,6 +9,7 @@ import java.util.PriorityQueue;
 import de.hda.tdpro.core.Drawable;
 import de.hda.tdpro.core.Position;
 import de.hda.tdpro.core.enemy.Enemy;
+import de.hda.tdpro.core.tower.priority.EnemyFirstComparator;
 import de.hda.tdpro.core.tower.priority.EnemyHPMaxComparator;
 import de.hda.tdpro.core.tower.priority.EnemyHPMinComparator;
 import de.hda.tdpro.core.tower.priority.Priority;
@@ -53,7 +54,7 @@ public class RangeSphere implements Drawable {
      */
     public RangeSphere(Tower t, int range) {
         this.range = range;
-        cmp = new EnemyHPMinComparator();
+        cmp = new EnemyFirstComparator();
         queue = new PriorityQueue<>(cmp);
         this.tower = t;
 

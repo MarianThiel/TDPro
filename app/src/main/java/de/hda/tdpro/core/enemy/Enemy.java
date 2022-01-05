@@ -63,7 +63,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
     /**
      * Image of enemy
      */
-    private Bitmap image;
+    private Bitmap[] image;
     /**
      * observers of enemy
      */
@@ -73,6 +73,12 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
 
     private final long SLEEP;
 
+    private int imageIndex;
+
+    private int stepCount;
+
+    private int positionAsInt;
+
     /**
      * default constructor
      * @param hp
@@ -80,7 +86,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
      * @param velocity
      * @param img
      */
-    public Enemy(int hp, int armor, float velocity, Bitmap img) {
+    public Enemy(int hp, int armor, float velocity, Bitmap[] img) {
         this.hp = hp;
         this.armor = armor;
         this.velocity = velocity;
@@ -89,6 +95,9 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
         observers = new LinkedList<>();
         fin = false;
         SLEEP = (long)(1000/velocity);
+        imageIndex = 0;
+        stepCount = 0;
+        positionAsInt = 0;
     }
 
     /**
@@ -153,6 +162,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
      */
     public void setPosition(Position position) {
         this.position = position;
+        positionAsInt++;
         notifyOnMovement();
     }
 
@@ -172,9 +182,11 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
      * starts the thread
      */
     public void initWalking(){
-        walking = true;
-        walkingThread = new Thread(this);
-        walkingThread.start();
+        if(walkingThread == null || walkingThread.isInterrupted() || !walkingThread.isAlive()){
+            walking = true;
+            walkingThread = new Thread(this);
+            walkingThread.start();
+        }
     }
 
     /**
@@ -220,6 +232,10 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
         }
     }
 
+    public int getPositionAsIndex(){
+        return positionAsInt;
+    }
+
     public boolean isOnScreen(){
         return position != null && !isFinished();
     }
@@ -262,7 +278,11 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
     @Override
     public void run() {
         while(walking){
+            if (stepCount % 6 == 0){
+                imageIndex = (imageIndex + 1) % image.length;
+            }
             walkStep();
+            stepCount++;
 
             try {
                 Thread.sleep(SLEEP);
@@ -275,11 +295,11 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
     @Override
     public void draw(Canvas canvas) {
         if(position != null){
-            canvas.drawBitmap(image, position.getxVal()-(image.getWidth()/2), position.getyVal()-(image.getHeight()/2),null);
+            canvas.drawBitmap(image[imageIndex], position.getxVal()-(image[imageIndex].getWidth()/2), position.getyVal()-(image[imageIndex].getHeight()/2),null);
             String s = Integer.toString(hp);
             Paint p = new Paint();
             p.setTextSize(50);
-            canvas.drawText(s,position.getxVal()-(image.getWidth()/2),position.getyVal()+10,p);
+            canvas.drawText(s,position.getxVal()-(image[imageIndex].getWidth()/2),position.getyVal()+10,p);
         }
 
     }

@@ -50,7 +50,7 @@ public class RelativePath extends Path{
     public void draw(Canvas canvas) {
         Paint p = new Paint();
         p.setColor(Color.parseColor("#4d320c"));
-        p.setStrokeWidth(80);
+        p.setStrokeWidth(100);
         Vector2D sum = new Vector2D(start.getX(), start.getY());
         Vector2D vStart;
         Vector2D vEnd;
@@ -59,7 +59,7 @@ public class RelativePath extends Path{
             vEnd = vStart.add(new Vector2D(pt.getNextPoint().getX(),pt.getNextPoint().getY()));
             sum = vEnd;
             canvas.drawLine((float) vStart.x,(float) vStart.y,(float) vEnd.x,(float) vEnd.y,p);
-            canvas.drawCircle((float) vEnd.x,(float) vEnd.y,40,p);
+            canvas.drawCircle((float) vEnd.x,(float) vEnd.y,50,p);
         }
     }
 }
