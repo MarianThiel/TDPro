@@ -260,8 +260,10 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
 
     @Override
     public void notifyEnemyDying() {
-        for(EnemyObserver o : observers){
-            o.onEnemyDying(this);
+        synchronized (observers) {
+            for (EnemyObserver o : observers) {
+                o.onEnemyDying(this);
+            }
         }
     }
 

@@ -63,7 +63,7 @@ public class GameFactory {
     }
 
     private Game parseGameConfig(String filename,Path path) throws ParserConfigurationException, IOException, SAXException {
-        //documentBuilderFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING,false);
+
 
         int NUMBER_OF_WAVES;
 

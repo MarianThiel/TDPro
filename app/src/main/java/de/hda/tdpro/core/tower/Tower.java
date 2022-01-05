@@ -183,17 +183,19 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
 
     @Override
     public void onEnemyMovement(Enemy e) {
-
-        Position p = e.getPosition();
-        if(getSphere().containsEnemy(e)){
-            if(!getSphere().intersects(p)){
-                getSphere().releaseEnemy(e);
-            }
-        }else{ // !sphere.containsEnemy(e)
-            if(getSphere().intersects(p) && e.getHp()>0){
-                getSphere().targetEnemy(e);
+        if(e != null){
+            Position p = e.getPosition();
+            if(getSphere().containsEnemy(e)){
+                if(!getSphere().intersects(p)){
+                    getSphere().releaseEnemy(e);
+                }
+            }else{ // !sphere.containsEnemy(e)
+                if(getSphere().intersects(p) && e.getHp()>0){
+                    getSphere().targetEnemy(e);
+                }
             }
         }
+
     }
 
     @Override

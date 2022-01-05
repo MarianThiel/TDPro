@@ -66,7 +66,7 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
         pointingMode = PointingMode.SELECTION_MODE;
         listeners = new ArrayList<>();
         upgrades = new HashMap<>();
-        towerManager = new TowerManager(5);
+        towerManager = new TowerManager(10);
         this.path = path;
         this.waveManager = waveManager;
         bg = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.grass_template2);
@@ -77,43 +77,7 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
         //initDemoData();
     }
 
-    private void initDemoData() {
 
-
-        addUpgrade(new MetaUpgrade("DMG-1",10,0,0,20));
-        addUpgrade(new MetaUpgrade("VEL-1",0,10,0,20));
-        addUpgrade(new MetaUpgrade("RAD-1",0,00,10,20));
-
-
-
-        path = new Path();
-        path.addStaticPoint(0,0);
-        path.addStaticPoint(50,300);
-        path.addStaticPoint(300,500);
-        path.addStaticPoint(500,550);
-        path.addStaticPoint(500,650);
-        path.addStaticPoint(1000,750);
-        path.addStaticPoint(1000,450);
-        path.addStaticPoint(500,450);
-        path.addStaticPoint(500,250);
-        path.addStaticPoint(1500,250);
-        path.addStaticPoint(1500,1250);
-        //wave = new EnemyWave(13,path);
-        waveManager = new WaveManager(1,path);
-        waveManager.initDemoData();
-        towerManager = new TowerManager(10);
-        towerManager.placeTower(TowerType.FIRE_TOWER,new Position(400,400));
-        towerManager.placeTower(TowerType.FIRE_TOWER,new Position(800,400));
-        towerManager.placeTower(TowerType.FIRE_TOWER,new Position(600,600));
-        towerManager.placeTower(TowerType.FIRE_TOWER,new Position(500,500));
-        towerManager.placeTower(TowerType.FIRE_TOWER,new Position(500,500));
-        towerManager.placeTower(TowerType.FIRE_TOWER,new Position(500,500));
-        towerManager.placeTower(TowerType.FIRE_TOWER,new Position(500,500));
-        towerManager.placeTower(TowerType.FIRE_TOWER,new Position(500,500));
-        towerManager.placeTower(TowerType.FIRE_TOWER,new Position(500,500));
-        towerManager.placeTower(TowerType.FIRE_TOWER,new Position(500,500));
-
-    }
 
 
     public void selectTower(int x, int y){
@@ -241,17 +205,7 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
         path.draw(canvas);
         waveManager.draw(canvas);
         towerManager.draw(canvas);
-        /*
-        towerManager.getTower(0).draw(canvas);
-        towerManager.getTower(1).draw(canvas);
-        towerManager.getTower(2).draw(canvas);
-        towerManager.getTower(4).draw(canvas);
-        towerManager.getTower(5).draw(canvas);
-        towerManager.getTower(6).draw(canvas);
-        towerManager.getTower(7).draw(canvas);
-        if(towerManager.getTower(3)!=null){
-            towerManager.getTower(3).draw(canvas);
-        }*/
+
     }
 
     @Override
