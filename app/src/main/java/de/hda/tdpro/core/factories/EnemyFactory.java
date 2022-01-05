@@ -38,7 +38,7 @@ public class EnemyFactory {
     }
 
     public Enemy createL1Tank(){
-        return new Enemy(1000,50, 50,BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.fire_tower));
+        return new Enemy(1000,50, 50,BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.ghost_idle4));
     }
 
     public Enemy createEnemyByType(EnemyType type){
