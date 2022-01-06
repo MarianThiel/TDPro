@@ -49,6 +49,8 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
 
     private ImageButton btnSettings;
 
+    private ImageButton btnBuyAbort;
+
     private ScrollView contextMenu;
 
     private LinearLayout contextMenuLayout;
@@ -120,23 +122,30 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
         btnPausePlay = findViewById(R.id.btnPausePlay);
         btnTowerCreate = findViewById(R.id.btnCreateTower);
         btnSettings = findViewById(R.id.btnSettings);
+        btnBuyAbort = findViewById(R.id.buyTowerAbort);
         contextMenu = findViewById(R.id.contextMenu);
         contextMenuLayout = findViewById(R.id.contextMenuLayout);
         txt_health = findViewById(R.id.txthealth);
         txt_gold = findViewById(R.id.txtgold);
         txt_waves = findViewById(R.id.txtwaves);
 
+        btnBuyAbort.setVisibility(View.GONE);
 
         btnNextWave.setOnClickListener(e->{
             gameModel.startNextWave();
         });
+
         btnSettings.setOnClickListener(e->{
-            
+            gameView.pause();
+            Intent i = new Intent(InGameActivity.this,SettingsActivity.class);
         });
+
         btnTowerCreate.setOnClickListener(e->{
             //showTowerBuyView();
+            btnBuyAbort.setVisibility(View.VISIBLE);
             gameView.setMode(PointingMode.PLACE_TOWER_MODE);
         });
+
         btnPausePlay.setOnClickListener(e->{
             if(run){
                 gameView.pause();
@@ -149,30 +158,19 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
                 run = true;
             }
         });
+
         btnFastForward.setOnClickListener(e->{
             btnFastForward.setActivated(!btnFastForward.isActivated());
         });
+
+        btnBuyAbort.setOnClickListener(e->{
+            gameView.setMode(PointingMode.SELECTION_MODE);
+            btnBuyAbort.setVisibility(View.GONE);
+        });
+
     }
 
-    private void validateContextMenu(PointingMode mode){
-        switch (mode){
-            case SELECTION_MODE:
-                //TODO: write code for displaying tower selection context
-                if(gameView.game.getSelectedTower() != null){
-                    showSelectionContext(gameView.game.getSelectedTower());
-                }else{
-                    showSelectionContext(null);
-                    hideContextMenu();
-                }
-                break;
-            case PLACE_TOWER_MODE:
-                //TODO: list al tower Types to select from
-                break;
-            case USE_ABILITY_MODE:
-                //TODO: handle ability context
-                break;
-        }
-    }
+
     private void showSelectionContext(Tower t){
         if(t != null){
             //TODO: present tower attributes and upgrade/sell options
@@ -255,5 +253,10 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
         Intent intent = new Intent(InGameActivity.this, EndGameActivity.class);
         intent.putExtra("WIN",true);
         startActivity(intent);
+    }
+
+    @Override
+    public void updateOnTowerPlacement() {
+        btnBuyAbort.setVisibility(View.GONE);
     }
 }
