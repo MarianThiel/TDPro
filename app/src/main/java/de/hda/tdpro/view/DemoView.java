@@ -4,18 +4,22 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import de.hda.tdpro.R;
+import de.hda.tdpro.StaticContext;
 import de.hda.tdpro.core.Game;
 import de.hda.tdpro.core.GameListener;
 import de.hda.tdpro.core.PointingMode;
@@ -38,6 +42,8 @@ public class DemoView extends SurfaceView implements Runnable, GameListener {
 
     private int RENDER_TIME;
 
+    private boolean placingTower;
+
     public DemoView(Context context) {
         super(context);
         init(context);
@@ -57,7 +63,7 @@ public class DemoView extends SurfaceView implements Runnable, GameListener {
         mode = PointingMode.SELECTION_MODE;
         RENDER_TIME = 1;
         surfaceHolder = getHolder();
-
+        placingTower = false;
 
 
         this.setOnTouchListener((view, motionEvent) -> {
@@ -96,6 +102,24 @@ public class DemoView extends SurfaceView implements Runnable, GameListener {
                 canvas.drawColor(Color.WHITE);
                 //Drawing the player
                 game.draw(canvas);
+                if(placingTower){
+                    WindowManager wm = ((WindowManager) StaticContext.getContext().getSystemService(Context.WINDOW_SERVICE));
+                    DisplayMetrics metrics = new DisplayMetrics();
+                    wm.getDefaultDisplay().getMetrics(metrics);
+
+                    int width = metrics.widthPixels;
+                    int height = metrics.heightPixels;
+
+                    Paint p = new Paint();
+                    p.setStyle(Paint.Style.FILL_AND_STROKE);
+                    p.setColor(Color.parseColor("#212121"));
+                    p.setStrokeWidth(10);
+                    p.setAlpha(80);
+                    Rect r = new Rect();
+                    r.set(0,0,width,height);
+                    canvas.drawRect(r,p);
+
+                }
                 //Unlocking the canvas
                 surfaceHolder.unlockCanvasAndPost(canvas);
             }
@@ -170,7 +194,21 @@ public class DemoView extends SurfaceView implements Runnable, GameListener {
 
     }
 
+    @Override
+    public void updateOnTowerPlacement() {
+
+    }
+
     public void setMode(PointingMode mode){
         this.mode = mode;
+
+        switch (mode){
+            case PLACE_TOWER_MODE:
+                placingTower = true;
+                break;
+            case SELECTION_MODE:
+                placingTower = false;
+                break;
+        }
     }
 }
