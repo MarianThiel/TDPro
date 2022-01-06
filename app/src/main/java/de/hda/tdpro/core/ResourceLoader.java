@@ -40,12 +40,25 @@ public class ResourceLoader {
         Bitmap[] nm = new Bitmap[4];
 
         nm[0] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.nm1);
+        nm[0] = Bitmap.createScaledBitmap(nm[0],100,100,false);
         nm[1] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.nm2);
+        nm[1] = Bitmap.createScaledBitmap(nm[1],100,100,false);
         nm[2] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.nm3);
+        nm[2] = Bitmap.createScaledBitmap(nm[2],100,100,false);
         nm[3] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.nm4);
+        nm[3] = Bitmap.createScaledBitmap(nm[3],100,100,false);
 
         animations.put("NM",nm);
 
+        Bitmap[] daem = new Bitmap[6];
+
+        daem[0] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.daem1);
+        daem[1] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.daem2);
+        daem[2] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.daem3);
+        daem[3] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.daem4);
+        daem[4] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.daem5);
+        daem[5] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.daem6);
+        animations.put("L1BOSS",daem);
     }
 
     public Bitmap[] getAnimation(String name){

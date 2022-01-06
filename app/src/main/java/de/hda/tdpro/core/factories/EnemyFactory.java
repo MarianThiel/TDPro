@@ -48,6 +48,12 @@ public class EnemyFactory {
         return new Enemy(100,50, 100,images);
     }
 
+    public Enemy createL1Boss(){
+        Bitmap[] images = ResourceLoader.getInstance().getAnimation("L1BOSS");
+        return new Enemy(12000,50, 30,images);
+    }
+
+
     public Enemy createEnemyByType(EnemyType type){
         Enemy e = null;
         switch (type){
@@ -56,6 +62,10 @@ public class EnemyFactory {
                 break;
             case L1TANK:
                 e = createL1Tank();
+                break;
+            case L1BOSS:
+                e = createL1Boss();
+                break;
         }
         return e;
     }

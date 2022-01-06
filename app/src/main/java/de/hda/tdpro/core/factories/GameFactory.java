@@ -62,6 +62,21 @@ public class GameFactory {
         return null;
     }
 
+    public Game createDemoLevel(){
+        Path p = PathFactory.getInstance().createRelativePathTest();
+        try {
+            Game g = parseGameConfig("demo_level.xml", p);
+            return g;
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private Game parseGameConfig(String filename,Path path) throws ParserConfigurationException, IOException, SAXException {
 
 

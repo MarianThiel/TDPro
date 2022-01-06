@@ -112,7 +112,7 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
 
     private void init(){
 
-        gameModel = GameFactory.getInstance().createLevelOne();
+        gameModel = GameFactory.getInstance().createDemoLevel();
         gameModel.addGameListener(this);
         gameModel.addGameListener(gameView);
         gameView.setGameModel(gameModel);

@@ -1,10 +1,13 @@
 package de.hda.tdpro.core;
 
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,7 +72,16 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
         towerManager = new TowerManager(10);
         this.path = path;
         this.waveManager = waveManager;
-        bg = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.grass_template2);
+        Bitmap b = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.b2);
+        WindowManager wm = ((WindowManager) StaticContext.getContext().getSystemService(Context.WINDOW_SERVICE));
+        DisplayMetrics metrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(metrics);
+
+        int width = metrics.widthPixels;
+        int height = metrics.heightPixels;
+
+        bg = Bitmap.createScaledBitmap(b,width,height,false);
+
         runningWave = false;
         prepared = false;
         health = 10000000; // test
