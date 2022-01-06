@@ -114,7 +114,7 @@ public class EnemyWave implements Runnable, Drawable {
             enemies[i].initWalking();
             currentEnemy = i;
             try {
-                Thread.sleep(700);
+                Thread.sleep(400);
             } catch (InterruptedException interruptedException) {
                 interruptedException.printStackTrace();
             }

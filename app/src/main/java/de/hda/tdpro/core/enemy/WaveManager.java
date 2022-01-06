@@ -105,7 +105,7 @@ public class WaveManager implements Drawable {
     }
 
     public void prepare(){
-        if(currentWave<NUMBER_OF_WAVES-1)
+       // if(currentWave<NUMBER_OF_WAVES-1)
             currentWave++;
     }
 

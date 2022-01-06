@@ -271,7 +271,10 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
     public void notifyEnemySuccess() {
         synchronized (observers){
             for(EnemyObserver o : observers){
-                o.onEnemySuccess(this);
+                synchronized (o){
+                    o.onEnemySuccess(this);
+                }
+
             }
         }
 
@@ -280,7 +283,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
     @Override
     public void run() {
         while(walking){
-            if (stepCount % 6 == 0){
+            if (stepCount % 10 == 0){
                 imageIndex = (imageIndex + 1) % image.length;
             }
             walkStep();
@@ -301,7 +304,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
             String s = Integer.toString(hp);
             Paint p = new Paint();
             p.setTextSize(50);
-            canvas.drawText(s,position.getxVal()-(image[imageIndex].getWidth()/2),position.getyVal()+10,p);
+            canvas.drawText(s,position.getxVal()-(image[imageIndex].getWidth()/2),position.getyVal()+100,p);
         }
 
     }
