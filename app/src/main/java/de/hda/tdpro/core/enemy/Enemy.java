@@ -253,8 +253,10 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
 
     @Override
     public void notifyOnMovement() {
-        for(EnemyObserver o : observers){
-            o.onEnemyMovement(this);
+        synchronized (observers) {
+            for (EnemyObserver o : observers) {
+                o.onEnemyMovement(this);
+            }
         }
     }
 
@@ -283,7 +285,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
     @Override
     public void run() {
         while(walking){
-            if (stepCount % 10 == 0){
+            if (stepCount % 4 == 0){
                 imageIndex = (imageIndex + 1) % image.length;
             }
             walkStep();
