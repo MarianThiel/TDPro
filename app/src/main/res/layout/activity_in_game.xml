@@ -145,6 +145,15 @@
                 android:layout_weight="1"
                 android:text="TextView" />
         </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/buyTowerAbort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnNextWave"
+            app:srcCompat="@android:drawable/ic_delete" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

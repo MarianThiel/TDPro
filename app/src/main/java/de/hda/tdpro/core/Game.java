@@ -72,7 +72,7 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
         bg = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.grass_template2);
         runningWave = false;
         prepared = false;
-        health = 100000; // test
+        health = 10000000; // test
         gold = 200; // test
         //initDemoData();
     }
@@ -132,6 +132,7 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
         Tower t = towerManager.placeTower(type,new Position(x,y));
         if(t != null)
             addTowerAsListener(t);
+        notifyOnTowerPlacement();
         return t != null;
     }
 
@@ -187,6 +188,7 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
     public int getMaxWaves(){
         return waveManager.getNUMBER_OF_WAVES();
     }
+
     public int getCurrentWave(){
         return waveManager.getCurrentWave()+1;
     }
@@ -201,6 +203,7 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
 
     @Override
     public void draw(Canvas canvas) {
+
         canvas.drawBitmap(bg,0,0,null);
         path.draw(canvas);
         waveManager.draw(canvas);
@@ -242,6 +245,13 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
     }
 
     @Override
+    public void notifyOnTowerPlacement() {
+        for(GameListener l : listeners){
+            l.updateOnTowerPlacement();
+        }
+    }
+
+    @Override
     public void onEnemyMovement(Enemy e) {
 
     }
@@ -264,8 +274,11 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
 
     private void prepareOnEvent() {
         if (waveManager.isCurrentWaveFinished()) {
-            if(waveManager.getCurrentWave()-1 == waveManager.getNUMBER_OF_WAVES())
+            if(waveManager.getCurrentWave() + 1 == waveManager.getNUMBER_OF_WAVES()){
+                notifyOnGameWinning();
                 return;
+            }
+
             runningWave = false;
             waveManager.prepare();
             prepareNextWave();
