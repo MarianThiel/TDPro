@@ -9,156 +9,11 @@
 
 
     <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton4"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@mipmap/deathschroud"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton5"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton"
-        android:src="@mipmap/forestfriend2"
-        tools:ignore="SpeakableTextPresentCheck"
-        />
-
-    <ImageButton
-        android:id="@+id/imageButton3"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton6"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton2"
-        app:layout_constraintVertical_bias="0.589"
-        android:src="@mipmap/interference3"
-        tools:ignore="SpeakableTextPresentCheck"
-        />
-
-    <ImageButton
-        android:id="@+id/imageButton4"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton7"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@mipmap/deathschroud"
-        tools:ignore="SpeakableTextPresentCheck"
-       />
-
-    <ImageButton
-        android:id="@+id/imageButton5"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton8"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton4"
-        android:src="@mipmap/forestfriend2"
-        tools:ignore="SpeakableTextPresentCheck"
-         />
-
-    <ImageButton
-        android:id="@+id/imageButton6"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton9"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton5"
-        app:layout_constraintVertical_bias="0.564"
-        android:src="@mipmap/interference3"
-        tools:ignore="SpeakableTextPresentCheck"
-      />
-
-    <ImageButton
-        android:id="@+id/imageButton7"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="36dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@mipmap/deathschroud"
-        tools:ignore="SpeakableTextPresentCheck"
-        />
-
-    <ImageButton
-        android:id="@+id/imageButton8"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="36dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton7"
-        android:src="@mipmap/forestfriend2"
-        tools:ignore="SpeakableTextPresentCheck"
-         />
-
-    <ImageButton
-        android:id="@+id/imageButton9"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginEnd="36dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton8"
-        app:layout_constraintVertical_bias="0.564"
-        android:src="@mipmap/interference3"
-        tools:ignore="SpeakableTextPresentCheck"
-         />
-
-    <TextView
-        android:id="@+id/deathschroud"
-        android:layout_width="64dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="48dp"
-        android:text="Death Shroud"
-        android:textColor="#FFEA00"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/forestfriend"
-        android:layout_width="85dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="48dp"
-        android:text="Forest Friend"
-        android:textColor="#FFEA00"
-
-        app:layout_constraintEnd_toStartOf="@+id/imageButton2"
-        app:layout_constraintTop_toBottomOf="@+id/deathschroud" />
-
-    <TextView
-        android:id="@+id/interference"
-        android:layout_width="85dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="48dp"
-        android:text="Interference"
-        android:textColor="#FFEA00"
-
-        app:layout_constraintEnd_toStartOf="@+id/imageButton3"
-        app:layout_constraintTop_toBottomOf="@+id/forestfriend" />
-
-    <ImageButton
         android:id="@+id/returnFromAbility"
         android:layout_width="110dp"
         android:layout_height="56dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="52dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@android:drawable/ic_menu_revert"
@@ -166,23 +21,166 @@
 
     <TextView
         android:id="@+id/messageFromAbility"
-        android:layout_width="162dp"
-        android:layout_height="99dp"
+        android:layout_width="167dp"
+        android:layout_height="167dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="24dp"
         android:text=""
-        android:textColor="#FFEA00"
 
+        android:textColor="#FFEA00"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonbuy" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/buttonbuy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="24dp"
         android:text="Buy"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/messageFromAbility" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="506dp"
+        android:layout_height="394dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/imageButton7"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:src="@mipmap/deathschroud"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="32dp"
+            android:src="@mipmap/interference3"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton6"
+            app:layout_constraintTop_toBottomOf="@+id/imageButton2"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageButton
+            android:id="@+id/imageButton5"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="32dp"
+            android:src="@mipmap/forestfriend2"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton8"
+            app:layout_constraintTop_toBottomOf="@+id/imageButton4"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageButton
+            android:id="@+id/imageButton9"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="32dp"
+            android:src="@mipmap/interference3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageButton8"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:src="@mipmap/deathschroud"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton4"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/forestfriend"
+            android:layout_width="91dp"
+            android:layout_height="41dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="36dp"
+
+            android:text="Forest Friend"
+            android:textColor="#FFEA00"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+            app:layout_constraintTop_toBottomOf="@+id/deathschroud" />
+
+        <ImageButton
+            android:id="@+id/imageButton4"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:src="@mipmap/deathschroud"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton7"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageButton
+            android:id="@+id/imageButton6"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="32dp"
+            android:src="@mipmap/interference3"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton9"
+            app:layout_constraintTop_toBottomOf="@+id/imageButton5"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/deathschroud"
+            android:layout_width="88dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="56dp"
+            android:layout_marginEnd="36dp"
+            android:text="Death Shroud"
+            android:textColor="#FFEA00"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/interference"
+            android:layout_width="91dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="84dp"
+            android:layout_marginEnd="36dp"
+
+            android:text="Interference"
+            android:textColor="#FFEA00"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton3"
+            app:layout_constraintTop_toBottomOf="@+id/forestfriend" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="32dp"
+            android:src="@mipmap/forestfriend2"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton5"
+            app:layout_constraintTop_toBottomOf="@+id/imageButton"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageButton
+            android:id="@+id/imageButton8"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="32dp"
+            android:src="@mipmap/forestfriend2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageButton7"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
