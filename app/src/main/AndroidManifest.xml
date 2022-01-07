@@ -4,27 +4,25 @@
 
     <application
         android:allowBackup="true"
+        android:configChanges="orientation|screenSize"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:configChanges="orientation|screenSize"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-        <activity android:name=".activity.InGameActivity"></activity>
+        <activity
+            android:name=".activity.UpgradeAbility"
+            android:exported="false" />
+        <activity
+            android:name=".activity.UpgradeTower"
+            android:exported="false" />
+        <activity android:name=".activity.InGameActivity" />
         <activity android:name=".activity.EndGameActivity" />
-        <activity android:name=".activity.LexiconActivity"/>
-        <activity android:name=".activity.SettingsActivity">
-        
-        </activity>
+        <activity android:name=".activity.LexiconActivity" />
+        <activity android:name=".activity.SettingsActivity" />
         <activity android:name=".activity.LevelSelectionActivity" />
-        <activity android:name=".activity.TowerUpgradeActivity" >
-
-        </activity>
-        <activity android:name=".activity.AbilityUpgradeActivity" >
-
-        </activity>
-
+        <activity android:name=".activity.TowerUpgradeActivity" />
+        <activity android:name=".activity.AbilityUpgradeActivity" />
         <activity android:name=".activity.MainMenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,8 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
     </application>
 
 </manifest>

@@ -182,7 +182,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
      * starts the thread
      */
     public void initWalking(){
-        if(walkingThread == null || walkingThread.isInterrupted() || !walkingThread.isAlive()){
+        if(!walking){
             walking = true;
             walkingThread = new Thread(this);
             walkingThread.start();
@@ -193,12 +193,14 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
      * stops the thread
      */
     public void stopWalking(){
-        walking = false;
-        walkingThread.interrupt();
-        try {
-            walkingThread.join();
-        } catch (InterruptedException e) {
+        if(walking){
+            walking = false;
+            walkingThread.interrupt();
+            try {
+                walkingThread.join();
+            } catch (InterruptedException e) {
 
+            }
         }
     }
 

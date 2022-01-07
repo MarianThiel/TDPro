@@ -44,11 +44,11 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
             startActivity(fp);
         }
         if (view == spellSelect) {
-            Intent fp = new Intent(getApplicationContext(), AbilityUpgradeActivity.class);
+            Intent fp = new Intent(getApplicationContext(), UpgradeAbility.class);
             startActivity(fp);
         }
         if (view == towerSelect) {
-            Intent fp = new Intent(getApplicationContext(), TowerUpgradeActivity.class);
+            Intent fp = new Intent(getApplicationContext(), UpgradeTower.class);
             startActivity(fp);
         }
         if (view == settingsSelect) {

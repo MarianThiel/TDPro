@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.media.MediaPlayer;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
@@ -60,6 +61,8 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
 
     private boolean runningWave;
 
+
+
     /**
      * basic constructor for Game class
      * @param waveManager r
@@ -84,9 +87,11 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
 
         runningWave = false;
         prepared = false;
-        health = 10000000; // test
+        health = 1000; // test
         gold = 200; // test
         //initDemoData();
+
+
     }
 
 
@@ -281,13 +286,18 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
     public void onEnemyDying(Enemy e) {
         prepareOnEvent();
         notifyOnChange();
+
+
         //Log.println(Log.ASSERT,"WAVE","WAVE STARTED");
     }
 
     private void prepareOnEvent() {
         if (waveManager.isCurrentWaveFinished()) {
             if(waveManager.getCurrentWave() + 1 == waveManager.getNUMBER_OF_WAVES()){
-                notifyOnGameWinning();
+                if(health <= 0){
+                    notifyOnGameOver();
+                }else
+                    notifyOnGameWinning();
                 return;
             }
 
@@ -303,10 +313,12 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
 
     public void pause(){
         waveManager.pause();
+        towerManager.pauseTowers();
 
     }
 
     public void resume(){
         waveManager.resume();
+        towerManager.resumeTowers();
     }
 }

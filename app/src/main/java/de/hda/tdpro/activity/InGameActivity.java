@@ -1,6 +1,7 @@
 package de.hda.tdpro.activity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import java.io.InputStream;
 
 import de.hda.tdpro.R;
 import de.hda.tdpro.StaticContext;
+import de.hda.tdpro.core.GameStateSaver;
 import de.hda.tdpro.core.factories.GameFactory;
 import de.hda.tdpro.core.tower.upgrades.MetaUpgrade;
 import de.hda.tdpro.view.DemoView;
@@ -59,6 +61,8 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
     private TextView txt_gold;
     private TextView txt_waves;
 
+
+
     private boolean run;
 
     @Override
@@ -76,6 +80,8 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
 
         run = true;
 
+
+
     }
 
     @Override
@@ -88,6 +94,7 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
     protected void onStop() {
         super.onStop();
         Log.println(Log.ASSERT,"test", "STOP");
+
     }
 
     @Override
@@ -112,7 +119,14 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
 
     private void init(){
 
-        gameModel = GameFactory.getInstance().createDemoLevel();
+        try{
+            gameModel = GameStateSaver.getInstance().loadGame();
+            gameModel.resume();
+        } catch (Exception e) {
+            Log.println(Log.ASSERT,"LOAD", e.getMessage());
+            gameModel = GameFactory.getInstance().createDemoLevel();
+        }
+
         gameModel.addGameListener(this);
         gameModel.addGameListener(gameView);
         gameView.setGameModel(gameModel);
@@ -138,6 +152,13 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
         btnSettings.setOnClickListener(e->{
             gameView.pause();
             Intent i = new Intent(InGameActivity.this,SettingsActivity.class);
+            i.putExtra("INGAME", true);
+            try {
+                GameStateSaver.getInstance().saveGameInstance(gameModel);
+                startActivity(i);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
         });
 
         btnTowerCreate.setOnClickListener(e->{

@@ -131,19 +131,24 @@ public class EnemyWave implements Runnable, Drawable {
     }
 
     public void pauseWaveEjecting(){
-        stopped = true;
-        thread.interrupt();
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if(!stopped){
+            stopped = true;
+            thread.interrupt();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     public void resumeWaveEjecting(){
-        thread = new Thread(this);
-        stopped = false;
-        thread.start();
+        if(stopped){
+            thread = new Thread(this);
+            stopped = false;
+            thread.start();
+        }
 
     }
 }

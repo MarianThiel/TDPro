@@ -20,7 +20,7 @@ public class TowerFactory {
 
     public FireTower createFireTower(){
 
-        return new FireTower(600,10,1,80);
+        return new FireTower(300,50,2,80);
     }
 }
 

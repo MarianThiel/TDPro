@@ -137,16 +137,22 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
     }
 
     public void startAiming(){
-        aiming = true;
-        aimThread = new Thread(this);
-        aimThread.start();
+        if(!aiming){
+            aiming = true;
+            aimThread = new Thread(this);
+            aimThread.start();
+        }
+
     }
     public void stopAiming(){
-        aiming = false;
-        try {
-            aimThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if(aiming){
+            aiming = false;
+            aimThread.interrupt();
+            try {
+                aimThread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 

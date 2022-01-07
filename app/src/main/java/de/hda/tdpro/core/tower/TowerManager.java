@@ -116,7 +116,19 @@ public class TowerManager implements Drawable {
         }
     }
 
-    public void pause(){
+    public void pauseTowers(){
+        for(Tower t : towers){
+            if(t!=null){
+                t.stopAiming();
+            }
+        }
+    }
 
+    public void resumeTowers(){
+        for(Tower t: towers){
+            if (t != null){
+                t.startAiming();
+            }
+        }
     }
 }
