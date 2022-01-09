@@ -1,19 +1,16 @@
 package de.hda.tdpro.activity;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
-import java.io.InputStream;
 
 import de.hda.tdpro.R;
 import de.hda.tdpro.StaticContext;
@@ -52,6 +49,8 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
     private ImageButton btnSettings;
 
     private ImageButton btnBuyAbort;
+
+    private Button upgradeTestButton;
 
     private ScrollView contextMenu;
 
@@ -119,32 +118,15 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
 
     private void init(){
 
-        try{
-            gameModel = GameStateSaver.getInstance().loadGame();
-            gameModel.resume();
-        } catch (Exception e) {
-            Log.println(Log.ASSERT,"LOAD", e.getMessage());
-            gameModel = GameFactory.getInstance().createDemoLevel();
-        }
+        initGame();
 
-        gameModel.addGameListener(this);
-        gameModel.addGameListener(gameView);
-        gameView.setGameModel(gameModel);
+        initComponents();
 
-        btnNextWave = findViewById(R.id.btnNextWave);
-        btnFastForward = findViewById(R.id.btnFastForward);
-        btnPausePlay = findViewById(R.id.btnPausePlay);
-        btnTowerCreate = findViewById(R.id.btnCreateTower);
-        btnSettings = findViewById(R.id.btnSettings);
-        btnBuyAbort = findViewById(R.id.buyTowerAbort);
-        contextMenu = findViewById(R.id.contextMenu);
-        contextMenuLayout = findViewById(R.id.contextMenuLayout);
-        txt_health = findViewById(R.id.txthealth);
-        txt_gold = findViewById(R.id.txtgold);
-        txt_waves = findViewById(R.id.txtwaves);
+        initButtonListeners();
 
-        btnBuyAbort.setVisibility(View.GONE);
+    }
 
+    private void initButtonListeners() {
         btnNextWave.setOnClickListener(e->{
             gameModel.startNextWave();
         });
@@ -188,7 +170,37 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
             gameView.setMode(PointingMode.SELECTION_MODE);
             btnBuyAbort.setVisibility(View.GONE);
         });
+    }
 
+    private void initGame() {
+        try{
+            gameModel = GameStateSaver.getInstance().loadGame();
+            gameModel.resume();
+        } catch (Exception e) {
+            Log.println(Log.ASSERT,"LOAD", e.getMessage());
+            gameModel = GameFactory.getInstance().createDemoLevel();
+        }
+
+        gameModel.addGameListener(this);
+        gameModel.addGameListener(gameView);
+        gameView.setGameModel(gameModel);
+    }
+
+    private void initComponents() {
+
+        btnNextWave = findViewById(R.id.btnNextWave);
+        btnFastForward = findViewById(R.id.btnFastForward);
+        btnPausePlay = findViewById(R.id.btnPausePlay);
+        btnTowerCreate = findViewById(R.id.btnCreateTower);
+        btnSettings = findViewById(R.id.btnSettings);
+        btnBuyAbort = findViewById(R.id.buyTowerAbort);
+        contextMenu = findViewById(R.id.contextMenu);
+        contextMenuLayout = findViewById(R.id.contextMenuLayout);
+        txt_health = findViewById(R.id.txthealth);
+        txt_gold = findViewById(R.id.txtgold);
+        txt_waves = findViewById(R.id.txtwaves);
+
+        btnBuyAbort.setVisibility(View.GONE);
     }
 
 
