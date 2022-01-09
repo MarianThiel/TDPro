@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.media.MediaPlayer;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
@@ -24,6 +23,7 @@ import de.hda.tdpro.core.enemy.WaveManager;
 import de.hda.tdpro.core.tower.Tower;
 import de.hda.tdpro.core.tower.TowerManager;
 import de.hda.tdpro.core.tower.TowerType;
+import de.hda.tdpro.core.tower.UpgradeType;
 import de.hda.tdpro.core.tower.upgrades.MetaUpgrade;
 
 
@@ -87,7 +87,7 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
 
         runningWave = false;
         prepared = false;
-        health = 1000; // test
+        health = 1000000; // test
         gold = 200; // test
         //initDemoData();
 
@@ -153,6 +153,10 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
         return t != null;
     }
 
+    public boolean upgradeSelectedTower(UpgradeType type){
+        return true;
+    }
+
     private void addTowerAsListener(Tower t){
         List<Enemy> l = waveManager.getEnemiesOfCurrentWave();
 
@@ -214,9 +218,9 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
         return gold;
     }
 
-    public void setGold(int gold) {
+    public synchronized void setGold(int gold) {
         this.gold = gold;
-        notifyOnChange();
+
     }
 
     @Override
@@ -285,11 +289,12 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
 
     @Override
     public void onEnemyDying(Enemy e) {
+        setGold(getGold() + e.getGoldDropping());
         prepareOnEvent();
         notifyOnChange();
 
 
-        //Log.println(Log.ASSERT,"WAVE","WAVE STARTED");
+
     }
 
     private void prepareOnEvent() {

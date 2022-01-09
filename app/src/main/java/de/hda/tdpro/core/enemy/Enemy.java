@@ -31,7 +31,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
     /**
      * armor of enemy | note useless until now
      */
-    private int armor;
+    private int goldDropping;
     /**
      * velocity of enemy in steps/seconds
      */
@@ -82,13 +82,13 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
     /**
      * default constructor
      * @param hp
-     * @param armor
+     * @param goldDropping
      * @param velocity
      * @param img
      */
-    public Enemy(int hp, int armor, float velocity, Bitmap[] img) {
+    public Enemy(int hp, int goldDropping, float velocity, Bitmap[] img) {
         this.hp = hp;
-        this.armor = armor;
+        this.goldDropping = goldDropping;
         this.velocity = velocity;
         alive = true;
         image = img;
@@ -103,12 +103,12 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
     /**
      * constructor for TestBench
      * @param hp Hit points of an Enemy
-     * @param armor Armor of an Enemy
+     * @param goldDropping Armor of an Enemy
      * @param velocity velocity of an Enemy
      */
-    public Enemy(int hp, int armor, float velocity) {
+    public Enemy(int hp, int goldDropping, float velocity) {
         this.hp = hp;
-        this.armor = armor;
+        this.goldDropping = goldDropping;
         this.velocity = velocity;
         alive = true;
         observers = new LinkedList<>();
@@ -136,12 +136,12 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
         }
     }
 
-    public int getArmor() {
-        return armor;
+    public int getGoldDropping() {
+        return goldDropping;
     }
 
-    public void setArmor(int armor) {
-        this.armor = armor;
+    public void setGoldDropping(int goldDropping) {
+        this.goldDropping = goldDropping;
     }
 
     public float getVelocity() {
