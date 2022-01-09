@@ -89,7 +89,7 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
         prepared = false;
         health = 1000000; // test
         gold = 200; // test
-        //initDemoData();
+
 
 
     }
