@@ -249,7 +249,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
     }
 
     @Override
-    public void removeEnemyObserver(EnemyObserver o) {
+    public synchronized void removeEnemyObserver(EnemyObserver o) {
         observers.remove(o);
     }
 

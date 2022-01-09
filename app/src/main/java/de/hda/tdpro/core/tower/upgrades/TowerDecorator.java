@@ -1,5 +1,7 @@
 package de.hda.tdpro.core.tower.upgrades;
 
+import android.graphics.Canvas;
+
 import de.hda.tdpro.core.Position;
 import de.hda.tdpro.core.tower.RangeSphere;
 import de.hda.tdpro.core.tower.Tower;
@@ -11,7 +13,7 @@ import de.hda.tdpro.core.tower.Tower;
  * class decorates a tower with upgrade
  * the attribute values are accumulated
  */
-public class TowerDecorator extends Tower {
+public abstract class TowerDecorator extends Tower {
     Tower embeddedTower;
     public TowerDecorator(Tower uTower) {
         super(0,0,0,0);
@@ -61,4 +63,26 @@ public class TowerDecorator extends Tower {
         return embeddedTower.getPos();
     }
 
+    @Override
+    public boolean isActive() {
+        return embeddedTower.isActive();
+    }
+
+    @Override
+    public void setActive(boolean active) {
+        embeddedTower.setActive(active);
+    }
+
+    @Override
+    public void setPos(Position pos) {
+        embeddedTower.setPos(pos);
+    }
+
+
+
+    @Override
+    public void draw(Canvas canvas) {
+        //super.draw(canvas);
+        embeddedTower.draw(canvas);
+    }
 }

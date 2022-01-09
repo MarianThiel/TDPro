@@ -218,14 +218,14 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
 
     @Override
     public void draw(Canvas canvas) {
-        sphere.draw(canvas);
+        getSphere().draw(canvas);
         if(isActive()){
             Paint p = new Paint();
             p.setStyle(Paint.Style.FILL_AND_STROKE);
             p.setColor(Color.parseColor("#8fe9ff"));
             p.setStrokeWidth(10);
             p.setAlpha(80);
-            canvas.drawCircle(pos.getxVal(),pos.getyVal(),radius,p);
+            canvas.drawCircle(getPos().getxVal(),getPos().getyVal(),getRadius(),p);
         }
     }
 

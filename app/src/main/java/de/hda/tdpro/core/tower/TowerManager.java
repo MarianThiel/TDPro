@@ -10,7 +10,7 @@ import de.hda.tdpro.core.Position;
 import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.factories.TowerFactory;
 import de.hda.tdpro.core.tower.upgrades.MetaUpgrade;
-import de.hda.tdpro.core.tower.upgrades.SimpleDMGUpgrade;
+import de.hda.tdpro.core.tower.upgrades.SimpleUpgrade;
 
 public class TowerManager implements Drawable {
 
@@ -44,7 +44,8 @@ public class TowerManager implements Drawable {
         int i = getIndex(t);
         if(upgradePossible(i)){
             towers[i].stopAiming();
-            towers[i] = new SimpleDMGUpgrade(towers[i]);
+            towers[i].setActive(false);
+            towers[i] = new SimpleUpgrade(towers[i],upgrade);
             towers[i].startAiming();
             return true;
         }

@@ -16,6 +16,7 @@ import de.hda.tdpro.R;
 import de.hda.tdpro.StaticContext;
 import de.hda.tdpro.core.GameStateSaver;
 import de.hda.tdpro.core.factories.GameFactory;
+import de.hda.tdpro.core.tower.UpgradeType;
 import de.hda.tdpro.core.tower.upgrades.MetaUpgrade;
 import de.hda.tdpro.view.DemoView;
 import de.hda.tdpro.core.Game;
@@ -170,6 +171,10 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
             gameView.setMode(PointingMode.SELECTION_MODE);
             btnBuyAbort.setVisibility(View.GONE);
         });
+
+        upgradeTestButton.setOnClickListener(e->{
+            gameModel.upgradeSelectedTower(UpgradeType.L1_DMG_UPGRADE);
+        });
     }
 
     private void initGame() {
@@ -200,6 +205,7 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
         txt_gold = findViewById(R.id.txtgold);
         txt_waves = findViewById(R.id.txtwaves);
 
+        upgradeTestButton = findViewById(R.id.btnTestUpgrade);
         btnBuyAbort.setVisibility(View.GONE);
     }
 

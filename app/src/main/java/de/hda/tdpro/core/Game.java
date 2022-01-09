@@ -154,6 +154,9 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
     }
 
     public boolean upgradeSelectedTower(UpgradeType type){
+        MetaUpgrade meta = MetaUpgrade.getMetaUpgrade(type);
+        towerManager.upgradeTower(selectedTower,meta);
+        selectTower(selectedTower.getPos().getxVal(),selectedTower.getPos().getyVal());
         return true;
     }
 
