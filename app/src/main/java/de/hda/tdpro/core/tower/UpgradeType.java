@@ -1,5 +1,5 @@
 package de.hda.tdpro.core.tower;
 
 public enum UpgradeType {
-    DMG_UPGRADE, RANGE_UPGRADE
+    L1_DMG_UPGRADE, L1_RANGE_UPGRADE
 }

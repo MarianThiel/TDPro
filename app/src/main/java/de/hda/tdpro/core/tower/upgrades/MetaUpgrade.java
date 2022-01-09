@@ -1,5 +1,7 @@
 package de.hda.tdpro.core.tower.upgrades;
 
+import de.hda.tdpro.core.tower.UpgradeType;
+
 /**
  * MetaUpgrade defines values for simple upgrades
  */
@@ -41,5 +43,15 @@ public class MetaUpgrade {
 
     public int getPRICE() {
         return PRICE;
+    }
+
+    public static MetaUpgrade getMetaUpgrade(UpgradeType type){
+        switch (type){
+            case L1_DMG_UPGRADE:
+                return new MetaUpgrade("DMG_LVL_1", 10,0,0,0);
+            case L1_RANGE_UPGRADE:
+                return new MetaUpgrade("NULL", 0,0,0,0);
+        }
+        return new MetaUpgrade("NULL", 0,0,0,0);
     }
 }
