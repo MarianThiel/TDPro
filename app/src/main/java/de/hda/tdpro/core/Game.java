@@ -216,6 +216,7 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
 
     public void setGold(int gold) {
         this.gold = gold;
+        notifyOnChange();
     }
 
     @Override
