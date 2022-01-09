@@ -1,21 +1,26 @@
 package de.hda.tdpro.core.tower.upgrades;
 
+import de.hda.tdpro.core.tower.TowerType;
+
 public class MetaTower {
 
-    private String name;
+    private final String name;
 
-    private int dmg;
+    private final int dmg;
 
-    private int range;
+    private final int range;
 
-    private float velocity;
+    private final float velocity;
+
+    private final int price;
 
 
-    public MetaTower(String name, int dmg, int range, float velocity) {
+    public MetaTower(String name, int dmg, int range, float velocity, int price) {
         this.name = name;
         this.dmg = dmg;
         this.range = range;
         this.velocity = velocity;
+        this.price = price;
     }
 
     public String getName() {
@@ -26,23 +31,27 @@ public class MetaTower {
         return dmg;
     }
 
-    public void setDmg(int dmg) {
-        this.dmg = dmg;
-    }
 
     public int getRange() {
         return range;
     }
 
-    public void setRange(int range) {
-        this.range = range;
-    }
 
     public float getVelocity() {
         return velocity;
     }
 
-    public void setVelocity(float velocity) {
-        this.velocity = velocity;
+    public int getPrice() {
+        return price;
+    }
+
+    public static MetaTower getMetaTower(TowerType type){
+        switch (type){
+            case FIRE_TOWER:
+                return new MetaTower("Fire Tower",10,150,1f,60);
+            case ICE_TOWER:
+                return new MetaTower("Ice Tower",10,150,1f,60);
+        }
+        return new MetaTower("NULL",0,0,0f,0);
     }
 }

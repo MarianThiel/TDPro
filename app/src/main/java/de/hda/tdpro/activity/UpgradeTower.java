@@ -50,7 +50,7 @@ public class UpgradeTower extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         initComponents();
         setupListeners();
-        demoTower = new MetaTower("Fire Tower",10,80,1);
+        demoTower = new MetaTower("Fire Tower",10,80,1,50);
         initContextMenu("DMG",2, 0,0);
     }
 
