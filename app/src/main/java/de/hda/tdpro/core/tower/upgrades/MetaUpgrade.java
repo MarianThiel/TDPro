@@ -50,7 +50,7 @@ public class MetaUpgrade {
             case L1_DMG_UPGRADE:
                 return new MetaUpgrade("DMG_LVL_1", 10,0,0,0);
             case L1_RANGE_UPGRADE:
-                return new MetaUpgrade("NULL", 0,0,0,0);
+                return new MetaUpgrade("NULL", 0,0,20,0);
         }
         return new MetaUpgrade("NULL", 0,0,0,0);
     }
