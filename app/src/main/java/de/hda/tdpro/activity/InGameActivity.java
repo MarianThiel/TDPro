@@ -55,8 +55,6 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
 
     private ImageButton btnBuyAbort;
 
-    private Button upgradeTestButton;
-
     private ScrollView contextMenu;
 
     private LinearLayout contextMenuLayout;
@@ -64,11 +62,14 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
     private TextView txt_health;
     private TextView txt_gold;
     private TextView txt_waves;
-
-    List<UpgradeType> upgrades;
-    List<TowerType> towers;
-
-
+    /**
+     * List of all upgradeTypes
+     */
+    private List<UpgradeType> upgrades;
+    /**
+     * List of all TowerTypes
+     */
+    private List<TowerType> towers;
 
     private boolean run;
 
@@ -134,6 +135,9 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
 
     }
 
+    /**
+     * initialize buttonListeners
+     */
     private void initButtonListeners() {
         btnNextWave.setOnClickListener(e->{
             gameModel.startNextWave();
@@ -179,11 +183,14 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
             btnBuyAbort.setVisibility(View.GONE);
         });
 
-        upgradeTestButton.setOnClickListener(e->{
-            gameModel.upgradeSelectedTower(UpgradeType.L1_DMG_UPGRADE);
-        });
+
     }
 
+    /**
+     * initialize the game
+     * Decide if a running game was saved and loads it or creates new GameInstance
+     *
+     */
     private void initGame() {
 
         upgrades = new LinkedList<>(Arrays.asList(UpgradeType.values()));
@@ -203,7 +210,6 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
     }
 
     private void initComponents() {
-
         btnNextWave = findViewById(R.id.btnNextWave);
         btnFastForward = findViewById(R.id.btnFastForward);
         btnPausePlay = findViewById(R.id.btnPausePlay);
@@ -216,14 +222,16 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
         txt_gold = findViewById(R.id.txtgold);
         txt_waves = findViewById(R.id.txtwaves);
 
-        upgradeTestButton = findViewById(R.id.btnTestUpgrade);
+
         btnBuyAbort.setVisibility(View.GONE);
     }
 
-
+    /**
+     * shows the Contxtmenu for selected Tower hides it if t = null
+     * @param t the tower which was selected
+     */
     private void showSelectionContext(Tower t){
         if(t != null){
-            //TODO: present tower attributes and upgrade/sell options
             showTowerSelection();
         }else{
             hideContextMenu();
@@ -245,6 +253,10 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
         contextMenuLayout.addView(view);
         contextMenu.setVisibility(View.VISIBLE);
     }
+
+    /**
+     * fills the context menu with views of upgrades
+     */
     private void showTowerSelection(){
         contextMenuLayout.removeAllViews();
         TowerStatView view = new TowerStatView(this);
@@ -261,6 +273,9 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
         contextMenu.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * updates the game values displayed
+     */
     private void updateStats(){
         runOnUiThread(new Runnable() {
             @Override
@@ -273,6 +288,9 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
 
     }
 
+    /**
+     * set the visibility of context menu
+     */
     private void hideContextMenu(){
         contextMenu.setVisibility(View.GONE);
     }

@@ -28,7 +28,8 @@ import de.hda.tdpro.core.tower.upgrades.MetaUpgrade;
 
 
 /**
- * Game controls all towers and waves. it draws the entire screen
+ * @author Marian Thiel
+ * Game controls all towers and waves. delegate draw method to every drawable instance
  */
 public class Game implements Drawable, GameObservable, EnemyObserver {
     /**
@@ -39,20 +40,24 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
      * control towers
      */
     private TowerManager towerManager;
-
+    /**
+     * hp of the player
+     */
     private int health;
-
+    /**
+     * amount of gold
+     */
     private int gold;
-
+    /**
+     * main path of the Game
+     */
     private Path path;
 
-    private PointingMode pointingMode;
+
 
     private Tower selectedTower;
 
     private final List<GameListener> listeners;
-
-    private final Map<String, MetaUpgrade> upgrades;
 
     private final Bitmap bg;
 
@@ -70,14 +75,13 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
      */
     public Game(WaveManager waveManager, Path path){
 
-        pointingMode = PointingMode.SELECTION_MODE;
-        listeners = new ArrayList<>();
-        upgrades = new HashMap<>();
 
+        listeners = new ArrayList<>();
 
         towerManager = new TowerManager(10);
         this.path = path;
         this.waveManager = waveManager;
+
         Bitmap b = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.b2);
         WindowManager wm = ((WindowManager) StaticContext.getContext().getSystemService(Context.WINDOW_SERVICE));
         DisplayMetrics metrics = new DisplayMetrics();
@@ -90,16 +94,18 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
 
         runningWave = false;
         prepared = false;
-        health = 1000000; // test
-        gold = 200; // test
-
-
+        health = 1000000; // TODO: set on init
+        gold = 200; // TODO: set on init
 
     }
 
 
-
-
+    /**
+     * selects a tower on specific position
+     * notifies each observer that selection was initiated
+     * @param x value on x-axis
+     * @param y value on y-axis
+     */
     public void selectTower(int x, int y){
         towerManager.deselectAllTowers();
         Tower t = towerManager.getTowerByPosition(x, y);
@@ -130,12 +136,10 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
             Log.println(Log.ASSERT,"WAVE","WAVE STARTED");
             runningWave = true;
             if(!prepared){
-                prepareNextWave();
+                prepareNextWave(); // will only be called after the initial nextWave call
                 prepared = true;
             }
-
             waveManager.startCurrentWave();
-
             return true;
         }
         return false;
@@ -156,6 +160,11 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
         return t != null;
     }
 
+    /**
+     * method handles the upgrade process of the selected tower
+     * @param type Enum which determines the upgrade type
+     * @return true if upgrade wa successful, false if not
+     */
     public boolean upgradeSelectedTower(UpgradeType type){
         MetaUpgrade meta = MetaUpgrade.getMetaUpgrade(type);
         towerManager.upgradeTower(selectedTower,meta);
@@ -163,21 +172,17 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
         return true;
     }
 
+    /**
+     * method to add a tower as an EnemyListener to each Enemy in current wave
+     * @param t tower to add as an observer
+     */
     private void addTowerAsListener(Tower t){
         List<Enemy> l = waveManager.getEnemiesOfCurrentWave();
-
         for(Enemy e : l){
             e.addEnemyObserver(t);
         }
     }
 
-    public PointingMode getPointingMode() {
-        return pointingMode;
-    }
-
-    public void setPointingMode(PointingMode pointingMode) {
-        this.pointingMode = pointingMode;
-    }
 
     public Tower getSelectedTower() {
         return selectedTower;
@@ -187,18 +192,16 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
         return runningWave;
     }
 
-    public void addUpgrade(MetaUpgrade upgrade){
-        upgrades.put(upgrade.getNAME(),upgrade);
-    }
-
-    public List<MetaUpgrade> getUpgrades(){
-        return new LinkedList<>(upgrades.values());
-    }
 
     public int getHealth() {
         return health;
     }
 
+    /**
+     * sets the hp of game
+     * notifies its observer when game is over
+     * @param health hp to set
+     */
     public synchronized void setHealth(int health) {
 
         this.health = health;
@@ -281,18 +284,25 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
 
     @Override
     public void onEnemyMovement(Enemy e) {
-
+        // may be used for debug purposes
     }
 
+    /**
+     * reduces the hp by the remaining hp of the succeeded enemy
+     * @param e observed enemy
+     */
     @Override
     public void onEnemySuccess(Enemy e) {
         setHealth(getHealth() - e.getHp());
         prepareOnEvent();
         notifyOnChange();
-        //Log.println(Log.ASSERT,"WAVE","WAVE STARTED");
+
     }
 
-
+    /**
+     * increases gold when enemy died
+     * @param e e
+     */
     @Override
     public void onEnemyDying(Enemy e) {
         setGold(getGold() + e.getGoldDropping());
@@ -303,6 +313,10 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
 
     }
 
+    /**
+     * method is called if an enemy dies or succeeded
+     * checks if the current wave was finished and sets winning and loosing condition
+     */
     private void prepareOnEvent() {
         if (waveManager.isCurrentWaveFinished()) {
             if(waveManager.getCurrentWave() + 1 == waveManager.getNUMBER_OF_WAVES()){
@@ -312,23 +326,25 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
                     notifyOnGameWinning();
                 return;
             }
-
             runningWave = false;
             waveManager.prepare();
             prepareNextWave();
             prepared = true;
-
-
-
         }
     }
 
+    /**
+     * delegates pause to waveManager and towerManager
+     */
     public void pause(){
         waveManager.pause();
         towerManager.pauseTowers();
 
     }
 
+    /**
+     * delegates resume to waveManager and towerManager
+     */
     public void resume(){
         waveManager.resume();
         towerManager.resumeTowers();

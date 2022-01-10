@@ -29,7 +29,7 @@ public class Path implements Drawable {
      * @param x X-Coordinate
      * @param y Y-Coordinate
      */
-    public void addStaticPoint(int x, int y){
+    public void addPoint(int x, int y){
         if(start == null){
             start = new AscPoint(x,y);
 
@@ -42,18 +42,7 @@ public class Path implements Drawable {
         }
     }
 
-    public void addRelativePoint(int x, int y){
-        if(start == null){
-            start = new RelativePoint(x,y);
 
-        }else
-            for(AscPoint p = start; p != null; p = p.getNextPoint()){
-                if(p.getNextPoint()==null){
-                    p.setNextPoint(new RelativePoint(x,y));
-                    return;
-                }
-            }
-    }
 
     /**
      * Generates all point of the path by calling calculatePosition on each point

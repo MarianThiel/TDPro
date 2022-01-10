@@ -11,6 +11,12 @@ import java.util.List;
 
 import de.hda.tdpro.core.Position;
 
+/**
+ * @author Marian Thiel
+ * A RelativePath differs from a regular Path  in generating the result positions
+ * The relative aspect of the path is that points are relative to each other
+ * e.g Point (0,50) -> (50,0) means: first 50 px on y-axis (P1) then 50px on x-axis (P2) results in a endpoint of (50,50)
+ */
 public class RelativePath extends Path{
 
     public RelativePath() {

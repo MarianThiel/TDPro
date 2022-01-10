@@ -38,7 +38,9 @@ public class EnemyWave implements Runnable, Drawable {
     private final List<Position> positions;
 
     private boolean stopped;
-
+    /**
+     * local state variable to hold the current enemy pointer
+     */
     private int currentEnemy;
 
     /**
@@ -103,7 +105,7 @@ public class EnemyWave implements Runnable, Drawable {
     }
 
     /**
-     * ejects enemies in wave by a random value in range 0 - 1 sec
+     * ejects enemies in wave by time
      */
     @Override
     public void run() {
@@ -121,7 +123,10 @@ public class EnemyWave implements Runnable, Drawable {
         }
     }
 
-
+    /**
+     * draws each enemie in wave which is not null, alive and walking
+     * @param canvas the canvas to paint
+     */
     @Override
     public void draw(Canvas canvas) {
         for(Enemy e : enemies){
@@ -130,6 +135,9 @@ public class EnemyWave implements Runnable, Drawable {
         }
     }
 
+    /**
+     * stops the thread - pauses ejecting enemies
+     */
     public void pauseWaveEjecting(){
         if(!stopped){
             stopped = true;
@@ -143,6 +151,9 @@ public class EnemyWave implements Runnable, Drawable {
 
     }
 
+    /**
+     * starts the thread
+     */
     public void resumeWaveEjecting(){
         if(stopped){
             thread = new Thread(this);

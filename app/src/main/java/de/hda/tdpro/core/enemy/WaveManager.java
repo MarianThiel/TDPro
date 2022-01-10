@@ -71,6 +71,10 @@ public class WaveManager implements Drawable {
         //currentWave++;
     }
 
+    /**
+     * add a collection of waves to the waveManager
+     * @param waves
+     */
     public void addAll(List<EnemyWave> waves){
         for (EnemyWave w : waves){
             if(lastWaveInserted < NUMBER_OF_WAVES)
@@ -92,6 +96,10 @@ public class WaveManager implements Drawable {
         return lst;
     }
 
+    /**
+     *
+     * @return true if each enemy in the current
+     */
     public boolean isCurrentWaveFinished(){
        for (int i = 0; i < waves[currentWave].getENEMIES_IN_WAVE(); i++){
            Enemy e = waves[currentWave].getEnemy(i);
@@ -104,8 +112,10 @@ public class WaveManager implements Drawable {
        return true;
     }
 
+    /**
+     * increments the current wave
+     */
     public void prepare(){
-       // if(currentWave<NUMBER_OF_WAVES-1)
             currentWave++;
     }
 
@@ -117,6 +127,10 @@ public class WaveManager implements Drawable {
         return currentWave;
     }
 
+    /**
+     * returns a list of all Enemies on screen
+     * @return
+     */
     private List<Enemy> getEnemiesOnScreen(){
         List<Enemy> list = new LinkedList<>();
 
@@ -134,6 +148,9 @@ public class WaveManager implements Drawable {
         waves[currentWave].draw(canvas);
     }
 
+    /**
+     * pasues the current wave
+     */
     public void pause(){
       waves[currentWave].pauseWaveEjecting();
       List<Enemy> lst = getEnemiesOnScreen();
@@ -142,11 +159,13 @@ public class WaveManager implements Drawable {
       }
     }
 
+    /**
+     * resumes the current wave
+     */
     public void resume(){
         waves[currentWave].resumeWaveEjecting();
         List<Enemy> lst = getEnemiesOnScreen();
         for(Enemy e : lst){
-
             e.initWalking();
         }
     }

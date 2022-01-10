@@ -2,9 +2,7 @@ package de.hda.tdpro.core.factories;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.WindowManager;
-import android.view.WindowMetrics;
 
 import de.hda.tdpro.StaticContext;
 import de.hda.tdpro.core.enemy.Path;
@@ -28,17 +26,17 @@ public class PathFactory {
 
     public Path createLevelOnePath(){
         Path path = new Path();
-        path.addStaticPoint(0,0);
-        path.addStaticPoint(50,300);
-        path.addStaticPoint(300,500);
-        path.addStaticPoint(500,550);
-        path.addStaticPoint(500,650);
-        path.addStaticPoint(1000,750);
-        path.addStaticPoint(1000,450);
-        path.addStaticPoint(500,450);
-        path.addStaticPoint(500,250);
-        path.addStaticPoint(1500,250);
-        path.addStaticPoint(1500,1250);
+        path.addPoint(0,0);
+        path.addPoint(50,300);
+        path.addPoint(300,500);
+        path.addPoint(500,550);
+        path.addPoint(500,650);
+        path.addPoint(1000,750);
+        path.addPoint(1000,450);
+        path.addPoint(500,450);
+        path.addPoint(500,250);
+        path.addPoint(1500,250);
+        path.addPoint(1500,1250);
 
         return path;
     }
@@ -53,16 +51,16 @@ public class PathFactory {
         int width = metrics.widthPixels;
         int height = metrics.heightPixels;
 
-        p.addStaticPoint(0,height/4);
-        p.addStaticPoint(width/4,0);
-        p.addStaticPoint(0,height/4);
-        p.addStaticPoint(width/4,0);
-        p.addStaticPoint(0,height/4);
+        p.addPoint(0,height/4);
+        p.addPoint(width/4,0);
+        p.addPoint(0,height/4);
+        p.addPoint(width/4,0);
+        p.addPoint(0,height/4);
 
-        p.addStaticPoint(width/4,0);
-        p.addStaticPoint(0,-(height/2));
+        p.addPoint(width/4,0);
+        p.addPoint(0,-(height/2));
 
-        p.addStaticPoint(width/4,0);
+        p.addPoint(width/4,0);
 
 
 
