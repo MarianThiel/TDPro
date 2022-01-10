@@ -10,6 +10,9 @@ import de.hda.tdpro.R;
 import de.hda.tdpro.StaticContext;
 import de.hda.tdpro.core.tower.TowerType;
 
+/**
+ * the ResourceLoader class creates all images  for towers and enemies
+ */
 public class ResourceLoader {
 
     private Map<String, Bitmap[]> animations;
@@ -70,8 +73,11 @@ public class ResourceLoader {
     private void initTowers(){
         towerBitmaps = new HashMap<>();
         Bitmap[] firetower = new Bitmap[2];
-        firetower[0] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.firetower);
-        firetower[1] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.fire_tower);
+        firetower[0] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.t_fire1);
+        firetower[0] = Bitmap.createScaledBitmap(firetower[0],90,90,false);
+        firetower[1] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.t_fire2);
+        firetower[1] = Bitmap.createScaledBitmap(firetower[1],90,90,false);
+
         towerBitmaps.put(TowerType.FIRE_TOWER, firetower);
     }
 

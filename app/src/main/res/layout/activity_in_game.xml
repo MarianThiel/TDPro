@@ -76,16 +76,16 @@
 
         <ScrollView
             android:id="@+id/contextMenu"
-            android:layout_width="128dp"
+            android:layout_width="200dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnCreateTower"
-            tools:layout_editor_absoluteX="1dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnCreateTower">
 
             <LinearLayout
                 android:id="@+id/contextMenuLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical" />
         </ScrollView>
 

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import de.hda.tdpro.R;
 import de.hda.tdpro.core.Game;
-import de.hda.tdpro.core.tower.UpgradeType;
+import de.hda.tdpro.core.tower.upgrades.UpgradeType;
 import de.hda.tdpro.core.tower.upgrades.MetaUpgrade;
 
 public class TowerUpgradeView extends FrameLayout {
