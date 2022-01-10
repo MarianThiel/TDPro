@@ -247,7 +247,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/buyUpgrade"
                     android:layout_width="93dp"
                     android:layout_height="51dp"
                     android:layout_marginTop="15dp"

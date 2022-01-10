@@ -1,6 +1,8 @@
 package de.hda.tdpro.core.tower;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.Log;
 
 import java.util.Comparator;
@@ -25,7 +27,7 @@ public class RangeSphere implements Drawable {
     /**
      * range of the sphere
      */
-    private final int range;
+    private int range;
     /**
      * PriorityQueue to hold enemies and process them at periodic timestamps
      */
@@ -119,9 +121,22 @@ public class RangeSphere implements Drawable {
 
     }
 
+    public void updateRange(int range){
+        this.range = range;
+        Log.println(Log.ASSERT,"RANGE", "RADIUS" + range);
+    }
+
     @Override
     public void draw(Canvas canvas) {
         if(projectile!=null)
-        projectile.draw(canvas);
+            projectile.draw(canvas);
+        if(tower.isActive()){
+            Paint p = new Paint();
+            p.setStyle(Paint.Style.FILL_AND_STROKE);
+            p.setColor(Color.parseColor("#8fe9ff"));
+            p.setStrokeWidth(10);
+            p.setAlpha(80);
+            canvas.drawCircle(tower.getPos().getxVal(),tower.getPos().getyVal(),range,p);
+        }
     }
 }

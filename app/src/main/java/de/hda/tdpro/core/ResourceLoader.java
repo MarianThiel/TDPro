@@ -8,15 +8,21 @@ import java.util.Map;
 
 import de.hda.tdpro.R;
 import de.hda.tdpro.StaticContext;
+import de.hda.tdpro.core.tower.TowerType;
 
 public class ResourceLoader {
 
     private Map<String, Bitmap[]> animations;
 
+    private Map<TowerType, Bitmap[]> towerBitmaps;
+
+    private static int MAX_LEVEL_IMAGES = 5;
+
     private static ResourceLoader instance;
 
     private ResourceLoader() {
         initAnimations();
+        initTowers();
     }
 
     public static ResourceLoader getInstance() {
@@ -61,7 +67,23 @@ public class ResourceLoader {
         animations.put("L1BOSS",daem);
     }
 
+    private void initTowers(){
+        towerBitmaps = new HashMap<>();
+        Bitmap[] firetower = new Bitmap[2];
+        firetower[0] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.firetower);
+        firetower[1] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.fire_tower);
+        towerBitmaps.put(TowerType.FIRE_TOWER, firetower);
+    }
+
     public Bitmap[] getAnimation(String name){
         return animations.get(name);
+    }
+
+    public Bitmap[] getTowerImages(TowerType type){
+        return towerBitmaps.get(type);
+    }
+
+    public static int getMaxLevelImages() {
+        return MAX_LEVEL_IMAGES;
     }
 }

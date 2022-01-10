@@ -1,6 +1,5 @@
 package de.hda.tdpro.core.tower;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -63,11 +62,8 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
     /**
      * Image of the Tower as Bitmap
      */
-    protected Bitmap img;
-    /**
-     * Projectile of the Tower
-     */
-    protected Projectile missile;
+    protected Bitmap img[];
+
 
     protected int hitBox;
 
@@ -187,6 +183,10 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
         return distance <= hitBox;
     }
 
+    public Bitmap[] getImg() {
+        return img;
+    }
+
     @Override
     public void onEnemyMovement(Enemy e) {
         if(e != null){
@@ -207,6 +207,7 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
     @Override
     public void run() {
         while(aiming){
+            getSphere().updateRange(getRadius());
             fireMissile();
             try {
                 Thread.sleep ((long) (1000/getSpeed()));
@@ -219,6 +220,11 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
     @Override
     public void draw(Canvas canvas) {
         getSphere().draw(canvas);
+
+        //drawSphere(canvas);
+    }
+
+    protected void drawSphere(Canvas canvas) {
         if(isActive()){
             Paint p = new Paint();
             p.setStyle(Paint.Style.FILL_AND_STROKE);

@@ -1,19 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:drawable/editbox_dropdown_dark_frame"
-    android:orientation="vertical">
+    android:background="@android:drawable/zoom_plate">
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="Tower Stats"
+        android:textColor="#263238"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="96dp">
+        android:id="@+id/tableLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <TableRow
             android:layout_width="match_parent"
@@ -23,13 +39,15 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="LVL:" />
+                android:text="LVL:"
+                android:textColor="#263238" />
 
             <TextView
                 android:id="@+id/txt_lvl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textColor="#263238" />
         </TableRow>
 
         <TableRow
@@ -40,13 +58,15 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="DMG:" />
+                android:text="DMG:"
+                android:textColor="#263238" />
 
             <TextView
                 android:id="@+id/txt_dmg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textColor="#263238" />
         </TableRow>
 
         <TableRow
@@ -57,13 +77,15 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="VEL:" />
+                android:text="VEL:"
+                android:textColor="#263238" />
 
             <TextView
                 android:id="@+id/txt_vel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textColor="#263238" />
         </TableRow>
 
         <TableRow
@@ -74,19 +96,28 @@
                 android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RAD:" />
+                android:text="RAD:"
+                android:textColor="#263238" />
 
             <TextView
                 android:id="@+id/txt_rad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textColor="#263238" />
         </TableRow>
     </TableLayout>
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/scrollView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout2">
 
         <LinearLayout
             android:id="@+id/upgrade_container"
@@ -98,7 +129,8 @@
                 android:id="@+id/textView9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Upgrades" />
+                android:text="Upgrades"
+                android:textColor="#263238" />
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

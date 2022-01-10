@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 
 import de.hda.tdpro.R;
 import de.hda.tdpro.StaticContext;
+import de.hda.tdpro.core.ResourceLoader;
 
 /**
  * @author Marian Thiel
@@ -16,13 +17,14 @@ public class FireTower extends Tower {
     public FireTower(int radius, int damage, float speed, int price) {
         super(radius, damage, speed, price);
         this.sphere = new RangeSphere(this, radius);
-        img = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.firetower);
+        img = ResourceLoader.getInstance().getTowerImages(TowerType.FIRE_TOWER);
+        // img = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.firetower);
     }
 
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        canvas.drawBitmap(img, getPos().getxVal()-(img.getWidth()/2),getPos().getyVal()-(img.getHeight()/2),null);
+        canvas.drawBitmap(img[0], getPos().getxVal()-(img[0].getWidth()/2),getPos().getyVal()-(img[0].getHeight()/2),null);
 
     }
 }

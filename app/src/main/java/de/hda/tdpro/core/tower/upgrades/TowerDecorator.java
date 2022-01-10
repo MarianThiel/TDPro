@@ -3,6 +3,7 @@ package de.hda.tdpro.core.tower.upgrades;
 import android.graphics.Canvas;
 
 import de.hda.tdpro.core.Position;
+import de.hda.tdpro.core.ResourceLoader;
 import de.hda.tdpro.core.tower.RangeSphere;
 import de.hda.tdpro.core.tower.Tower;
 
@@ -18,6 +19,7 @@ public abstract class TowerDecorator extends Tower {
     public TowerDecorator(Tower uTower) {
         super(0,0,0,0);
         embeddedTower = uTower;
+        this.img = embeddedTower.getImg();
     }
 
     @Override
@@ -82,7 +84,17 @@ public abstract class TowerDecorator extends Tower {
 
     @Override
     public void draw(Canvas canvas) {
-        //super.draw(canvas);
-        embeddedTower.draw(canvas);
+        super.draw(canvas);
+        canvas.drawBitmap(img[(getLevel()-1) % img.length], getPos().getxVal()-(img[(getLevel()-1) % img.length].getWidth()/2),getPos().getyVal()-(img[(getLevel()-1) % img.length].getHeight()/2),null);
+        //drawSphere(canvas);
+       // Tower tower = embeddedTower;
+        //while(tower instanceof TowerDecorator){
+          //  tower = ((TowerDecorator)tower).embeddedTower;
+       // }
+        //tower.draw(canvas);
+
+
+
     }
+
 }

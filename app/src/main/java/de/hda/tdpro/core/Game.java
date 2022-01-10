@@ -58,8 +58,9 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
 
     private boolean prepared;
 
-
     private boolean runningWave;
+
+
 
 
 
@@ -72,6 +73,8 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
         pointingMode = PointingMode.SELECTION_MODE;
         listeners = new ArrayList<>();
         upgrades = new HashMap<>();
+
+
         towerManager = new TowerManager(10);
         this.path = path;
         this.waveManager = waveManager;

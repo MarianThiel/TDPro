@@ -12,10 +12,15 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
 import de.hda.tdpro.R;
 import de.hda.tdpro.StaticContext;
 import de.hda.tdpro.core.GameStateSaver;
 import de.hda.tdpro.core.factories.GameFactory;
+import de.hda.tdpro.core.tower.TowerType;
 import de.hda.tdpro.core.tower.UpgradeType;
 import de.hda.tdpro.core.tower.upgrades.MetaUpgrade;
 import de.hda.tdpro.view.DemoView;
@@ -60,6 +65,9 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
     private TextView txt_health;
     private TextView txt_gold;
     private TextView txt_waves;
+
+    List<UpgradeType> upgrades;
+    List<TowerType> towers;
 
 
 
@@ -178,6 +186,10 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
     }
 
     private void initGame() {
+
+        upgrades = new LinkedList<>(Arrays.asList(UpgradeType.values()));
+        towers = new LinkedList<>(Arrays.asList(TowerType.values()));
+
         try{
             gameModel = GameStateSaver.getInstance().loadGame();
             gameModel.resume();
@@ -239,8 +251,8 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
         TowerStatView view = new TowerStatView(this);
         view.initTower(gameModel.getSelectedTower());
 
-        for(MetaUpgrade meta : gameModel.getUpgrades()){
-            TowerUpgradeView tuv = new TowerUpgradeView(this);
+        for(UpgradeType meta : upgrades){
+            TowerUpgradeView tuv = new TowerUpgradeView(this, gameModel);
             tuv.updateView(meta);
             view.AddUpgradeView(tuv);
 
