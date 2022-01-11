@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/old_dark_castle_interior_background"
+    android:background="@drawable/endscreennice"
     tools:context=".activity.EndGameActivity">
 
     <ImageButton
@@ -21,19 +21,6 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
-        android:id="@+id/EndGameMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="GAME OVER"
-        android:textColor="@android:color/holo_red_dark"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.282" />
-
-    <TextView
         android:id="@+id/EarnedMoney"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,9 +29,24 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.447"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EndGameMessage"
-        app:layout_constraintVertical_bias="0.017" />
+        app:layout_constraintVertical_bias="0.054" />
+
+    <TextView
+        android:id="@+id/EndGameMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GAME OVER"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.539"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.02" />
 
     <TextView
         android:id="@+id/EnemiesKilled"
@@ -55,7 +57,8 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.446"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EarnedMoney"
-        app:layout_constraintVertical_bias="0.018" />
+        app:layout_constraintVertical_bias="0.051" />
 </android.support.constraint.ConstraintLayout>
