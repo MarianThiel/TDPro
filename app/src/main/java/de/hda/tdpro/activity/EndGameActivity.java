@@ -27,6 +27,13 @@ public class EndGameActivity extends AppCompatActivity {
         earnedMoney = findViewById(R.id.EarnedMoney);
         enemiesKilled = findViewById(R.id.EnemiesKilled);
 
+
+        //Intent intentMoney = getIntent();
+        //int money = intentMoney.getIntExtra("Gold: ", );
+
+        //Intent intentEnemiesKilled = getIntent();
+        //int eKilled = intentEnemiesKilled.getIntExtra("EnemiesKilled: ", );
+
         Intent intent = getIntent();
         boolean win = intent.getBooleanExtra("WIN", false);
 
