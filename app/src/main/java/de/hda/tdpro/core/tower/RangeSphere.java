@@ -23,11 +23,8 @@ import de.hda.tdpro.core.tower.priority.Priority;
  * if an Enemy has Zero HP or it get out of range it will be removed from the Sphere
  * the Sphere has a priority which enemy has to be processed
  */
-public class RangeSphere implements Drawable {
-    /**
-     * range of the sphere
-     */
-    private int range;
+public class RangeSphere implements Drawable, Runnable {
+
     /**
      * PriorityQueue to hold enemies and process them at periodic timestamps
      */
@@ -43,19 +40,22 @@ public class RangeSphere implements Drawable {
     /**
      * according tower
      */
-    private final Tower tower;
+    private Tower tower;
     /**
      * Projectile to draw
      */
     Projectile projectile;
 
+    private boolean aiming;
+
+    private Thread aimThread;
+
     /**
      * basic constructor
      * @param t according tower
-     * @param range range as integer
+     *
      */
-    public RangeSphere(Tower t, int range) {
-        this.range = range;
+    public RangeSphere(Tower t) {
         cmp = new EnemyFirstComparator();
         queue = new PriorityQueue<>(cmp);
         this.tower = t;
@@ -71,12 +71,17 @@ public class RangeSphere implements Drawable {
     public void hitEnemy(int dmg){
         Enemy e = queue.peek();
         if(!removeDeadEnemy(e)){
-
-            projectile =  new Projectile(tower.pos.getxVal(),tower.pos.getyVal(),e.getPosition().getxVal(),e.getPosition().getyVal(),(int)tower.getSpeed(),null);
+            fireProjectile(e);
             e.setHp(e.getHp()-dmg);
         }
 
         removeDeadEnemy(e);
+    }
+
+    private void fireProjectile(Enemy e) {
+
+            projectile =  new Projectile(tower.getPos().getxVal(),tower.getPos().getyVal(), e.getPosition().getxVal(), e.getPosition().getyVal(),(int)tower.getSpeed(),null);
+
     }
 
     private boolean removeDeadEnemy(Enemy e){
@@ -94,7 +99,7 @@ public class RangeSphere implements Drawable {
         int py = p.getyVal()-pc.getyVal();
         double distance = Math.sqrt((px*px)+(py*py));
 
-        return distance <= range;
+        return distance <= tower.getRadius();
     }
 
     public void targetEnemy(Enemy e){
@@ -121,10 +126,15 @@ public class RangeSphere implements Drawable {
 
     }
 
-    public void updateRange(int range){
-        this.range = range;
-        Log.println(Log.ASSERT,"RANGE", "RADIUS" + range);
+    public Tower getTower() {
+        return tower;
     }
+
+    public void setTower(Tower tower) {
+        this.tower = tower;
+    }
+
+
 
     @Override
     public void draw(Canvas canvas) {
@@ -136,7 +146,44 @@ public class RangeSphere implements Drawable {
             p.setColor(Color.parseColor("#8fe9ff"));
             p.setStrokeWidth(10);
             p.setAlpha(80);
-            canvas.drawCircle(tower.getPos().getxVal(),tower.getPos().getyVal(),range,p);
+            canvas.drawCircle(tower.getPos().getxVal(),tower.getPos().getyVal(),tower.getRadius(),p);
+        }
+    }
+
+    @Override
+    public void run() {
+        while(aiming){
+
+            if(hasEnemyInside()){
+
+                hitEnemy(tower.getDamage());
+            }
+            try {
+                Thread.sleep ((long) (1000/tower.getSpeed()));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    public void startAiming(){
+        if(!aiming){
+            aiming = true;
+            aimThread = new Thread(this);
+            aimThread.start();
+        }
+
+    }
+    public void stopAiming(){
+        if(aiming){
+            aiming = false;
+            aimThread.interrupt();
+            try {
+                aimThread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

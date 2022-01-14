@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -55,9 +57,9 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
 
     private ImageButton btnBuyAbort;
 
-    private ScrollView contextMenu;
+    private HorizontalScrollView contextMenu;
 
-    private LinearLayout contextMenuLayout;
+    private FrameLayout contextMenuLayout;
 
     private TextView txt_health;
     private TextView txt_gold;
@@ -201,7 +203,7 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
             gameModel.resume();
         } catch (Exception e) {
             Log.println(Log.ASSERT,"LOAD", e.getMessage());
-            gameModel = GameFactory.getInstance().createDemoLevel();
+            loadLevel(-1);
         }
 
         gameModel.addGameListener(this);
@@ -216,7 +218,7 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
         btnTowerCreate = findViewById(R.id.btnCreateTower);
         btnSettings = findViewById(R.id.btnSettings);
         btnBuyAbort = findViewById(R.id.buyTowerAbort);
-        contextMenu = findViewById(R.id.contextMenu);
+
         contextMenuLayout = findViewById(R.id.contextMenuLayout);
         txt_health = findViewById(R.id.txthealth);
         txt_gold = findViewById(R.id.txtgold);
@@ -270,7 +272,7 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
         }
 
         contextMenuLayout.addView(view);
-        contextMenu.setVisibility(View.VISIBLE);
+        contextMenuLayout.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -292,7 +294,7 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
      * set the visibility of context menu
      */
     private void hideContextMenu(){
-        contextMenu.setVisibility(View.GONE);
+        contextMenuLayout.setVisibility(View.GONE);
     }
 
     @Override
@@ -326,5 +328,16 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
     @Override
     public void updateOnTowerPlacement() {
         btnBuyAbort.setVisibility(View.GONE);
+    }
+
+    private void loadLevel(int i){
+        switch (i){
+            case 0:
+
+                break;
+            default:
+                gameModel = GameFactory.getInstance().createDemoLevel();
+                break;
+        }
     }
 }

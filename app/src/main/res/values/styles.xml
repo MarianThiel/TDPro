@@ -6,5 +6,10 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="context_menu_text">
+
+        <item name="android:textSize">10pt</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
 
 </resources>

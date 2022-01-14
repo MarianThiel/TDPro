@@ -1,6 +1,5 @@
 package de.hda.tdpro.core.enemy;
 
-import android.content.Context;
 import android.graphics.Canvas;
 
 import java.util.List;
@@ -43,12 +42,15 @@ public class EnemyWave implements Runnable, Drawable {
      */
     private int currentEnemy;
 
+    private int numOfDiamonds;
+
     /**
      * test constructor
      * @param ENEMIES_IN_WAVE number of enemies
      * @param path Path reference
+     * @param numOfDiamonds
      */
-    public EnemyWave(int ENEMIES_IN_WAVE, Path path) {
+    public EnemyWave(int ENEMIES_IN_WAVE, Path path, int numOfDiamonds) {
         this.ENEMIES_IN_WAVE = ENEMIES_IN_WAVE;
         enemies = new Enemy[ENEMIES_IN_WAVE];
         mainPath = path;
@@ -56,6 +58,8 @@ public class EnemyWave implements Runnable, Drawable {
         positions = path.generateAllPositions();
         stopped = true;
         currentEnemy = 0;
+
+        this.numOfDiamonds = numOfDiamonds;
     }
 
 
@@ -161,5 +165,9 @@ public class EnemyWave implements Runnable, Drawable {
             thread.start();
         }
 
+    }
+
+    public int getNumOfDiamonds() {
+        return numOfDiamonds;
     }
 }

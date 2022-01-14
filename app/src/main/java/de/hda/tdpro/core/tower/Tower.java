@@ -16,7 +16,7 @@ import de.hda.tdpro.core.tower.priority.Priority;
  * @author Marian Thiel
  *  Abstract Class representing a tower
  */
-abstract public class Tower implements EnemyObserver, Runnable, Drawable {
+abstract public class Tower implements EnemyObserver, Drawable {
 
     /**
      * radius as integer value in pixel
@@ -38,10 +38,7 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
      * position of the tower on the map
      */
     protected Position pos;
-    /**
-     * thread holds instance of the tower, is used for attacking enemies in sphere
-     */
-    private Thread aimThread;
+
     /**
      * true if tower is aiming an enemy - means thread is running
      */
@@ -49,7 +46,7 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
     /**
      * Max level of tower
      */
-    public static final int MAX_LEVEL = 5;
+    public static final int MAX_LEVEL = 50;
     /**
      * the sphere of the tower
      */
@@ -120,36 +117,16 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
         this.price = price;
     }
 
-    public boolean isAiming() {
-        return aiming;
-    }
 
-    public void fireMissile(){
-        if(getSphere().hasEnemyInside()){
-            Log.println(Log.ASSERT,"enemy_targeting", this.getClass() + " ENEMY_WAS_HIT - DMG: " + getDamage());
-            getSphere().hitEnemy(this.getDamage());
-        }
 
-    }
+
 
     public void startAiming(){
-        if(!aiming){
-            aiming = true;
-            aimThread = new Thread(this);
-            aimThread.start();
-        }
+        getSphere().startAiming();
 
     }
     public void stopAiming(){
-        if(aiming){
-            aiming = false;
-            aimThread.interrupt();
-            try {
-                aimThread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        getSphere().stopAiming();
     }
 
     public int getLevel(){
@@ -204,18 +181,6 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
 
     }
 
-    @Override
-    public void run() {
-        while(aiming){
-            getSphere().updateRange(getRadius());
-            fireMissile();
-            try {
-                Thread.sleep ((long) (1000/getSpeed()));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     @Override
     public void draw(Canvas canvas) {

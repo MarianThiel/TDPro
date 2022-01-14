@@ -2,6 +2,7 @@ package de.hda.tdpro.core.tower;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 
 import de.hda.tdpro.core.Drawable;
@@ -51,6 +52,7 @@ public class Projectile implements Drawable, Runnable {
 
             Paint p = new Paint();
             p.setStrokeWidth(5);
+            p.setColor(Color.RED);
             canvas.drawCircle(x,y,8,p);
         }
 

@@ -16,7 +16,7 @@ import de.hda.tdpro.core.ResourceLoader;
 public class FireTower extends Tower {
     public FireTower(int radius, int damage, float speed, int price) {
         super(radius, damage, speed, price);
-        this.sphere = new RangeSphere(this, radius);
+        this.sphere = new RangeSphere(this);
         img = ResourceLoader.getInstance().getTowerImages(TowerType.FIRE_TOWER);
         // img = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.firetower);
     }

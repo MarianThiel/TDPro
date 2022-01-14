@@ -23,6 +23,7 @@ import de.hda.tdpro.core.enemy.WaveManager;
 import de.hda.tdpro.core.tower.Tower;
 import de.hda.tdpro.core.tower.TowerManager;
 import de.hda.tdpro.core.tower.TowerType;
+import de.hda.tdpro.core.tower.upgrades.MetaTower;
 import de.hda.tdpro.core.tower.upgrades.UpgradeType;
 import de.hda.tdpro.core.tower.upgrades.MetaUpgrade;
 
@@ -52,6 +53,8 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
      * main path of the Game
      */
     private Path path;
+
+    private int diamonds;
 
 
 
@@ -153,11 +156,19 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
      * @return true if max tower not reached, false if max tower reached
      */
     public boolean placeTowerAt(TowerType type, int x, int y){
-        Tower t = towerManager.placeTower(type,new Position(x,y));
-        if(t != null)
-            addTowerAsListener(t);
-        notifyOnTowerPlacement();
-        return t != null;
+        int price;
+        price = MetaTower.getMetaTower(type).getPrice();
+        if(price <= getGold()){
+            setGold(getGold()-price);
+
+            Tower t = towerManager.placeTower(type,new Position(x,y));
+            if(t != null)
+                addTowerAsListener(t);
+            notifyOnTowerPlacement();
+            return t != null;
+        }
+
+        return false;
     }
 
     /**
@@ -167,9 +178,14 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
      */
     public boolean upgradeSelectedTower(UpgradeType type){
         MetaUpgrade meta = MetaUpgrade.getMetaUpgrade(type);
-        towerManager.upgradeTower(selectedTower,meta);
-        selectTower(selectedTower.getPos().getxVal(),selectedTower.getPos().getyVal());
-        return true;
+        boolean possible = false;
+        if(meta.getPRICE() <= getGold()) {
+            if(possible = towerManager.upgradeTower(selectedTower, meta)){
+                setGold(getGold() - meta.getPRICE());
+                selectTower(selectedTower.getPos().getxVal(), selectedTower.getPos().getyVal());
+            }
+        }
+        return possible;
     }
 
     /**
@@ -205,6 +221,7 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
     public synchronized void setHealth(int health) {
 
         this.health = health;
+        notifyOnChange();
         if(health<=0){
             notifyOnGameOver();
         }
@@ -229,7 +246,7 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
 
     public synchronized void setGold(int gold) {
         this.gold = gold;
-
+        notifyOnChange();
     }
 
     @Override
@@ -295,7 +312,7 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
     public void onEnemySuccess(Enemy e) {
         setHealth(getHealth() - e.getHp());
         prepareOnEvent();
-        notifyOnChange();
+
 
     }
 
@@ -307,8 +324,6 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
     public void onEnemyDying(Enemy e) {
         setGold(getGold() + e.getGoldDropping());
         prepareOnEvent();
-        notifyOnChange();
-
 
 
     }
@@ -319,6 +334,7 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
      */
     private void prepareOnEvent() {
         if (waveManager.isCurrentWaveFinished()) {
+            Log.println(Log.ASSERT,"DIAMONDS_WON",  "DIAMONDS_WON:" + waveManager.getDiamondsOfCurrentWave());
             if(waveManager.getCurrentWave() + 1 == waveManager.getNUMBER_OF_WAVES()){
                 if(health <= 0){
                     notifyOnGameOver();

@@ -20,6 +20,7 @@ public abstract class TowerDecorator extends Tower {
         super(0,0,0,0);
         embeddedTower = uTower;
         this.img = embeddedTower.getImg();
+        getSphere().setTower(this);
     }
 
     @Override
@@ -86,13 +87,6 @@ public abstract class TowerDecorator extends Tower {
     public void draw(Canvas canvas) {
         super.draw(canvas);
         canvas.drawBitmap(img[(getLevel()-1) % img.length], getPos().getxVal()-(img[(getLevel()-1) % img.length].getWidth()/2),getPos().getyVal()-(img[(getLevel()-1) % img.length].getHeight()/2),null);
-        //drawSphere(canvas);
-       // Tower tower = embeddedTower;
-        //while(tower instanceof TowerDecorator){
-          //  tower = ((TowerDecorator)tower).embeddedTower;
-       // }
-        //tower.draw(canvas);
-
 
 
     }

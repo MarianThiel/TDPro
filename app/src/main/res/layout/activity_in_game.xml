@@ -22,8 +22,10 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view">
+        app:layout_constraintTop_toTopOf="@+id/view"
+        app:layout_constraintVertical_bias="0.0">
 
         <ImageButton
             android:id="@+id/btnNextWave"
@@ -74,20 +76,13 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/tower_symb" />
 
-        <ScrollView
-            android:id="@+id/contextMenu"
-            android:layout_width="200dp"
-            android:layout_height="0dp"
+        <FrameLayout
+            android:id="@+id/contextMenuLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnCreateTower">
-
-            <LinearLayout
-                android:id="@+id/contextMenuLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical" />
-        </ScrollView>
+            app:layout_constraintEnd_toStartOf="@+id/buyTowerAbort"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <LinearLayout
             android:id="@+id/linearLayout"

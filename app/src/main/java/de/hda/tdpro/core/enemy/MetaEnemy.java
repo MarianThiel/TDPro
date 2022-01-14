@@ -36,11 +36,11 @@ public class MetaEnemy {
     public static MetaEnemy getMetaEnemy(EnemyType type){
         switch (type){
             case RANDOM:
-                return new MetaEnemy("RANDOM",50,30f,20);
+                return new MetaEnemy("RANDOM",75,30f,20);
             case L1TANK:
                 return new MetaEnemy("L1TANK",25,40f,20);
             case L1BOSS:
-                return new MetaEnemy("L1BOSS",350,20f,2000);
+                return new MetaEnemy("L1BOSS",3500,20f,2000);
         }
         return new MetaEnemy("NULL",0,0f,0);
     }

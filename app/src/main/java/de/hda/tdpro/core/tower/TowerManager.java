@@ -43,10 +43,10 @@ public class TowerManager implements Drawable {
 
         int i = getIndex(t);
         if(upgradePossible(i)){
-            towers[i].stopAiming();
+
             towers[i].setActive(false);
             towers[i] = new SimpleUpgrade(towers[i],upgrade);
-            towers[i].startAiming();
+
             return true;
         }
 

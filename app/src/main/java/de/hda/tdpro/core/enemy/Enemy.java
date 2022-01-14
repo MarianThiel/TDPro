@@ -2,6 +2,7 @@ package de.hda.tdpro.core.enemy;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 
@@ -79,6 +80,8 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
 
     private int positionAsInt;
 
+    private final int MAX_HEALTH;
+
     /**
      * default constructor
      * @param hp
@@ -87,6 +90,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
      * @param img
      */
     public Enemy(int hp, int goldDropping, float velocity, Bitmap[] img) {
+        this.MAX_HEALTH = hp;
         this.hp = hp;
         this.goldDropping = goldDropping;
         this.velocity = velocity;
@@ -98,6 +102,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
         imageIndex = 0;
         stepCount = 0;
         positionAsInt = 0;
+        
     }
 
     /**
@@ -114,6 +119,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
         observers = new LinkedList<>();
 
         SLEEP = (long)(1000/velocity);
+        MAX_HEALTH = 0;
     }
 
     public int getHp() {
@@ -308,8 +314,27 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
             String s = Integer.toString(hp);
             Paint p = new Paint();
             p.setTextSize(50);
-            canvas.drawText(s,position.getxVal()-(image[imageIndex].getWidth()/2),position.getyVal()+100,p);
+            //canvas.drawText(s,position.getxVal()-(image[imageIndex].getWidth()/2),position.getyVal()+100,p);
+            if(hp != MAX_HEALTH)
+                drawHealthBar(canvas);
         }
+
+    }
+
+    private void drawHealthBar(Canvas canvas){
+        Vector2D p2 = new Vector2D(getPosition().getxVal() - (image[imageIndex].getWidth()/2),getPosition().getyVal());
+
+        float percentage = (float)((float)hp / (float)MAX_HEALTH);
+        Vector2D p_add = new Vector2D(50,0).mul(percentage);
+        p2 = p2.add(p_add);
+
+        Paint paint = new Paint();
+        paint.setStrokeWidth(5);
+        if(percentage < 0.5){
+            paint.setColor(Color.RED);
+        }else paint.setColor(Color.GREEN);
+
+        canvas.drawLine(getPosition().getxVal() - (image[imageIndex].getWidth()/2),getPosition().getyVal() - 100,(float)p2.x,(float)p2.y - 100,paint);
 
     }
 }

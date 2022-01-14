@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import de.hda.tdpro.R;
@@ -21,7 +22,7 @@ public class TowerUpgradeView extends FrameLayout {
     private TextView txtPrice;
     private TextView txtName;
 
-    private Button buyUpgrade;
+    private ImageButton buyUpgrade;
 
     private Game game;
 
@@ -51,8 +52,8 @@ public class TowerUpgradeView extends FrameLayout {
         txtVel = findViewById(R.id.txtVel);
         txtRad = findViewById(R.id.txtRad);
         txtPrice = findViewById(R.id.txtPrice);
-        txtName = findViewById(R.id.txtName);
-        buyUpgrade = findViewById(R.id.buyUpgrade);
+        //txtName = findViewById(R.id.txtName);
+        buyUpgrade = findViewById(R.id.upgradeButton2);
 
         buyUpgrade.setOnClickListener(e->{
             game.upgradeSelectedTower(type);
@@ -62,7 +63,7 @@ public class TowerUpgradeView extends FrameLayout {
     public void updateView(UpgradeType upgrade){
         type = upgrade;
         MetaUpgrade meta = MetaUpgrade.getMetaUpgrade(upgrade);
-        txtName.setText(meta.getNAME());
+        //txtName.setText(meta.getNAME());
         txtDmg.setText(Integer.toString(meta.getDMG()));
         txtVel.setText(Float.toString(meta.getVEL()));
         txtRad.setText(Integer.toString(meta.getRAD()));
