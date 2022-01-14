@@ -1,5 +1,9 @@
 package de.hda.tdpro.core;
 
+/**
+ * @author Marian Thiel
+ * class for save and load a game instance
+ */
 public class GameStateSaver {
 
     private static GameStateSaver instance;
@@ -22,6 +26,11 @@ public class GameStateSaver {
         return instance;
     }
 
+    /**
+     * saves game instance if not blocked
+     * @param game the game instance
+     * @throws Exception when saving blocked
+     */
     public void saveGameInstance(Game game) throws Exception {
         if(!saveBlock){
             gameInstance = game;
@@ -32,6 +41,11 @@ public class GameStateSaver {
         }
     }
 
+    /**
+     * loads game instance if not blocked
+     * resets blockers
+     * @throws Exception when loading is blocked
+     */
     public Game loadGame() throws Exception {
         if(!loadBlock){
             Game g = gameInstance;

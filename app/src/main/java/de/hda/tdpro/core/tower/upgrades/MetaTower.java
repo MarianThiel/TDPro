@@ -48,7 +48,7 @@ public class MetaTower {
     public static MetaTower getMetaTower(TowerType type){
         switch (type){
             case FIRE_TOWER:
-                return new MetaTower("Fire Tower",10,150,1f,60);
+                return new MetaTower("Fire Tower",10,300,1f,60);
             case ICE_TOWER:
                 return new MetaTower("Ice Tower",10,150,1f,60);
         }
