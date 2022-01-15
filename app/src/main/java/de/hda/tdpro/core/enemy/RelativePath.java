@@ -35,7 +35,7 @@ public class RelativePath extends Path{
             Vector2D l = vEnd.dif(vStart);
             l.normalize();
             Vector2D term = l.mul(0);
-            for(int i = 0; term.compareTo(vStart.dif(vEnd))<=0; i = i+4){
+            for(int i = 0; term.compareTo(vStart.dif(vEnd))<=0; i = i+4){ //each 4th waypoint
                 term = l.mul(i);
                 Vector2D t = vStart.add(term);
                 lst.add(new Position((int) t.x,(int) t.y));

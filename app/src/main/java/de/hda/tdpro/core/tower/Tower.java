@@ -118,7 +118,9 @@ abstract public class Tower implements EnemyObserver, Drawable {
     }
 
 
-
+    public void setPriority(Priority priority){
+        getSphere().setPriority(priority);
+    }
 
 
     public void startAiming(){
@@ -166,7 +168,7 @@ abstract public class Tower implements EnemyObserver, Drawable {
 
     @Override
     public void onEnemyMovement(Enemy e) {
-        if(e != null){
+        if(e != null && !e.isFinished()){
             Position p = e.getPosition();
             if(getSphere().containsEnemy(e)){
                 if(!getSphere().intersects(p)){

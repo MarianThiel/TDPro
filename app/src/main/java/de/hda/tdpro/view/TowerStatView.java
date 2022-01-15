@@ -4,12 +4,23 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import de.hda.tdpro.R;
+import de.hda.tdpro.core.Game;
 import de.hda.tdpro.core.tower.Tower;
+import de.hda.tdpro.core.tower.priority.Priority;
 
 public class TowerStatView extends FrameLayout {
 
@@ -23,8 +34,17 @@ public class TowerStatView extends FrameLayout {
 
     private LinearLayout upgradeContainer;
 
-    public TowerStatView(@NonNull Context context) {
+    private Spinner prioritySpinner;
+
+    private ImageButton btnApplyPriority;
+
+    private Game game;
+
+    private List<String> priorities;
+
+    public TowerStatView(@NonNull Context context, Game game) {
         super(context);
+        this.game = game;
         init();
     }
 
@@ -46,14 +66,47 @@ public class TowerStatView extends FrameLayout {
         txt_rad = findViewById(R.id.txt_rad);
         txt_lvl = findViewById(R.id.txt_lvl);
         upgradeContainer = findViewById(R.id.upgrade_container);
+
+        prioritySpinner = findViewById(R.id.spinner_priority);
+        btnApplyPriority = findViewById(R.id.applyPriority);
+
+        initSpinner();
     }
     public void initTower(Tower t){
         txt_dmg.setText(Integer.toString(t.getDamage()));
         txt_lvl.setText(Integer.toString(t.getLevel()));
         txt_rad.setText(Integer.toString(t.getRadius()));
-        txt_vel.setText(Float.toString(t.getSpeed()));
+        txt_vel.setText(Float.toString(t.getSpeed()).substring(0,3));
     }
     public void AddUpgradeView(TowerUpgradeView view){
         upgradeContainer.addView(view);
+    }
+
+    private void initSpinner(){
+        ArrayList<Priority> l = new ArrayList<>(Arrays.asList(Priority.values()));
+        List<String> priorities = new ArrayList<>();
+        for(Priority p : l){
+            priorities.add(p.toString());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(),
+                android.R.layout.simple_spinner_item,
+                priorities);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        prioritySpinner.setAdapter(adapter);
+
+        prioritySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String x = (String) parent.getItemAtPosition(position);
+
+                game.getSelectedTower().setPriority(Priority.valueOf(x));
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 }

@@ -52,7 +52,6 @@ public class TowerUpgradeView extends FrameLayout {
         txtVel = findViewById(R.id.txtVel);
         txtRad = findViewById(R.id.txtRad);
         txtPrice = findViewById(R.id.txtPrice);
-        //txtName = findViewById(R.id.txtName);
         buyUpgrade = findViewById(R.id.upgradeButton2);
 
         buyUpgrade.setOnClickListener(e->{

@@ -337,4 +337,18 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
         canvas.drawLine(getPosition().getxVal() - (image[imageIndex].getWidth()/2),getPosition().getyVal() - 100,(float)p2.x,(float)p2.y - 100,paint);
 
     }
+    public Position getEstimatedPosition(float velocity){
+
+        float vel = ( getVelocity()/ (velocity + 1));
+        Log.println(Log.ASSERT,"position_e", "pos: " + vel);
+        int i = path.indexOf(getPosition())+ (int) vel;
+
+
+        if(i < path.size()){
+            return path.get(i);
+        }else{
+            return path.get(path.size()-1);
+        }
+
+    }
 }

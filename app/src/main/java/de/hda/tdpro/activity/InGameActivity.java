@@ -261,7 +261,7 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
      */
     private void showTowerSelection(){
         contextMenuLayout.removeAllViews();
-        TowerStatView view = new TowerStatView(this);
+        TowerStatView view = new TowerStatView(this, gameModel);
         view.initTower(gameModel.getSelectedTower());
 
         for(UpgradeType meta : upgrades){

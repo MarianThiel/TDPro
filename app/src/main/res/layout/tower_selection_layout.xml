@@ -33,8 +33,7 @@
             style="@style/context_menu_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            />
+            android:text="" />
 
         <ImageView
             android:id="@+id/imageView20"
@@ -48,8 +47,7 @@
             style="@style/context_menu_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-             />
+            android:text="" />
 
         <ImageView
             android:id="@+id/imageView21"
@@ -63,8 +61,7 @@
             style="@style/context_menu_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-             />
+            android:text="" />
 
         <ImageView
             android:id="@+id/imageView22"
@@ -78,8 +75,7 @@
             style="@style/context_menu_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            />
+            android:text="" />
     </LinearLayout>
 
     <HorizontalScrollView
@@ -89,7 +85,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+        app:layout_constraintTop_toBottomOf="@+id/applyPriority">
 
         <LinearLayout
             android:id="@+id/upgrade_container"
@@ -98,4 +94,23 @@
 
         </LinearLayout>
     </HorizontalScrollView>
+
+    <Spinner
+        android:id="@+id/spinner_priority"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:background="@android:drawable/spinner_background"
+        android:spinnerMode="dropdown"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+
+    <ImageButton
+        android:id="@+id/applyPriority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/spinner_priority"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+        app:srcCompat="@drawable/apply" />
 </android.support.constraint.ConstraintLayout>

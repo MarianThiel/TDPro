@@ -18,7 +18,7 @@ import de.hda.tdpro.core.tower.priority.Priority;
 
 /**
  * @author Marian Thiel
- * @version 1.2
+ * @version 1.3
  * RangeSphere is a part of Tower it holds all enemies which are in range and process them by setting the HP
  * if an Enemy has Zero HP or it get out of range it will be removed from the Sphere
  * the Sphere has a priority which enemy has to be processed
@@ -28,7 +28,7 @@ public class RangeSphere implements Drawable, Runnable {
     /**
      * PriorityQueue to hold enemies and process them at periodic timestamps
      */
-    private final PriorityQueue<Enemy> queue;
+    private PriorityQueue<Enemy> queue;
     /**
      * Comparator to set the sorting order in PriorityQueue
      */
@@ -50,6 +50,8 @@ public class RangeSphere implements Drawable, Runnable {
 
     private Thread aimThread;
 
+    private boolean queueBlock;
+
     /**
      * basic constructor
      * @param t according tower
@@ -59,6 +61,7 @@ public class RangeSphere implements Drawable, Runnable {
         cmp = new EnemyFirstComparator();
         queue = new PriorityQueue<>(cmp);
         this.tower = t;
+        queueBlock = false;
 
     }
 
@@ -79,14 +82,14 @@ public class RangeSphere implements Drawable, Runnable {
     }
 
     private void fireProjectile(Enemy e) {
-
-            projectile =  new Projectile(tower.getPos().getxVal(),tower.getPos().getyVal(), e.getPosition().getxVal(), e.getPosition().getyVal(),(int)tower.getSpeed(),null);
+            Position p = e.getEstimatedPosition(tower.getSpeed());
+            projectile =  new Projectile(tower.getPos().getxVal(),tower.getPos().getyVal(), p.getxVal(), p.getyVal(),(int)tower.getSpeed(),null);
 
     }
 
     private boolean removeDeadEnemy(Enemy e){
         if(e != null)
-        if(e.getHp() <= 0){
+        if(e.getHp() <= 0 || e.isFinished()){
             queue.poll();
             return true;
         }
@@ -123,7 +126,23 @@ public class RangeSphere implements Drawable, Runnable {
     }
 
     public void setPriority(Priority type) {
+        switch (type){
+            case MAX_HP:
+                executePrioritySwap(new EnemyHPMaxComparator());
+                break;
+            case MIN_HP:
+                executePrioritySwap(new EnemyHPMinComparator());
+                break;
+            case FIRST:
+                executePrioritySwap(new EnemyFirstComparator());
+        }
+    }
 
+    private void executePrioritySwap(Comparator<Enemy> cmp){
+        setQueueBlock(true);
+        queue.clear();
+        queue = new PriorityQueue<>(cmp);
+        setQueueBlock(false);
     }
 
     public Tower getTower() {
@@ -134,7 +153,9 @@ public class RangeSphere implements Drawable, Runnable {
         this.tower = tower;
     }
 
-
+    private void setQueueBlock(boolean v){
+        queueBlock = v;
+    }
 
     @Override
     public void draw(Canvas canvas) {
@@ -153,17 +174,17 @@ public class RangeSphere implements Drawable, Runnable {
     @Override
     public void run() {
         while(aiming){
+            if(!queueBlock){
+                if(hasEnemyInside()){
 
-            if(hasEnemyInside()){
-
-                hitEnemy(tower.getDamage());
+                    hitEnemy(tower.getDamage());
+                }
+                try {
+                    Thread.sleep ((long) (1000/tower.getSpeed()));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-            try {
-                Thread.sleep ((long) (1000/tower.getSpeed()));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
         }
     }
 
