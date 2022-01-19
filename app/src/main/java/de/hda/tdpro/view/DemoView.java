@@ -99,7 +99,7 @@ public class DemoView extends SurfaceView implements Runnable, GameListener {
                 //locking the canvas
                 canvas = surfaceHolder.lockCanvas();
                 //drawing a background color for canvas
-                canvas.drawColor(Color.WHITE);
+                //canvas.drawColor(Color.WHITE);
                 //Drawing the player
                 game.draw(canvas);
                 if(placingTower){
@@ -107,8 +107,8 @@ public class DemoView extends SurfaceView implements Runnable, GameListener {
                     DisplayMetrics metrics = new DisplayMetrics();
                     wm.getDefaultDisplay().getMetrics(metrics);
 
-                    int width = metrics.widthPixels;
-                    int height = metrics.heightPixels;
+                    int height = metrics.widthPixels;
+                    int width = metrics.heightPixels;
 
                     Paint p = new Paint();
                     p.setStyle(Paint.Style.FILL_AND_STROKE);

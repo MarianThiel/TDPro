@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import de.hda.tdpro.MusicPlayer;
 import de.hda.tdpro.R;
 import pl.droidsonroids.gif.GifImageView;
 
@@ -18,6 +19,8 @@ public class LevelSelectionActivity extends AppCompatActivity implements View.On
     float GifPosX;
     float GifPosY;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -25,6 +28,7 @@ public class LevelSelectionActivity extends AppCompatActivity implements View.On
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_level_selection);
+
 
 
         // set onClick Buttons

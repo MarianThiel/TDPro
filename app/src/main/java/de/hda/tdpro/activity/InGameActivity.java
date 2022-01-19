@@ -81,7 +81,7 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
         Log.println(Log.ASSERT,"test", "CREATE");
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        StaticContext.setContext(this);
+
         setContentView(R.layout.activity_in_game);
         gameView = findViewById(R.id.view);
         init();
@@ -95,13 +95,30 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
     }
 
     @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+    }
+
+    @Override
     protected void onStart() {
+        try {
+            gameModel = GameStateSaver.getInstance().loadGame();
+            gameModel.resume();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         super.onStart();
         Log.println(Log.ASSERT,"test", "START");
     }
 
     @Override
     protected void onStop() {
+        gameView.pause();
+        try {
+            GameStateSaver.getInstance().saveGameInstance(gameModel);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         super.onStop();
         Log.println(Log.ASSERT,"test", "STOP");
 
@@ -122,6 +139,7 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
 
     @Override
     protected void onResume() {
+
         super.onResume();
         Log.println(Log.ASSERT,"test", "RESUME");
         gameView.resume();

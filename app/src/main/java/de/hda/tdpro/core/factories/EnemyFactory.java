@@ -1,10 +1,7 @@
 package de.hda.tdpro.core.factories;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import de.hda.tdpro.R;
-import de.hda.tdpro.StaticContext;
+
 import de.hda.tdpro.core.ResourceLoader;
 import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.enemy.EnemyType;

@@ -85,7 +85,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/applyPriority">
+        app:layout_constraintTop_toBottomOf="@+id/spinner_priority">
 
         <LinearLayout
             android:id="@+id/upgrade_container"
@@ -106,11 +106,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
-    <ImageButton
-        android:id="@+id/applyPriority"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/spinner_priority"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-        app:srcCompat="@drawable/apply" />
 </android.support.constraint.ConstraintLayout>

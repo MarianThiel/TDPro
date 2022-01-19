@@ -17,6 +17,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import de.hda.tdpro.ConfigWriter;
 import de.hda.tdpro.StaticContext;
 import de.hda.tdpro.core.Game;
 import de.hda.tdpro.core.enemy.EnemyType;
@@ -97,14 +98,10 @@ public class GameFactory {
 
         WaveManager waveManager = new WaveManager(NUMBER_OF_WAVES,path);
         waveManager.addAll(waves);
-        Game g = new Game(waveManager,path);
+        Game g = new Game(waveManager,path, ConfigWriter.getInstance().readHealth(),ConfigWriter.getInstance().readGold(),ConfigWriter.getInstance().readDiamonds());
         return g;
     }
-    private String getValue(String tag, Element element) {
-        NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
-        Node node = nodeList.item(0);
-        return node.getNodeValue();
-    }
+
     private int getNumberOfWaves(NodeList lst){
         for (int i=0; i<lst.getLength(); i++) {
 

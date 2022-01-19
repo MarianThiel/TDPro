@@ -36,7 +36,7 @@ public class TowerStatView extends FrameLayout {
 
     private Spinner prioritySpinner;
 
-    private ImageButton btnApplyPriority;
+
 
     private Game game;
 
@@ -68,7 +68,7 @@ public class TowerStatView extends FrameLayout {
         upgradeContainer = findViewById(R.id.upgrade_container);
 
         prioritySpinner = findViewById(R.id.spinner_priority);
-        btnApplyPriority = findViewById(R.id.applyPriority);
+
 
         initSpinner();
     }
@@ -93,14 +93,19 @@ public class TowerStatView extends FrameLayout {
                 priorities);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         prioritySpinner.setAdapter(adapter);
+        Priority priority = game.getSelectedTower().getPriority();
+        for(String s : priorities){
+            if(priority.toString().equals(s)){
+                prioritySpinner.setSelection(priorities.indexOf(s));
+                break;
+            }
+        }
 
         prioritySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String x = (String) parent.getItemAtPosition(position);
-
                 game.getSelectedTower().setPriority(Priority.valueOf(x));
-
             }
 
             @Override

@@ -8,15 +8,14 @@ import android.graphics.Canvas;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
+import de.hda.tdpro.ConfigWriter;
 import de.hda.tdpro.R;
+
 import de.hda.tdpro.StaticContext;
+
 import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.enemy.Path;
 import de.hda.tdpro.core.enemy.WaveManager;
@@ -76,7 +75,7 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
      * basic constructor for Game class
      * @param waveManager r
      */
-    public Game(WaveManager waveManager, Path path){
+    public Game(WaveManager waveManager, Path path, int health, int gold, int diamonds){
 
 
         listeners = new ArrayList<>();
@@ -93,13 +92,13 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
         int width = metrics.widthPixels;
         int height = metrics.heightPixels;
 
-        bg = Bitmap.createScaledBitmap(b,width,height,false);
+        bg = Bitmap.createScaledBitmap(b,height,width,false);
 
         runningWave = false;
         prepared = false;
-        health = 1000000; // TODO: set on init
-        gold = 200; // TODO: set on init
-
+        this.health = health;
+        this.gold = gold;
+        this.diamonds = diamonds;
     }
 
 
@@ -342,6 +341,8 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
                     notifyOnGameWinning();
                 return;
             }
+            this.diamonds = waveManager.getDiamondsOfCurrentWave();
+            ConfigWriter.getInstance().writeDiamonds(diamonds);
             runningWave = false;
             waveManager.prepare();
             prepareNextWave();

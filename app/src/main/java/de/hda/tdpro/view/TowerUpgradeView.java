@@ -7,10 +7,12 @@ import android.util.AttributeSet;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import de.hda.tdpro.R;
 import de.hda.tdpro.core.Game;
+import de.hda.tdpro.core.ResourceLoader;
 import de.hda.tdpro.core.tower.upgrades.UpgradeType;
 import de.hda.tdpro.core.tower.upgrades.MetaUpgrade;
 
@@ -21,6 +23,8 @@ public class TowerUpgradeView extends FrameLayout {
     private TextView txtRad;
     private TextView txtPrice;
     private TextView txtName;
+
+    private ImageView badge;
 
     private ImageButton buyUpgrade;
 
@@ -53,7 +57,7 @@ public class TowerUpgradeView extends FrameLayout {
         txtRad = findViewById(R.id.txtRad);
         txtPrice = findViewById(R.id.txtPrice);
         buyUpgrade = findViewById(R.id.upgradeButton2);
-
+        badge = findViewById(R.id.badge);
         buyUpgrade.setOnClickListener(e->{
             game.upgradeSelectedTower(type);
         });
@@ -67,5 +71,6 @@ public class TowerUpgradeView extends FrameLayout {
         txtVel.setText(Float.toString(meta.getVEL()));
         txtRad.setText(Integer.toString(meta.getRAD()));
         txtPrice.setText(Integer.toString(meta.getPRICE()));
+        badge.setImageBitmap(ResourceLoader.getInstance().getUpgradeBadge(upgrade));
     }
 }

@@ -62,6 +62,7 @@ abstract public class Tower implements EnemyObserver, Drawable {
     protected Bitmap img[];
 
 
+
     protected int hitBox;
 
     public Tower(int radius, int damage, float speed, int price) {
@@ -122,6 +123,9 @@ abstract public class Tower implements EnemyObserver, Drawable {
         getSphere().setPriority(priority);
     }
 
+    public Priority getPriority(){
+        return getSphere().getPriority();
+    }
 
     public void startAiming(){
         getSphere().startAiming();
@@ -139,11 +143,7 @@ abstract public class Tower implements EnemyObserver, Drawable {
         return sphere;
     }
 
-    public void setHitPriority(Priority type){
 
-        sphere.setPriority(type);
-
-    }
 
     public boolean isActive() {
         return active;
@@ -176,6 +176,7 @@ abstract public class Tower implements EnemyObserver, Drawable {
                 }
             }else{ // !sphere.containsEnemy(e)
                 if(getSphere().intersects(p) && e.getHp()>0){
+                    startAiming();
                     getSphere().targetEnemy(e);
                 }
             }

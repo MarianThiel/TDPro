@@ -8,17 +8,35 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import de.hda.tdpro.ConfigWriter;
+import de.hda.tdpro.MusicPlayer;
 import de.hda.tdpro.R;
+import de.hda.tdpro.StaticContext;
 import pl.droidsonroids.gif.GifImageButton;
 
 public class MainMenuActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private MusicPlayer musicPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+
+        musicPlayer = MusicPlayer.getInstance();
+        musicPlayer.loadMusic(this, R.raw.ingame);
+        musicPlayer.startMusic();
+
+
+
+        StaticContext.setContext(this);
+
+        ConfigWriter.getInstance().readDiamonds();
+
+
+        ConfigWriter.getInstance().readDiamonds();
+
         GifImageButton levelSelect = (GifImageButton) findViewById(R.id.buttonLevelSelection);
         levelSelect.setOnClickListener((View.OnClickListener) this);
         GifImageButton spellSelect = (GifImageButton) findViewById(R.id.buttonSpellSelection);

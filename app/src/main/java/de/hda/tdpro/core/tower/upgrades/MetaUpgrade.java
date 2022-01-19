@@ -53,7 +53,7 @@ public class MetaUpgrade {
         switch (type){
             case L1_DMG_UPGRADE:
                 return new MetaUpgrade("DMG_1", 10,0,0,10);
-            case L1_RANGE_UPGRADE:
+            case L1_RNG_UPGRADE:
                 return new MetaUpgrade("RNG_1", 0,0,20,10);
             case L1_VEL_UPGRADE:
                 return new MetaUpgrade("VEL_1", 0,0.3f,0,10);

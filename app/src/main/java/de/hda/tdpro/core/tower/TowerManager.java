@@ -14,25 +14,25 @@ import de.hda.tdpro.core.tower.upgrades.SimpleUpgrade;
 
 public class TowerManager implements Drawable {
 
-    private final int MAX_TOWER_NUMBER;
+    private final int MAX_TOWER_CAPACITY;
 
     private final Tower[] towers;
 
-    private int idx;
+    private int lastIndexInserted;
 
 
 
 
     public TowerManager(int MAX_TOWER_NUMBER) {
-        this.MAX_TOWER_NUMBER = MAX_TOWER_NUMBER;
+        this.MAX_TOWER_CAPACITY = MAX_TOWER_NUMBER;
         towers = new Tower[MAX_TOWER_NUMBER];
-        idx = 0;
+        lastIndexInserted = 0;
         Arrays.fill(towers, null);
 
     }
 
     private int getIndex(Tower tower){
-        for(int i = 0; i < MAX_TOWER_NUMBER; i++){
+        for(int i = 0; i < MAX_TOWER_CAPACITY; i++){
             if(towers[i].equals(tower)){
                 return i;
             }
@@ -54,19 +54,19 @@ public class TowerManager implements Drawable {
     }
 
     public Tower placeTower(TowerType type, Position position){
-                if(idx<MAX_TOWER_NUMBER){
+                if(lastIndexInserted < MAX_TOWER_CAPACITY){
                     switch (type){
                         case FIRE_TOWER:
-                            towers[idx] = TowerFactory.getInstance().createFireTower();
+                            towers[lastIndexInserted] = TowerFactory.getInstance().createFireTower();
                             break;
                         case ICE_TOWER:
 
                             break;
                     }
-                    towers[idx].setPos(position);
-                    towers[idx].startAiming();
-                    Tower t = towers[idx];
-                    ++idx;
+                    towers[lastIndexInserted].setPos(position);
+                    towers[lastIndexInserted].startAiming();
+                    Tower t = towers[lastIndexInserted];
+                    ++lastIndexInserted;
                     return t;
                 }else
                 return null;
@@ -94,7 +94,7 @@ public class TowerManager implements Drawable {
     }
 
     public void addTowerAsListener(Enemy e){
-        for(int i = 0; i < MAX_TOWER_NUMBER; i++){
+        for(int i = 0; i < MAX_TOWER_CAPACITY; i++){
             if(towers[i]!=null)
             e.addEnemyObserver(towers[i]);
         }
@@ -110,7 +110,7 @@ public class TowerManager implements Drawable {
 
     @Override
     public void draw(Canvas canvas) {
-        for (int i = 0; i < MAX_TOWER_NUMBER; i++){
+        for (int i = 0; i < MAX_TOWER_CAPACITY; i++){
             if(towers[i] != null){
                 towers[i].draw(canvas);
             }

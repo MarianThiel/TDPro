@@ -14,6 +14,7 @@ import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.tower.priority.EnemyFirstComparator;
 import de.hda.tdpro.core.tower.priority.EnemyHPMaxComparator;
 import de.hda.tdpro.core.tower.priority.EnemyHPMinComparator;
+import de.hda.tdpro.core.tower.priority.EnemyLastComparator;
 import de.hda.tdpro.core.tower.priority.Priority;
 
 /**
@@ -52,6 +53,10 @@ public class RangeSphere implements Drawable, Runnable {
 
     private boolean queueBlock;
 
+    private Priority priority;
+
+
+
     /**
      * basic constructor
      * @param t according tower
@@ -62,6 +67,9 @@ public class RangeSphere implements Drawable, Runnable {
         queue = new PriorityQueue<>(cmp);
         this.tower = t;
         queueBlock = false;
+        priority = Priority.FIRST;
+
+
 
     }
 
@@ -126,6 +134,7 @@ public class RangeSphere implements Drawable, Runnable {
     }
 
     public void setPriority(Priority type) {
+        priority = type;
         switch (type){
             case MAX_HP:
                 executePrioritySwap(new EnemyHPMaxComparator());
@@ -135,8 +144,17 @@ public class RangeSphere implements Drawable, Runnable {
                 break;
             case FIRST:
                 executePrioritySwap(new EnemyFirstComparator());
+                break;
+            case LAST:
+                executePrioritySwap(new EnemyLastComparator());
+                break;
         }
     }
+
+    public Priority getPriority(){
+        return priority;
+    }
+
 
     private void executePrioritySwap(Comparator<Enemy> cmp){
         setQueueBlock(true);
