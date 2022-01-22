@@ -6,13 +6,16 @@ import java.util.Arrays;
 
 
 import de.hda.tdpro.core.Drawable;
+import de.hda.tdpro.core.Game;
 import de.hda.tdpro.core.Position;
+import de.hda.tdpro.core.TimingUnit;
 import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.factories.TowerFactory;
 import de.hda.tdpro.core.tower.upgrades.MetaUpgrade;
 import de.hda.tdpro.core.tower.upgrades.SimpleUpgrade;
+import de.hda.tdpro.core.tower.upgrades.TowerDecorator;
 
-public class TowerManager implements Drawable {
+public class TowerManager implements Drawable, TimingUnit {
 
     private final int MAX_TOWER_CAPACITY;
 
@@ -117,15 +120,38 @@ public class TowerManager implements Drawable {
         }
     }
 
-    public void pauseTowers(){
+    @Override
+    public void speedUp() {
+
+        for(Tower t : towers){
+            if(t != null){
+                t.getSphere().setSpeedFactor(Game.FF_FACTOR);
+            }
+        }
+
+    }
+
+    @Override
+    public void slowDown() {
+
+
+        for(Tower t : towers){
+            if(t != null){
+               t.getSphere().setSpeedFactor(1);
+            }
+        }
+    }
+
+    @Override
+    public void pause(){
         for(Tower t : towers){
             if(t!=null){
                 t.stopAiming();
             }
         }
     }
-
-    public void resumeTowers(){
+    @Override
+    public void resume(){
         for(Tower t: towers){
             if (t != null){
                 t.startAiming();

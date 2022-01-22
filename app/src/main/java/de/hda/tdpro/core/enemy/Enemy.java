@@ -82,6 +82,8 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
 
     private final int MAX_HEALTH;
 
+    private float speedFactor;
+
     /**
      * default constructor
      * @param hp
@@ -102,7 +104,8 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
         imageIndex = 0;
         stepCount = 0;
         positionAsInt = 0;
-        
+        speedFactor = 1f;
+
     }
 
     /**
@@ -300,7 +303,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
             stepCount++;
 
             try {
-                Thread.sleep(SLEEP);
+                Thread.sleep((long)(1000/(velocity*speedFactor)));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -314,7 +317,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
             String s = Integer.toString(hp);
             Paint p = new Paint();
             p.setTextSize(50);
-            //canvas.drawText(s,position.getxVal()-(image[imageIndex].getWidth()/2),position.getyVal()+100,p);
+            //canvas.drawText(s,position.getxVal()-(image[imageIndex].getWidth()/2),position.getyVal()+100,p); textual display of health
             if(hp != MAX_HEALTH)
                 drawHealthBar(canvas);
         }
@@ -335,11 +338,10 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
         }else paint.setColor(Color.GREEN);
 
         canvas.drawLine(getPosition().getxVal() - (image[imageIndex].getWidth()/2),getPosition().getyVal() - 100,(float)p2.x,(float)p2.y - 100,paint);
-
     }
     public Position getEstimatedPosition(float velocity){
 
-        float vel = ( getVelocity()/ (velocity + 1));
+        float vel = ( getVelocity()/ (velocity+2));
         Log.println(Log.ASSERT,"position_e", "pos: " + vel);
         int i = path.indexOf(getPosition())+ (int) vel;
 
@@ -350,5 +352,9 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
             return path.get(path.size()-1);
         }
 
+    }
+
+    public void setSpeedFactor(float speedFactor) {
+        this.speedFactor = speedFactor;
     }
 }

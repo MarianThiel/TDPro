@@ -18,13 +18,13 @@ public class FireTower extends Tower {
         super(radius, damage, speed, price);
         this.sphere = new RangeSphere(this);
         img = ResourceLoader.getInstance().getTowerImages(TowerType.FIRE_TOWER);
-        // img = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.firetower);
+        current = img[0];
     }
 
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        canvas.drawBitmap(img[0], getPos().getxVal()-(img[0].getWidth()/2),getPos().getyVal()-(img[0].getHeight()/2),null);
+        canvas.drawBitmap(current, getPos().getxVal()-(img[0].getWidth()/2),getPos().getyVal()-(img[0].getHeight()/2),null);
 
     }
 }

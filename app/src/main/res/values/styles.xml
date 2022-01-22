@@ -12,4 +12,60 @@
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
+    <style name="endgame_header">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14pt</item>
+        <item name="android:textColor">#242424</item>
+    </style>
+
+    <style name="endgame_stat_header">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">12pt</item>
+        <item name="android:textColor">#242424</item>
+    </style>
+
+    <style name="endgame_stat_values">
+        <item name="android:textSize">10pt</item>
+        <item name="android:textColor">#f2ff00</item>
+    </style>
+
+    <style name="endgame_gameover">
+        <item name="android:textSize">16pt</item>
+        <item name="android:textColor">#ff0000</item>
+    </style>
+
+    <style name="endgame_won">
+        <item name="android:textSize">16pt</item>
+        <item name="android:textColor">#00ff00</item>
+    </style>
+
+    <style name="button_test" parent="@android:style/Widget.Button">
+        <item name="android:gravity">center_vertical|center_horizontal</item>
+
+        <item name="android:background">@drawable/main_button_style</item>
+        <item name="android:shadowColor">#FF000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:textColor">#FBC02D</item>
+        <item name="android:shadowDy">-1</item>
+        <item name="android:shadowRadius">0.2</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">16dip</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:paddingLeft">10pt</item>
+        <item name="android:paddingRight">10pt</item>
+    </style>
+
+    <style name="Widget.Theme.AppCompat.Light.NoActionBar.ActionBar.Fullscreen"
+        parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
+
+    <style name="Widget.Theme.AppCompat.Light.NoActionBar.ButtonBar.Fullscreen" parent="">
+        <item name="android:background">@color/black_overlay</item>
+        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
+    </style>
+
+
 </resources>

@@ -3,7 +3,6 @@ package de.hda.tdpro.core.tower;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
@@ -16,6 +15,7 @@ import de.hda.tdpro.core.tower.priority.EnemyHPMaxComparator;
 import de.hda.tdpro.core.tower.priority.EnemyHPMinComparator;
 import de.hda.tdpro.core.tower.priority.EnemyLastComparator;
 import de.hda.tdpro.core.tower.priority.Priority;
+import de.hda.tdpro.core.tower.shootingbehavior.ShootingBehavior;
 
 /**
  * @author Marian Thiel
@@ -55,7 +55,7 @@ public class RangeSphere implements Drawable, Runnable {
 
     private Priority priority;
 
-
+    private float speedFactor;
 
     /**
      * basic constructor
@@ -69,7 +69,7 @@ public class RangeSphere implements Drawable, Runnable {
         queueBlock = false;
         priority = Priority.FIRST;
 
-
+        speedFactor = 1f;
 
     }
 
@@ -82,6 +82,7 @@ public class RangeSphere implements Drawable, Runnable {
     public void hitEnemy(int dmg){
         Enemy e = queue.peek();
         if(!removeDeadEnemy(e)){
+            tower.rotateTower(e.getEstimatedPosition(tower.getSpeed()));
             fireProjectile(e);
             e.setHp(e.getHp()-dmg);
         }
@@ -198,7 +199,7 @@ public class RangeSphere implements Drawable, Runnable {
                     hitEnemy(tower.getDamage());
                 }
                 try {
-                    Thread.sleep ((long) (1000/tower.getSpeed()));
+                    Thread.sleep ((long) (1000/(tower.getSpeed() * speedFactor)));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -224,5 +225,9 @@ public class RangeSphere implements Drawable, Runnable {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void setSpeedFactor(float f){
+        speedFactor = f;
     }
 }

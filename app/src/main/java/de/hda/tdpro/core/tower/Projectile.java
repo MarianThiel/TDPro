@@ -1,11 +1,15 @@
 package de.hda.tdpro.core.tower;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.util.Log;
 
 import de.hda.tdpro.core.Drawable;
+import de.hda.tdpro.core.ResourceLoader;
 import de.hda.tdpro.core.enemy.Vector2D;
 
 /**
@@ -28,6 +32,8 @@ public class Projectile implements Drawable, Runnable {
 
     public boolean hit = false;
 
+    private Bitmap img;
+
     public Projectile(int xStart, int yStart, int xEnd, int yEnd, int duration, Context context){
         this.xStart = xStart;
         this.yStart = yStart;
@@ -39,6 +45,23 @@ public class Projectile implements Drawable, Runnable {
         v = new Vector2D(xEnd,yEnd);
         v.normalize();
 
+        img = ResourceLoader.getInstance().getProjectile(TowerType.FIRE_TOWER);
+
+        Vector2D v1 = new Vector2D(xStart,yStart);
+        Vector2D v2 = new Vector2D(xStart,yStart);
+        Vector2D v3 = new Vector2D(xEnd,yEnd);
+
+        v2.y = v2.y - 300;
+
+        v2 = v2.dif(v1);
+        v3 = v3.dif(v1);
+        double arc = v2.getArc(v3);
+
+        Log.println(Log.ASSERT,"ARC", "A: " + v1.x + " " + v1.y + " " + v2.x + " " + v2.y + " " + v3.x + " " + v3.y + "ARC=" + arc);
+
+        Matrix m = new Matrix();
+        m.postRotate((int)arc);
+        img = Bitmap.createBitmap(img,0,0,img.getWidth(),img.getHeight(),m,true);
         t = new Thread(this);
         t.start();
     }
@@ -50,10 +73,11 @@ public class Projectile implements Drawable, Runnable {
             Vector2D v2 = new Vector2D(xEnd, yEnd);
             v2.normalize();
 
-            Paint p = new Paint();
-            p.setStrokeWidth(5);
-            p.setColor(Color.RED);
-            canvas.drawCircle(x,y,8,p);
+            canvas.drawBitmap(img,x,y,null);
+            //Paint p = new Paint();
+            //p.setStrokeWidth(5);
+            //p.setColor(Color.RED);
+            //canvas.drawCircle(x,y,8,p);
         }
 
 

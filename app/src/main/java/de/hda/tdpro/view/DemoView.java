@@ -1,5 +1,6 @@
 package de.hda.tdpro.view;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -102,14 +103,19 @@ public class DemoView extends SurfaceView implements Runnable, GameListener {
                 //canvas.drawColor(Color.WHITE);
                 //Drawing the player
                 game.draw(canvas);
+
                 if(placingTower){
                     WindowManager wm = ((WindowManager) StaticContext.getContext().getSystemService(Context.WINDOW_SERVICE));
                     DisplayMetrics metrics = new DisplayMetrics();
                     wm.getDefaultDisplay().getMetrics(metrics);
 
-                    int height = metrics.widthPixels;
-                    int width = metrics.heightPixels;
-
+                    int height = metrics.heightPixels;
+                    int width = metrics.widthPixels;
+                    if(height>width){
+                        int t = width;
+                        width = height;
+                        height = t;
+                    }
                     Paint p = new Paint();
                     p.setStyle(Paint.Style.FILL_AND_STROKE);
                     p.setColor(Color.parseColor("#212121"));
@@ -196,6 +202,11 @@ public class DemoView extends SurfaceView implements Runnable, GameListener {
 
     @Override
     public void updateOnTowerPlacement() {
+
+    }
+
+    @Override
+    public void updateOnCheckpoint() {
 
     }
 

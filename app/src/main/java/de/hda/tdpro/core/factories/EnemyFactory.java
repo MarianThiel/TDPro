@@ -35,7 +35,7 @@ public class EnemyFactory {
      */
     public Enemy createRandomEnemy(){
         Bitmap[] images = ResourceLoader.getInstance().getAnimation("NM");
-        MetaEnemy meta = MetaEnemy.getMetaEnemy(EnemyType.RANDOM);
+        MetaEnemy meta = MetaEnemy.getMetaEnemy(EnemyType.L1FAST);
         return new Enemy(meta.getHp(), meta.getValue(), meta.getVel(), images);
     }
 
@@ -56,7 +56,7 @@ public class EnemyFactory {
     public Enemy createEnemyByType(EnemyType type){
         Enemy e = null;
         switch (type){
-            case RANDOM:
+            case L1FAST:
                 e = createRandomEnemy();
                 break;
             case L1TANK:

@@ -2,12 +2,14 @@ package de.hda.tdpro.core;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import de.hda.tdpro.R;
 import de.hda.tdpro.StaticContext;
+import de.hda.tdpro.core.enemy.Vector2D;
 import de.hda.tdpro.core.tower.TowerType;
 import de.hda.tdpro.core.tower.upgrades.UpgradeType;
 
@@ -21,6 +23,8 @@ public class ResourceLoader {
     private Map<TowerType, Bitmap[]> towerBitmaps;
 
     private Map<UpgradeType,Bitmap> upgradeBadges;
+
+    private Map<TowerType, Bitmap> projectiles;
 
     private static int MAX_LEVEL_IMAGES = 5;
 
@@ -39,6 +43,8 @@ public class ResourceLoader {
 
     private void initAnimations(){
         animations = new HashMap<>();
+
+
 
         addL1TankResource();
 
@@ -60,18 +66,28 @@ public class ResourceLoader {
     }
 
     private void addEnemy2Resource() {
-        Bitmap[] nm = new Bitmap[4];
+        Bitmap[] nm = new Bitmap[10];
+        float scaleFactor = 0.7f;
 
-        nm[0] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.nm1);
-        nm[0] = Bitmap.createScaledBitmap(nm[0],100,100,false);
-        nm[1] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.nm2);
-        nm[1] = Bitmap.createScaledBitmap(nm[1],100,100,false);
-        nm[2] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.nm3);
-        nm[2] = Bitmap.createScaledBitmap(nm[2],100,100,false);
-        nm[3] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.nm4);
-        nm[3] = Bitmap.createScaledBitmap(nm[3],100,100,false);
+        nm[0] = scale(BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.run1),scaleFactor);
+
+        nm[1] = scale(BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.run2),scaleFactor);
+
+        nm[2] = scale(BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.run3),scaleFactor);
+
+        nm[3] = scale(BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.run4),scaleFactor);
+        nm[4] = scale(BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.run5),scaleFactor);
+        nm[5] = scale(BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.run6),scaleFactor);
+        nm[6] = scale(BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.run7),scaleFactor);
+        nm[7] = scale(BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.run8),scaleFactor);
+        nm[8] = scale(BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.run9),scaleFactor);
+        nm[9] = scale(BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.run10),scaleFactor);
 
         animations.put("NM",nm);
+    }
+
+    private Bitmap scale(Bitmap b, float f){
+        return Bitmap.createScaledBitmap(b,(int)(b.getWidth()*f),(int)(b.getHeight()*f),true);
     }
 
     private void addL1TankResource() {
@@ -89,9 +105,15 @@ public class ResourceLoader {
 
     private void initTowers(){
         towerBitmaps = new HashMap<>();
+
+        projectiles = new HashMap<>();
+
+        projectiles.put(TowerType.FIRE_TOWER,BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.proj_fire));
+
+
         Bitmap[] firetower = new Bitmap[2];
-        firetower[0] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.t_fire1);
-        firetower[0] = Bitmap.createScaledBitmap(firetower[0],90,90,false);
+        firetower[0] = scale(BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.f_tower),0.15f);
+
         firetower[1] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.t_fire2);
         firetower[1] = Bitmap.createScaledBitmap(firetower[1],90,90,false);
 
@@ -147,5 +169,23 @@ public class ResourceLoader {
 
     public Bitmap getUpgradeBadge(UpgradeType type){
         return upgradeBadges.get(type);
+    }
+
+    public Bitmap getProjectile(TowerType t){
+        return projectiles.get(t);
+    }
+
+    public Bitmap getRotated(Bitmap b, Position p1, Position p2){
+        Vector2D v1 = new Vector2D(p1.getxVal(),p1.getyVal());
+        Vector2D v2 = new Vector2D(p1.getxVal(),p1.getyVal() - 300);
+        Vector2D v3 = new Vector2D(p2.getxVal(),p2.getyVal());
+
+        v2 = v2.dif(v1);
+        v3 = v3.dif(v1);
+
+        double arc = v2.getArc(v3);
+        Matrix m = new Matrix();
+        m.postRotate((int)arc);
+        return Bitmap.createBitmap(b,0,0,b.getWidth(),b.getHeight(),m,true);
     }
 }

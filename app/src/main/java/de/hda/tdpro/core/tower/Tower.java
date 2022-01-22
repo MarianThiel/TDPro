@@ -9,6 +9,7 @@ import android.util.Log;
 import de.hda.tdpro.core.Drawable;
 import de.hda.tdpro.core.EnemyObserver;
 import de.hda.tdpro.core.Position;
+import de.hda.tdpro.core.ResourceLoader;
 import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.tower.priority.Priority;
 
@@ -60,6 +61,8 @@ abstract public class Tower implements EnemyObserver, Drawable {
      * Image of the Tower as Bitmap
      */
     protected Bitmap img[];
+
+    protected Bitmap current;
 
 
 
@@ -184,6 +187,9 @@ abstract public class Tower implements EnemyObserver, Drawable {
 
     }
 
+    public void rotateTower(Position p){
+        current = ResourceLoader.getInstance().getRotated(img[(getLevel()-1) % img.length],this.getPos(),p);
+    }
 
     @Override
     public void draw(Canvas canvas) {

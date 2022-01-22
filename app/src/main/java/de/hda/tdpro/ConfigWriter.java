@@ -29,6 +29,8 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import de.hda.tdpro.core.enemy.EnemyType;
+import de.hda.tdpro.core.enemy.MetaEnemy;
 import de.hda.tdpro.core.tower.TowerType;
 import de.hda.tdpro.core.tower.upgrades.MetaTower;
 
@@ -44,6 +46,7 @@ public class ConfigWriter {
 
     private ConfigWriter(){
         documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        reloadDefaultConfig();
     }
 
     public static ConfigWriter getInstance() {
@@ -152,6 +155,7 @@ public class ConfigWriter {
         }
         return 0;
     }
+
     public int readGold(){
         try {
             Document d = readConfig();
@@ -186,4 +190,70 @@ public class ConfigWriter {
         }
     }
 
+    public MetaTower readMetaTowerData(TowerType type){
+        try {
+            Document d = readConfig();
+
+            Element e1 = d.getDocumentElement();
+            e1.normalize();
+
+            NodeList lst = e1.getElementsByTagName("tower");
+
+            for(int i = 0; i < lst.getLength(); i++){
+                Node node = lst.item(i);
+                if(node.getNodeType() == Node.ELEMENT_NODE){
+                    Element e2 = (Element) node;
+                    if(e2.getAttribute("type").equals(type.toString())){
+                        String name = e2.getAttribute("name");
+                        int dmg = Integer.parseInt(e2.getAttribute("dmg"));
+                        int rng = Integer.parseInt(e2.getAttribute("rng"));
+                        float vel = Float.parseFloat(e2.getAttribute("vel"));
+                        int price = Integer.parseInt(e2.getAttribute("price"));
+                        return new MetaTower(name,dmg,rng,vel,price);
+                    }
+                }
+            }
+
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public MetaEnemy readMetaEnemyData(EnemyType type){
+        try {
+            Document d = readConfig();
+
+            Element e1 = d.getDocumentElement();
+            e1.normalize();
+
+            NodeList lst = e1.getElementsByTagName("enemy");
+
+            for(int i = 0; i < lst.getLength(); i++){
+                Node node = lst.item(i);
+                if(node.getNodeType() == Node.ELEMENT_NODE){
+                    Element e2 = (Element) node;
+                    if(e2.getAttribute("type").equals(type.toString())){
+                        String name = e2.getAttribute("name");
+                        int dmg = Integer.parseInt(e2.getAttribute("hp"));
+                        float vel = Float.parseFloat(e2.getAttribute("vel"));
+                        int price = Integer.parseInt(e2.getAttribute("value"));
+                        return new MetaEnemy(name,dmg,vel,price);
+                    }
+                }
+            }
+
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

@@ -8,35 +8,49 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import de.hda.tdpro.ConfigWriter;
 import de.hda.tdpro.R;
+import de.hda.tdpro.core.GameStateSaver;
 
 public class EndGameActivity extends AppCompatActivity {
 
     private TextView endGameMessage;
-    private ImageButton backButton;
-    private TextView earnedMoney;
-    private TextView enemiesKilled;
+    private Button backButton;
+    private TextView addDiam;
+    private TextView diam;
+    private TextView checkp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end_game);
 
+        GameStateSaver.getInstance().reset();
+
         endGameMessage = findViewById(R.id.EndGameMessage);
         backButton = findViewById(R.id.ReturnToLevelSelect);
-        earnedMoney = findViewById(R.id.EarnedMoney);
-        enemiesKilled = findViewById(R.id.EnemiesKilled);
+        addDiam = findViewById(R.id.addDiamonds);
+        diam = findViewById(R.id.amountOfDiamonds);
+        checkp = findViewById(R.id.checkpointReached);
 
         Intent intent = getIntent();
         boolean win = intent.getBooleanExtra("WIN", false);
+        int adiam = intent.getIntExtra("WON_DIAM",0);
+        int d = intent.getIntExtra("DIAM",0);
+        int checkpoint= intent.getIntExtra("CHECKPOINT",0);
+
+        addDiam.setText("+" + adiam);
+        diam.setText("" + ConfigWriter.getInstance().readDiamonds());
+        checkp.setText("Wave " + checkpoint +1);
 
         if(win)
         {
-            endGameMessage.setText("Du hast gewonnen!");
+            endGameMessage.setText("Level Completed");
+            endGameMessage.setTextAppearance(R.style.endgame_won);
         }
         else
         {
-            endGameMessage.setText("Du hast verloren!");
+            endGameMessage.setText("GAME OVER");
         }
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

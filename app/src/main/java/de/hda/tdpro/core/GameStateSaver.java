@@ -57,4 +57,10 @@ public class GameStateSaver {
             throw new Exception("nothing to load from");
         }
     }
+
+    public void reset(){
+        loadBlock = true;
+        saveBlock = false;
+        gameInstance = null;
+    }
 }

@@ -48,8 +48,13 @@ public class PathFactory {
         DisplayMetrics metrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(metrics);
 
-        int width = metrics.heightPixels;
-        int height = metrics.widthPixels;
+        int height = metrics.heightPixels;
+        int width = metrics.widthPixels;
+        if(height>width){
+            int t = width;
+            width = height;
+            height = t;
+        }
 
         p.addPoint(0,height/4);
         p.addPoint(width/4,0);

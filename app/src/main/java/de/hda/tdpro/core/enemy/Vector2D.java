@@ -42,6 +42,18 @@ public class Vector2D implements Comparable<Vector2D>{
         return Math.sqrt((x*x)+(y*y));
     }
 
+    public double scalar(Vector2D v){
+        return (x*v.x)+(y*v.y);
+    }
+
+    public double getArc(Vector2D v){
+        double arc = (Math.acos(scalar(v)/(this.norm()*v.norm())))*(180/Math.PI);
+        if(v.x < 0){
+            arc = 360 - arc;
+        }
+        return arc;
+    }
+
 
     @Override
     public int compareTo(Vector2D o) {

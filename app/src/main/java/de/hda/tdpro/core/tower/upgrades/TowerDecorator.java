@@ -21,6 +21,7 @@ public abstract class TowerDecorator extends Tower {
         embeddedTower = uTower;
         this.img = embeddedTower.getImg();
         getSphere().setTower(this);
+        current = img[(getLevel()-1) % img.length];
     }
 
     @Override
@@ -36,6 +37,14 @@ public abstract class TowerDecorator extends Tower {
     @Override
     public float getSpeed() {
         return this.speed + embeddedTower.getSpeed();
+    }
+
+    public void setLocalSpeed(float vel){
+        this.speed = vel;
+    }
+
+    public float getLocalSpeed(){
+        return speed;
     }
 
     @Override
@@ -86,9 +95,12 @@ public abstract class TowerDecorator extends Tower {
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        canvas.drawBitmap(img[(getLevel()-1) % img.length], getPos().getxVal()-(img[(getLevel()-1) % img.length].getWidth()/2),getPos().getyVal()-(img[(getLevel()-1) % img.length].getHeight()/2),null);
+        canvas.drawBitmap(current, getPos().getxVal()-(img[(getLevel()-1) % img.length].getWidth()/2),getPos().getyVal()-(img[(getLevel()-1) % img.length].getHeight()/2),null);
 
 
     }
 
+    public Tower getEmbeddedTower() {
+        return embeddedTower;
+    }
 }

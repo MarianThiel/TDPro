@@ -98,7 +98,7 @@ public class GameFactory {
 
         WaveManager waveManager = new WaveManager(NUMBER_OF_WAVES,path);
         waveManager.addAll(waves);
-        Game g = new Game(waveManager,path, ConfigWriter.getInstance().readHealth(),ConfigWriter.getInstance().readGold(),ConfigWriter.getInstance().readDiamonds());
+        Game g = new Game(waveManager,path, ConfigWriter.getInstance().readHealth(),ConfigWriter.getInstance().readGold(),ConfigWriter.getInstance().readDiamonds(),0);
         return g;
     }
 

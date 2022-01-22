@@ -170,4 +170,12 @@ public class EnemyWave implements Runnable, Drawable {
     public int getNumOfDiamonds() {
         return numOfDiamonds;
     }
+
+    public void speedUpEnemies(float factor){
+        for(Enemy e : enemies){
+            if(e != null){
+                e.setSpeedFactor(factor);
+            }
+        }
+    }
 }

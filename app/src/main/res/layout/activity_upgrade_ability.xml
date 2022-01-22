@@ -8,7 +8,6 @@
     tools:context=".activity.UpgradeAbility">
 
     <ImageButton
-        android:id="@+id/ua_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -16,7 +15,8 @@
         android:background="?attr/actionBarItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_revert" />
+        app:srcCompat="@android:drawable/ic_menu_revert"
+        tools:ignore="DuplicateIds" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="84dp"

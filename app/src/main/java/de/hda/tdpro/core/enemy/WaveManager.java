@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import de.hda.tdpro.core.Drawable;
+import de.hda.tdpro.core.Game;
+import de.hda.tdpro.core.TimingUnit;
 
 /**
  * @author Marian Thiel
@@ -14,7 +16,7 @@ import de.hda.tdpro.core.Drawable;
  * Class for managing Waves
  * holds all waves of an entire level
  */
-public class WaveManager implements Drawable {
+public class WaveManager implements Drawable, TimingUnit {
     /**
      * number of waves
      */
@@ -35,6 +37,8 @@ public class WaveManager implements Drawable {
 
     private int lastWaveInserted;
 
+    private boolean currentWaveStarted;
+
     /**
      * test constructor
      * @param NUMBER_OF_WAVES number of enemies
@@ -44,6 +48,7 @@ public class WaveManager implements Drawable {
         this.NUMBER_OF_WAVES = NUMBER_OF_WAVES;
         waves = new EnemyWave[NUMBER_OF_WAVES];
         currentWave = 0;
+        currentWaveStarted = false;
         lastWaveInserted = 0;
         this.path = path;
     }
@@ -67,6 +72,7 @@ public class WaveManager implements Drawable {
     public void startCurrentWave(){
 
         waves[currentWave].startWave();
+        currentWaveStarted = true;
         //currentWave++;
     }
 
@@ -108,6 +114,7 @@ public class WaveManager implements Drawable {
                }
            }
        }
+       currentWaveStarted = false;
        return true;
     }
 
@@ -161,15 +168,26 @@ public class WaveManager implements Drawable {
     /**
      * resumes the current wave
      */
+    @Override
     public void resume(){
-        waves[currentWave].resumeWaveEjecting();
-        List<Enemy> lst = getEnemiesOnScreen();
-        for(Enemy e : lst){
-            e.initWalking();
+        if(currentWaveStarted){
+            waves[currentWave].resumeWaveEjecting();
+            List<Enemy> lst = getEnemiesOnScreen();
+            for(Enemy e : lst){
+                e.initWalking();
+            }
         }
     }
 
     public int getDiamondsOfCurrentWave(){
         return waves[currentWave].getNumOfDiamonds();
+    }
+    @Override
+    public void speedUp(){
+        waves[currentWave].speedUpEnemies(Game.FF_FACTOR);
+    }
+    @Override
+    public void slowDown(){
+        waves[currentWave].speedUpEnemies(1);
     }
 }

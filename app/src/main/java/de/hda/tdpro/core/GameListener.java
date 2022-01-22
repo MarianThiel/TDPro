@@ -12,4 +12,6 @@ public interface GameListener {
 
     void updateOnTowerPlacement();
 
+    void updateOnCheckpoint();
+
 }

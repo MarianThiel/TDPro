@@ -1,8 +1,12 @@
 package de.hda.tdpro.activity;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,12 +17,14 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 import de.hda.tdpro.R;
+import de.hda.tdpro.SFXManager;
 import de.hda.tdpro.StaticContext;
 import de.hda.tdpro.core.GameStateSaver;
 import de.hda.tdpro.core.factories.GameFactory;
@@ -32,6 +38,7 @@ import de.hda.tdpro.core.tower.Tower;
 import de.hda.tdpro.view.TowerBuyView;
 import de.hda.tdpro.view.TowerStatView;
 import de.hda.tdpro.view.TowerUpgradeView;
+import de.hda.tdpro.view.dialog.MenuDialog;
 
 public class InGameActivity extends AppCompatActivity implements GameListener {
 
@@ -57,9 +64,13 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
 
     private ImageButton btnBuyAbort;
 
+    private ImageButton btnHideShowContext;
+
     private HorizontalScrollView contextMenu;
 
     private FrameLayout contextMenuLayout;
+
+    private Dialog menu;
 
     private TextView txt_health;
     private TextView txt_gold;
@@ -72,6 +83,10 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
      * List of all TowerTypes
      */
     private List<TowerType> towers;
+
+    private int width;
+
+    private int height;
 
     private boolean run;
 
@@ -88,8 +103,20 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
         hideContextMenu();
         updateStats();
 
-        run = true;
+        initMenu();
 
+        run = true;
+        WindowManager wm = ((WindowManager) StaticContext.getContext().getSystemService(Context.WINDOW_SERVICE));
+        DisplayMetrics metrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(metrics);
+
+         height = metrics.heightPixels;
+         width = metrics.widthPixels;
+        if(height>width){
+            int t = width;
+            width = height;
+            height = t;
+        }
 
 
     }
@@ -127,6 +154,7 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        GameStateSaver.getInstance().reset();
         Log.println(Log.ASSERT,"test", "DESTROY");
     }
 
@@ -160,25 +188,24 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
      */
     private void initButtonListeners() {
         btnNextWave.setOnClickListener(e->{
-            gameModel.startNextWave();
+            if(gameModel.startNextWave()){
+                SFXManager.getInstance().playNextWave();
+            }
         });
 
         btnSettings.setOnClickListener(e->{
             gameView.pause();
-            Intent i = new Intent(InGameActivity.this,SettingsActivity.class);
-            i.putExtra("INGAME", true);
-            try {
-                GameStateSaver.getInstance().saveGameInstance(gameModel);
-                startActivity(i);
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
+
+
+
+            menu.show();
         });
 
         btnTowerCreate.setOnClickListener(e->{
             //showTowerBuyView();
             btnBuyAbort.setVisibility(View.VISIBLE);
             gameView.setMode(PointingMode.PLACE_TOWER_MODE);
+            Toast.makeText(this,"Tab anywhere to place the Tower",Toast.LENGTH_LONG).show();
         });
 
         btnPausePlay.setOnClickListener(e->{
@@ -195,6 +222,7 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
         });
 
         btnFastForward.setOnClickListener(e->{
+            gameModel.fastForward(!btnFastForward.isActivated());
             btnFastForward.setActivated(!btnFastForward.isActivated());
         });
 
@@ -203,7 +231,14 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
             btnBuyAbort.setVisibility(View.GONE);
         });
 
-
+        btnHideShowContext.setOnClickListener(e->{
+            if(btnHideShowContext.isActivated()){
+                contextMenuLayout.animate().translationY(0);
+            }else{
+                contextMenuLayout.animate().translationY(height);
+            }
+            btnHideShowContext.setActivated(!btnHideShowContext.isActivated());
+        });
     }
 
     /**
@@ -236,7 +271,7 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
         btnTowerCreate = findViewById(R.id.btnCreateTower);
         btnSettings = findViewById(R.id.btnSettings);
         btnBuyAbort = findViewById(R.id.buyTowerAbort);
-
+        btnHideShowContext = findViewById(R.id.btnHideShowContext);
         contextMenuLayout = findViewById(R.id.contextMenuLayout);
         txt_health = findViewById(R.id.txthealth);
         txt_gold = findViewById(R.id.txtgold);
@@ -244,6 +279,7 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
 
 
         btnBuyAbort.setVisibility(View.GONE);
+        btnHideShowContext.setVisibility(View.GONE);
     }
 
     /**
@@ -253,8 +289,10 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
     private void showSelectionContext(Tower t){
         if(t != null){
             showTowerSelection();
+            btnHideShowContext.setVisibility(View.VISIBLE);
         }else{
             hideContextMenu();
+            btnHideShowContext.setVisibility(View.GONE);
         }
     }
     private void showTowerBuyView() {
@@ -290,7 +328,8 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
         }
 
         contextMenuLayout.addView(view);
-        contextMenuLayout.setVisibility(View.VISIBLE);
+        //contextMenuLayout.setVisibility(View.VISIBLE);
+        contextMenuLayout.animate().translationY(0);
     }
 
     /**
@@ -312,22 +351,28 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
      * set the visibility of context menu
      */
     private void hideContextMenu(){
-        contextMenuLayout.setVisibility(View.GONE);
+        contextMenuLayout.animate().translationY(height);
+        //contextMenuLayout.setVisibility(View.GONE);
     }
 
     @Override
     public void updateOnSelection() {
         showSelectionContext(gameModel.getSelectedTower());
+
     }
 
     @Override
     public void updateOnGameOver() {
         gameView.pause();
+        GameStateSaver.getInstance().reset();
         Intent intent = new Intent(InGameActivity.this, EndGameActivity.class);
         intent.putExtra("WIN",false);
+        intent.putExtra("WON_DIAM",gameModel.getWonDiamonds());
+        intent.putExtra("DIAM",gameModel.getDiamonds());
+        intent.putExtra("CHECKPOINT",gameModel.getCheckpoint());
         startActivity(intent);
 
-
+        finish();
     }
 
     @Override
@@ -337,15 +382,24 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
 
     @Override
     public void updateOnGameWinning() {
-        gameView.pause();
+        GameStateSaver.getInstance().reset();
+
         Intent intent = new Intent(InGameActivity.this, EndGameActivity.class);
         intent.putExtra("WIN",true);
         startActivity(intent);
+        finish();
     }
 
     @Override
     public void updateOnTowerPlacement() {
         btnBuyAbort.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void updateOnCheckpoint() {
+        SFXManager.getInstance().playCheckpointReached();
+        Dialog d = new Dialog(this);
+        d.show();
     }
 
     private void loadLevel(int i){
@@ -357,5 +411,16 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
                 gameModel = GameFactory.getInstance().createDemoLevel();
                 break;
         }
+    }
+
+    private void initMenu(){
+        menu = new MenuDialog(this,gameModel);
+        menu.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                gameView.resume();
+                gameModel.resume();
+            }
+        });
     }
 }

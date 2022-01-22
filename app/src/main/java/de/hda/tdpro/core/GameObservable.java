@@ -26,4 +26,6 @@ public interface GameObservable {
     void notifyOnGameWinning();
 
     void notifyOnTowerPlacement();
+
+    void notifyOnCheckpointReached();
 }

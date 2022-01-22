@@ -55,7 +55,9 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
 
     private int diamonds;
 
+    private int wonDiamonds;
 
+    private int checkpoint;
 
     private Tower selectedTower;
 
@@ -67,6 +69,8 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
 
     private boolean runningWave;
 
+    public static final float FF_FACTOR = 2f;
+
 
 
 
@@ -75,7 +79,7 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
      * basic constructor for Game class
      * @param waveManager r
      */
-    public Game(WaveManager waveManager, Path path, int health, int gold, int diamonds){
+    public Game(WaveManager waveManager, Path path, int health, int gold, int diamonds, int startingWave){
 
 
         listeners = new ArrayList<>();
@@ -89,16 +93,22 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
         DisplayMetrics metrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(metrics);
 
-        int width = metrics.widthPixels;
         int height = metrics.heightPixels;
+        int width = metrics.widthPixels;
+        if(height>width){
+            int t = width;
+            width = height;
+            height = t;
+        }
 
-        bg = Bitmap.createScaledBitmap(b,height,width,false);
+        bg = Bitmap.createScaledBitmap(b,width,height,false);
 
         runningWave = false;
         prepared = false;
         this.health = health;
         this.gold = gold;
         this.diamonds = diamonds;
+        wonDiamonds = 0;
     }
 
 
@@ -299,6 +309,13 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
     }
 
     @Override
+    public void notifyOnCheckpointReached() {
+        for(GameListener l : listeners){
+            l.updateOnCheckpoint();
+        }
+    }
+
+    @Override
     public void onEnemyMovement(Enemy e) {
         // may be used for debug purposes
     }
@@ -321,6 +338,7 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
      */
     @Override
     public void onEnemyDying(Enemy e) {
+       // SFXManager.getInstance().playEnemyDies();
         setGold(getGold() + e.getGoldDropping());
         prepareOnEvent();
 
@@ -341,12 +359,20 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
                     notifyOnGameWinning();
                 return;
             }
-            this.diamonds = waveManager.getDiamondsOfCurrentWave();
-            ConfigWriter.getInstance().writeDiamonds(diamonds);
+            int d = waveManager.getDiamondsOfCurrentWave();
+            if(d>0){
+                diamonds +=d;
+                wonDiamonds +=d;
+                checkpoint = waveManager.getCurrentWave();
+                notifyOnCheckpointReached();
+                ConfigWriter.getInstance().writeDiamonds(diamonds);
+            }
+
             runningWave = false;
             waveManager.prepare();
             prepareNextWave();
             prepared = true;
+            notifyOnChange();
         }
     }
 
@@ -355,7 +381,7 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
      */
     public void pause(){
         waveManager.pause();
-        towerManager.pauseTowers();
+        towerManager.pause();
 
     }
 
@@ -364,6 +390,29 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
      */
     public void resume(){
         waveManager.resume();
-        towerManager.resumeTowers();
+        towerManager.resume();
+    }
+
+    public void fastForward(boolean value){
+        if(value){
+            waveManager.speedUp();
+            towerManager.speedUp();
+        }else{
+            waveManager.slowDown();
+            towerManager.slowDown();
+        }
+    }
+
+
+    public int getDiamonds() {
+        return diamonds;
+    }
+
+    public int getWonDiamonds() {
+        return wonDiamonds;
+    }
+
+    public int getCheckpoint() {
+        return checkpoint;
     }
 }

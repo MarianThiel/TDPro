@@ -1,14 +1,20 @@
 package de.hda.tdpro.core.enemy;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Shader;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import de.hda.tdpro.R;
+import de.hda.tdpro.StaticContext;
 import de.hda.tdpro.core.Position;
 
 /**
@@ -19,7 +25,18 @@ import de.hda.tdpro.core.Position;
  */
 public class RelativePath extends Path{
 
+    private Bitmap texture;
+
+    private Shader shader;
+
+    private final int PATH_WIDTH = 80;
+
+
+
     public RelativePath() {
+
+        texture = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.mud);
+        shader = new BitmapShader(texture, Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
     }
 
     @Override
@@ -55,8 +72,9 @@ public class RelativePath extends Path{
     @Override
     public void draw(Canvas canvas) {
         Paint p = new Paint();
-        p.setColor(Color.parseColor("#4d320c"));
-        p.setStrokeWidth(100);
+        p.setShader(shader);
+        //p.setColor(Color.parseColor("#4d320c"));
+        p.setStrokeWidth(PATH_WIDTH);
         Vector2D sum = new Vector2D(start.getX(), start.getY());
         Vector2D vStart;
         Vector2D vEnd;
@@ -65,7 +83,7 @@ public class RelativePath extends Path{
             vEnd = vStart.add(new Vector2D(pt.getNextPoint().getX(),pt.getNextPoint().getY()));
             sum = vEnd;
             canvas.drawLine((float) vStart.x,(float) vStart.y,(float) vEnd.x,(float) vEnd.y,p);
-            canvas.drawCircle((float) vEnd.x,(float) vEnd.y,50,p);
+            canvas.drawCircle((float) vEnd.x,(float) vEnd.y,PATH_WIDTH/2,p);
         }
     }
 }
