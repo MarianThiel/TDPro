@@ -15,6 +15,8 @@ import de.hda.tdpro.core.tower.priority.EnemyHPMaxComparator;
 import de.hda.tdpro.core.tower.priority.EnemyHPMinComparator;
 import de.hda.tdpro.core.tower.priority.EnemyLastComparator;
 import de.hda.tdpro.core.tower.priority.Priority;
+import de.hda.tdpro.core.tower.shootingbehavior.AreaShooting;
+import de.hda.tdpro.core.tower.shootingbehavior.NormalShooting;
 import de.hda.tdpro.core.tower.shootingbehavior.ShootingBehavior;
 
 /**
@@ -68,7 +70,7 @@ public class RangeSphere implements Drawable, Runnable {
         this.tower = t;
         queueBlock = false;
         priority = Priority.FIRST;
-
+        shootingBehavior = new AreaShooting();
         speedFactor = 1f;
 
     }
@@ -80,28 +82,42 @@ public class RangeSphere implements Drawable, Runnable {
      * @param dmg damage to deal
      */
     public void hitEnemy(int dmg){
+        /*
         Enemy e = queue.peek();
-        if(!removeDeadEnemy(e)){
+
+        while(removeDeadEnemy(e)){
+            e = queue.peek();
+        }
+        if(e!=null){
             tower.rotateTower(e.getEstimatedPosition(tower.getSpeed()));
             fireProjectile(e);
             e.setHp(e.getHp()-dmg);
         }
 
+
+
         removeDeadEnemy(e);
+
+         */
+        Enemy e =shootingBehavior.shoot(queue,tower.getDamage());
+        if(e != null){
+            tower.rotateTower(e.getEstimatedPosition(tower.getSpeed()));
+            fireProjectile(e);
+        }
     }
 
     private void fireProjectile(Enemy e) {
             Position p = e.getEstimatedPosition(tower.getSpeed());
-            projectile =  new Projectile(tower.getPos().getxVal(),tower.getPos().getyVal(), p.getxVal(), p.getyVal(),(int)tower.getSpeed(),null);
+            projectile =  new Projectile(tower.getPos().getxVal(),tower.getPos().getyVal(), e,(int)tower.getSpeed(),null);
 
     }
 
     private boolean removeDeadEnemy(Enemy e){
         if(e != null)
-        if(e.getHp() <= 0 || e.isFinished()){
-            queue.poll();
-            return true;
-        }
+            if(e.getHp() <= 0 || e.isFinished()){
+                queue.poll();
+                return true;
+            }
         return false;
     }
 

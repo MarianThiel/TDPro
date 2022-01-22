@@ -10,6 +10,7 @@ import android.util.Log;
 
 import de.hda.tdpro.core.Drawable;
 import de.hda.tdpro.core.ResourceLoader;
+import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.enemy.Vector2D;
 
 /**
@@ -34,11 +35,13 @@ public class Projectile implements Drawable, Runnable {
 
     private Bitmap img;
 
-    public Projectile(int xStart, int yStart, int xEnd, int yEnd, int duration, Context context){
+    private Enemy enemy;
+    public Projectile(int xStart, int yStart, Enemy enemy, int duration, Context context){
         this.xStart = xStart;
         this.yStart = yStart;
-        this.xEnd = xEnd;
-        this.yEnd = yEnd;
+        this.enemy = enemy;
+        this.xEnd = enemy.getPosition().getxVal();
+        this.yEnd = enemy.getPosition().getyVal();
         this.duration = duration;
         x = xStart;
         y = yStart;
@@ -106,5 +109,6 @@ public class Projectile implements Drawable, Runnable {
             }
         }
         hit = true;
+
     }
 }
