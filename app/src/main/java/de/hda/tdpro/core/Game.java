@@ -449,7 +449,11 @@ public class Game implements Drawable, GameObservable, EnemyObserver, Intersecta
 
     @Override
     public boolean intersects(Position position) {
-
+        for(MiscObject o : miscellaneous){
+            if(o.intersects(position)){
+                return true;
+            }
+        }
         return path.intersects(position) || towerManager.intersects(position);
     }
 
