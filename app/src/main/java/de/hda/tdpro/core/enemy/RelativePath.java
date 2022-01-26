@@ -132,4 +132,9 @@ public class RelativePath extends Path{
         }
         return false;
     }
+
+    @Override
+    public void showBorders(boolean v) {
+
+    }
 }

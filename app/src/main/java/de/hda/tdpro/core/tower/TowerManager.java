@@ -171,4 +171,9 @@ public class TowerManager implements Drawable, TimingUnit, Intersectable {
         }
         return false;
     }
+
+    @Override
+    public void showBorders(boolean v) {
+
+    }
 }

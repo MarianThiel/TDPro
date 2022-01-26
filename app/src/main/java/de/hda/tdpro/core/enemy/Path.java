@@ -79,4 +79,9 @@ public class Path implements Drawable, Intersectable {
     public boolean intersects(Position position) {
         return false;
     }
+
+    @Override
+    public void showBorders(boolean v) {
+
+    }
 }

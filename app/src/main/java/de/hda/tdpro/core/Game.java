@@ -457,6 +457,11 @@ public class Game implements Drawable, GameObservable, EnemyObserver, Intersecta
         return path.intersects(position) || towerManager.intersects(position);
     }
 
+    @Override
+    public void showBorders(boolean v) {
+
+    }
+
     /**
      * inserts a Miscellaneous object to the list
      * @param o object to insert

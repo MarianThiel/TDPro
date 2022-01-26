@@ -228,4 +228,9 @@ abstract public class Tower implements EnemyObserver, Drawable, Intersectable {
     public boolean intersects(Position position) {
         return inHitBox(position);
     }
+
+    @Override
+    public void showBorders(boolean v) {
+
+    }
 }
