@@ -72,6 +72,8 @@ abstract public class Tower implements EnemyObserver, Drawable, Intersectable {
 
     protected int hitBox;
 
+    private boolean borders;
+
     public Tower(int radius, int damage, float speed, int price) {
         this.radius = radius;
         this.damage = damage;
@@ -82,6 +84,8 @@ abstract public class Tower implements EnemyObserver, Drawable, Intersectable {
         aiming = false;
         active = false;
         hitBox = 50;
+
+        borders = false;
     }
 
     public Position getPos() {
@@ -125,7 +129,10 @@ abstract public class Tower implements EnemyObserver, Drawable, Intersectable {
         this.price = price;
     }
 
-
+    /**
+     * sets the hit priority of the tower
+     * @param priority the Priority defined by Enum
+     */
     public void setPriority(Priority priority){
         getSphere().setPriority(priority);
     }
@@ -134,24 +141,35 @@ abstract public class Tower implements EnemyObserver, Drawable, Intersectable {
         return getSphere().getPriority();
     }
 
+    /**
+     * starts thread of RangeSphere
+     */
     public void startAiming(){
         getSphere().startAiming();
 
     }
+
+    /**
+     * stops thread of RangeSphere
+     */
     public void stopAiming(){
         getSphere().stopAiming();
     }
+
 
     public int getLevel(){
         return 1;
     }
 
+
     public RangeSphere getSphere() {
         return sphere;
     }
 
-
-
+    /**
+     * returns state of the tower
+     * @return true if tower thread was started, false if not
+     */
     public boolean isActive() {
         return active;
     }
@@ -160,6 +178,11 @@ abstract public class Tower implements EnemyObserver, Drawable, Intersectable {
         this.active = active;
     }
 
+    /**
+     * intersection method of tower hit box
+     * @param p position which has to be checked
+     * @return true if p is in hit box, false if not
+     */
     protected boolean inHitBox(Position p){
         Position pc = getPos();
         int px = p.getxVal()-pc.getxVal();
@@ -173,6 +196,10 @@ abstract public class Tower implements EnemyObserver, Drawable, Intersectable {
         return img;
     }
 
+    /**
+     * logic for enqueue enemy to the sphere
+     * @param e observed enemy
+     */
     @Override
     public void onEnemyMovement(Enemy e) {
         if(e != null && !e.isFinished()){
@@ -191,6 +218,10 @@ abstract public class Tower implements EnemyObserver, Drawable, Intersectable {
 
     }
 
+    /**
+     * rotates te tower in direction to target position
+     * @param p the direction to rotate
+     */
     public void rotateTower(Position p){
         current = ResourceLoader.getInstance().getRotated(img[(getLevel()-1) % img.length],this.getPos(),p);
     }
@@ -202,8 +233,17 @@ abstract public class Tower implements EnemyObserver, Drawable, Intersectable {
             getP().draw(canvas);
         }
 
+        if(borders){
+            Paint p = new Paint();
+            p.setColor(Color.parseColor("#7700FF00"));
+        }
+
     }
 
+    /**
+     * get the abstract Projectile
+     * @return null if no projectile was shot
+     */
     public AbstractProjectile getP() {
         return p;
     }
@@ -218,11 +258,22 @@ abstract public class Tower implements EnemyObserver, Drawable, Intersectable {
 
     }
 
+    /**
+     * abstract method to fire a projectile to enemy
+     * @param enemies set of enemies which were selected
+     * @param damage damage value of tower
+     * @param vel velocity of shooting
+     */
     public abstract void fire(Enemy[] enemies, int damage, float vel);
 
+    /**
+     *
+     * @return true if tower was meant to be rotated
+     */
     public boolean isRotatable() {
         return rotatable;
     }
+
 
     @Override
     public boolean intersects(Position position) {
@@ -231,6 +282,6 @@ abstract public class Tower implements EnemyObserver, Drawable, Intersectable {
 
     @Override
     public void showBorders(boolean v) {
-
+        borders = v;
     }
 }
