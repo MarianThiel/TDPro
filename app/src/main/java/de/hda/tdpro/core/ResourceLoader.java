@@ -48,7 +48,6 @@ public class ResourceLoader {
         animations = new HashMap<>();
 
 
-
         addL1TankResource();
 
         addEnemy2Resource();
@@ -158,6 +157,13 @@ public class ResourceLoader {
         upgradeBadges.put(UpgradeType.L3_RNG_UPGRADE,b);
     }
 
+    private void initMisc(){
+        miscs = new HashMap<>();
+
+        MiscType type = MiscType.TREE_LARGE;
+
+    }
+
     public Bitmap[] getAnimation(String name){
         return animations.get(name);
     }
@@ -192,4 +198,6 @@ public class ResourceLoader {
 
         return Bitmap.createBitmap(b,0,0,b.getWidth(),b.getHeight(),m,true);
     }
+
+
 }
