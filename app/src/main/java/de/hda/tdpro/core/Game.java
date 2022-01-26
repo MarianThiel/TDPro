@@ -244,11 +244,18 @@ public class Game implements Drawable, GameObservable, EnemyObserver, Intersecta
         this.runningWave = runningWave;
     }
 
-
+    /**
+     * returns the number of waves
+     * @return Max Waves
+     */
     public int getMaxWaves(){
         return waveManager.getNUMBER_OF_WAVES();
     }
 
+    /**
+     * returns the numeral representation of current wave
+     * @return currentwave + 1
+     */
     public int getCurrentWave(){
         return waveManager.getCurrentWave()+1;
     }
@@ -257,6 +264,10 @@ public class Game implements Drawable, GameObservable, EnemyObserver, Intersecta
         return gold;
     }
 
+    /**
+     * sets the amount of gold notifies observers
+     * @param gold
+     */
     public synchronized void setGold(int gold) {
         this.gold = gold;
         notifyOnChange();
@@ -378,6 +389,9 @@ public class Game implements Drawable, GameObservable, EnemyObserver, Intersecta
         }
     }
 
+    /**
+     * sets the member variables of game to current state and writes amount of diamonds in config file
+     */
     private void storeCheckpointValues(){
         int d = waveManager.getDiamondsOfCurrentWave();
         if(d>0){
@@ -406,6 +420,10 @@ public class Game implements Drawable, GameObservable, EnemyObserver, Intersecta
         towerManager.resume();
     }
 
+    /**
+     * sets the fast forward mode
+     * @param value
+     */
     public void fastForward(boolean value){
         if(value){
             waveManager.speedUp();
@@ -435,6 +453,10 @@ public class Game implements Drawable, GameObservable, EnemyObserver, Intersecta
         return path.intersects(position) || towerManager.intersects(position);
     }
 
+    /**
+     * inserts a Miscellaneous object to the list
+     * @param o object to insert
+     */
     public void insertMisc(MiscObject o){
         miscellaneous.add(o);
     }

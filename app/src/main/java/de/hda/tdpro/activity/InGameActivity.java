@@ -10,12 +10,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,14 +63,14 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
 
     private ImageButton btnHideShowContext;
 
-    private HorizontalScrollView contextMenu;
-
     private FrameLayout contextMenuLayout;
 
     private Dialog menu;
 
     private TextView txt_health;
+
     private TextView txt_gold;
+
     private TextView txt_waves;
     /**
      * List of all upgradeTypes
@@ -84,44 +80,56 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
      * List of all TowerTypes
      */
     private List<TowerType> towers;
-
+    /**
+     * width of screen
+     */
     private int width;
-
+    /**
+     * height of screen
+     */
     private int height;
-
+    /**
+     * running state
+     */
     private boolean run;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.println(Log.ASSERT,"test", "CREATE");
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-
-        setContentView(R.layout.activity_in_game);
-        gameView = findViewById(R.id.view);
+        initActivity();
         init();
+
         hideContextMenu();
         updateStats();
-
         initMenu();
 
         run = true;
+        initDimensions();
+
+
+    }
+
+    private void initDimensions() {
         WindowManager wm = ((WindowManager) StaticContext.getContext().getSystemService(Context.WINDOW_SERVICE));
         DisplayMetrics metrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(metrics);
 
-         height = metrics.heightPixels;
-         width = metrics.widthPixels;
+        height = metrics.heightPixels;
+        width = metrics.widthPixels;
         if(height>width){
             int t = width;
             width = height;
             height = t;
         }
+    }
 
+    private void initActivity() {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        setContentView(R.layout.activity_in_game);
     }
 
     @Override
@@ -270,6 +278,10 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
     }
 
     private void initComponents() {
+
+
+        gameView = findViewById(R.id.view);
+
         btnNextWave = findViewById(R.id.btnNextWave);
         btnFastForward = findViewById(R.id.btnFastForward);
         btnPausePlay = findViewById(R.id.btnPausePlay);
