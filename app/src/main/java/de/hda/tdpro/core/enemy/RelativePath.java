@@ -7,6 +7,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Shader;
+
+import android.support.constraint.solver.widgets.Rectangle;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ public class RelativePath extends Path{
 
     private Shader shader;
 
-    private final int PATH_WIDTH = 80;
+    private final int PATH_WIDTH = 100;
 
 
 
@@ -84,6 +86,50 @@ public class RelativePath extends Path{
             sum = vEnd;
             canvas.drawLine((float) vStart.x,(float) vStart.y,(float) vEnd.x,(float) vEnd.y,p);
             canvas.drawCircle((float) vEnd.x,(float) vEnd.y,PATH_WIDTH/2,p);
+
         }
+
+    }
+
+    @Override
+    public boolean intersects(Position position) {
+        Vector2D sum = new Vector2D(start.getX(), start.getY());
+        Vector2D vStart;
+        Vector2D vEnd;
+        Vector2D p = new Vector2D(position.getxVal(), position.getyVal());
+        for(AscPoint pt = start; pt.getNextPoint() != null; pt = pt.getNextPoint()){
+            vStart = sum;
+            vEnd = vStart.add(new Vector2D(pt.getNextPoint().getX(),pt.getNextPoint().getY()));
+            sum = vEnd;
+
+            //s,e are final points
+
+
+            Vector2D v1 = vEnd.dif(vStart);
+            Vector2D u1 = v1.getUnitNormalized();
+            Vector2D u2 = v1.getUnitNormalized().mul(-1);
+
+            Vector2D pA = u2.mul((PATH_WIDTH/2)).add(vStart);
+            Vector2D pB = u1.mul((PATH_WIDTH/2)).add(vStart);
+            Vector2D pC = u2.mul((PATH_WIDTH/2)).add(vEnd);
+
+
+            Vector2D vP = new Vector2D(position);
+
+            Vector2D vAB = pB.dif(pA);
+            Vector2D vAC = pC.dif(pA);
+
+            GaussMatrix matrix = new GaussMatrix(pA,vAB,vAC,vP);
+            Log.println(Log.ASSERT,"X1", " " + matrix.getX1());
+            Log.println(Log.ASSERT,"X2", " " + matrix.getX2());
+            double x1 = matrix.getX1();
+            double x2 = matrix.getX2();
+
+            if(x1 >= 0 && x1 <=1 && x2 >= 0 && x2 <= 1){
+                return true;
+            }
+
+        }
+        return false;
     }
 }

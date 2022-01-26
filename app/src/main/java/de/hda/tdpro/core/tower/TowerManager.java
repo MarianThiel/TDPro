@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import de.hda.tdpro.core.Drawable;
 import de.hda.tdpro.core.Game;
+import de.hda.tdpro.core.Intersectable;
 import de.hda.tdpro.core.Position;
 import de.hda.tdpro.core.TimingUnit;
 import de.hda.tdpro.core.enemy.Enemy;
@@ -15,7 +16,7 @@ import de.hda.tdpro.core.tower.upgrades.MetaUpgrade;
 import de.hda.tdpro.core.tower.upgrades.SimpleUpgrade;
 import de.hda.tdpro.core.tower.upgrades.TowerDecorator;
 
-public class TowerManager implements Drawable, TimingUnit {
+public class TowerManager implements Drawable, TimingUnit, Intersectable {
 
     private final int MAX_TOWER_CAPACITY;
 
@@ -62,8 +63,8 @@ public class TowerManager implements Drawable, TimingUnit {
                         case FIRE_TOWER:
                             towers[lastIndexInserted] = TowerFactory.getInstance().createFireTower();
                             break;
-                        case ICE_TOWER:
-
+                        case EARTH_TOWER:
+                            towers[lastIndexInserted] = TowerFactory.getInstance().createEarthTower();
                             break;
                     }
                     towers[lastIndexInserted].setPos(position);
@@ -84,7 +85,7 @@ public class TowerManager implements Drawable, TimingUnit {
     public Tower getTowerByPosition(int x, int y){
         for (Tower  t : towers) {
             if (t != null) {
-                if (t.inHitBox(new Position(x, y))) {
+                if (t.intersects(new Position(x, y))) {
                     return t;
                 }
             }
@@ -157,5 +158,17 @@ public class TowerManager implements Drawable, TimingUnit {
                 t.startAiming();
             }
         }
+    }
+
+    @Override
+    public boolean intersects(Position position) {
+        for(Tower t : towers){
+            if(t!=null){
+                if(t.intersects(position)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

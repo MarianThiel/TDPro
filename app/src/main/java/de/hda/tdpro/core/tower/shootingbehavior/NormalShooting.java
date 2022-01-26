@@ -8,13 +8,12 @@ public class NormalShooting extends AbstractShootingBehavior{
 
 
     @Override
-    protected Enemy hit(Queue<Enemy> queue, int dmg) {
+    protected Enemy[] hit(Queue<Enemy> queue) {
         Enemy e = queue.peek();
+        Enemy[] enemies = new Enemy[1];
         if (e != null) {
-            e.setHp(e.getHp() - dmg);
-            if(!e.isAlive())
-                queue.poll();
-            return e;
+            enemies[0] = e;
+            return enemies;
         }
 
         return null;

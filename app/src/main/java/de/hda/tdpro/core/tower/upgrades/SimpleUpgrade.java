@@ -1,5 +1,8 @@
 package de.hda.tdpro.core.tower.upgrades;
 
+import de.hda.tdpro.StaticContext;
+import de.hda.tdpro.core.enemy.Enemy;
+import de.hda.tdpro.core.tower.Projectile;
 import de.hda.tdpro.core.tower.Tower;
 
 /**
@@ -12,4 +15,7 @@ public class SimpleUpgrade extends TowerDecorator {
         this.speed = meta.getVEL();
         this.radius = meta.getRAD();
     }
+
+
+
 }

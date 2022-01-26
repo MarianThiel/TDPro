@@ -40,7 +40,7 @@ public class TowerStatView extends FrameLayout {
 
     private Game game;
 
-    private List<String> priorities;
+
 
     public TowerStatView(@NonNull Context context, Game game) {
         super(context);
@@ -104,8 +104,11 @@ public class TowerStatView extends FrameLayout {
         prioritySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String x = (String) parent.getItemAtPosition(position);
-                game.getSelectedTower().setPriority(Priority.valueOf(x));
+                if(game.getSelectedTower() != null){
+                    String x = (String) parent.getItemAtPosition(position);
+                    game.getSelectedTower().setPriority(Priority.valueOf(x));
+                }
+
             }
 
             @Override

@@ -4,8 +4,10 @@ import android.graphics.Canvas;
 
 import de.hda.tdpro.core.Position;
 import de.hda.tdpro.core.ResourceLoader;
+import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.tower.RangeSphere;
 import de.hda.tdpro.core.tower.Tower;
+import de.hda.tdpro.core.tower.projectiles.AbstractProjectile;
 
 /**
  * @author Marian Thiel
@@ -90,17 +92,33 @@ public abstract class TowerDecorator extends Tower {
         embeddedTower.setPos(pos);
     }
 
+    @Override
+    public AbstractProjectile getP() {
+        return embeddedTower.getP();
+    }
 
+    @Override
+    public void rotateTower(Position p) {
+        super.rotateTower(p);
+    }
 
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
         canvas.drawBitmap(current, getPos().getxVal()-(img[(getLevel()-1) % img.length].getWidth()/2),getPos().getyVal()-(img[(getLevel()-1) % img.length].getHeight()/2),null);
-
-
     }
 
     public Tower getEmbeddedTower() {
         return embeddedTower;
+    }
+
+    @Override
+    public void fire(Enemy[] enemies, int damage, float vel) {
+        embeddedTower.fire(enemies, damage, vel);
+    }
+
+    @Override
+    public boolean isRotatable() {
+        return embeddedTower.isRotatable();
     }
 }

@@ -17,6 +17,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -29,6 +33,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import de.hda.tdpro.core.GlobalTowerUpgrade;
 import de.hda.tdpro.core.enemy.EnemyType;
 import de.hda.tdpro.core.enemy.MetaEnemy;
 import de.hda.tdpro.core.tower.TowerType;
@@ -243,6 +248,52 @@ public class ConfigWriter {
                         float vel = Float.parseFloat(e2.getAttribute("vel"));
                         int price = Integer.parseInt(e2.getAttribute("value"));
                         return new MetaEnemy(name,dmg,vel,price);
+                    }
+                }
+            }
+
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Map<String,GlobalTowerUpgrade> readGlobalTowerUpgrades(TowerType type){
+        try {
+            Document d = readConfig();
+
+            Element e1 = d.getDocumentElement();
+            e1.normalize();
+            Map<String,GlobalTowerUpgrade> ulst = new HashMap<>();
+            NodeList lst = e1.getElementsByTagName("tower");
+
+            for(int i = 0; i < lst.getLength(); i++){
+                Node node = lst.item(i);
+                if(node.getNodeType() == Node.ELEMENT_NODE){
+                    Element e2 = (Element) node;
+                    if(e2.getAttribute("type").equals(type.toString())){
+                       lst = e2.getElementsByTagName("globalupgrade");
+                       for(int j = 0; j < lst.getLength(); j++){
+                           Node n = lst.item(j);
+                           if(n.getNodeType() == Node.ELEMENT_NODE){
+                               Element e3 = (Element) n;
+                               String name = e3.getAttribute("name");
+                               String description = e3.getAttribute("name");
+                               int current = Integer.parseInt(e3.getAttribute("current"));
+                               int max = Integer.parseInt(e3.getAttribute("max"));
+                               float value = Float.parseFloat(e3.getAttribute("value"));
+                               float multi = Float.parseFloat(e3.getAttribute("multi"));
+                               float base = Float.parseFloat(e3.getAttribute("base"));
+                               GlobalTowerUpgrade upgrade = new GlobalTowerUpgrade(name,description,current, max, base, value, multi);
+                               ulst.put(e3.getAttribute("key"),upgrade);
+                           }
+                       }
+                        return ulst;
+
                     }
                 }
             }

@@ -6,5 +6,5 @@ import de.hda.tdpro.core.enemy.Enemy;
 
 public interface ShootingBehavior {
 
-    Enemy shoot(Queue<Enemy> queue , int dmg);
+    Enemy[] shoot(Queue<Enemy> queue , int dmg);
 }

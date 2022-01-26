@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import de.hda.tdpro.R;
 
-public class AbilityUpgradeActivity extends AppCompatActivity {
+public class  AbilityUpgradeActivity extends AppCompatActivity {
     ImageButton death1;
     ImageButton death2;
     ImageButton death3;

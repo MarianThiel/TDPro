@@ -38,11 +38,12 @@ import de.hda.tdpro.core.tower.Tower;
 import de.hda.tdpro.view.TowerBuyView;
 import de.hda.tdpro.view.TowerStatView;
 import de.hda.tdpro.view.TowerUpgradeView;
+import de.hda.tdpro.view.TowerView;
 import de.hda.tdpro.view.dialog.MenuDialog;
 
 public class InGameActivity extends AppCompatActivity implements GameListener {
 
-    private int showsBuyTowers = 0;
+
     /**
      * The demo view
      */
@@ -96,6 +97,8 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
         Log.println(Log.ASSERT,"test", "CREATE");
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
         setContentView(R.layout.activity_in_game);
         gameView = findViewById(R.id.view);
@@ -183,6 +186,13 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
 
     }
 
+    public void setTowerPlacingMode(TowerType type){
+        btnBuyAbort.setVisibility(View.VISIBLE);
+        gameView.setMode(PointingMode.PLACE_TOWER_MODE);
+        gameView.setPlacingTowerType(type);
+        Toast.makeText(this,"Tab anywhere to place the Tower",Toast.LENGTH_SHORT).show();
+    }
+
     /**
      * initialize buttonListeners
      */
@@ -195,17 +205,12 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
 
         btnSettings.setOnClickListener(e->{
             gameView.pause();
-
-
-
             menu.show();
         });
 
         btnTowerCreate.setOnClickListener(e->{
-            //showTowerBuyView();
-            btnBuyAbort.setVisibility(View.VISIBLE);
-            gameView.setMode(PointingMode.PLACE_TOWER_MODE);
-            Toast.makeText(this,"Tab anywhere to place the Tower",Toast.LENGTH_LONG).show();
+            showTowerBuyView();
+
         });
 
         btnPausePlay.setOnClickListener(e->{
@@ -296,20 +301,23 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
         }
     }
     private void showTowerBuyView() {
-        if ( showsBuyTowers == 0 ) {
+
             showTowerBuy();
-            showsBuyTowers = 1;
-        }else if (showsBuyTowers == 1){
-            hideContextMenu();
-            showsBuyTowers = 0;
-        }
+
     }
     private void showTowerBuy(){
         contextMenuLayout.removeAllViews();
         TowerBuyView view = new TowerBuyView(this);
-        view.buyFireView();
+        //contextMenuLayout.addView(view);
+       // contextMenu.setVisibility(View.VISIBLE);
+
+        for(TowerType meta : towers){
+            TowerView tv = new TowerView(this, meta);
+            view.addTowerView(tv);
+        }
         contextMenuLayout.addView(view);
-        contextMenu.setVisibility(View.VISIBLE);
+
+        contextMenuLayout.animate().translationY(0);
     }
 
     /**
@@ -350,7 +358,7 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
     /**
      * set the visibility of context menu
      */
-    private void hideContextMenu(){
+    public void hideContextMenu(){
         contextMenuLayout.animate().translationY(height);
         //contextMenuLayout.setVisibility(View.GONE);
     }
@@ -398,8 +406,8 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
     @Override
     public void updateOnCheckpoint() {
         SFXManager.getInstance().playCheckpointReached();
-        Dialog d = new Dialog(this);
-        d.show();
+        //Dialog d = new Dialog(this);
+        //d.show();
     }
 
     private void loadLevel(int i){
@@ -423,4 +431,6 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
             }
         });
     }
+
+
 }

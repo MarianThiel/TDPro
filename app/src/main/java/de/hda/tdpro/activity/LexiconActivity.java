@@ -24,7 +24,7 @@ public class LexiconActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_lexicon);
-
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         btnReturn = findViewById(R.id.img_btn_return);
         displayText = findViewById(R.id.web_display);
         buttonLayout = findViewById(R.id.buttonLayout);

@@ -8,16 +8,18 @@ import android.util.Log;
 
 import de.hda.tdpro.core.Drawable;
 import de.hda.tdpro.core.EnemyObserver;
+import de.hda.tdpro.core.Intersectable;
 import de.hda.tdpro.core.Position;
 import de.hda.tdpro.core.ResourceLoader;
 import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.tower.priority.Priority;
+import de.hda.tdpro.core.tower.projectiles.AbstractProjectile;
 
 /**
  * @author Marian Thiel
  *  Abstract Class representing a tower
  */
-abstract public class Tower implements EnemyObserver, Drawable {
+abstract public class Tower implements EnemyObserver, Drawable, Intersectable {
 
     /**
      * radius as integer value in pixel
@@ -57,6 +59,8 @@ abstract public class Tower implements EnemyObserver, Drawable {
      */
     protected boolean active;
 
+    protected boolean rotatable;
+
     /**
      * Image of the Tower as Bitmap
      */
@@ -64,7 +68,7 @@ abstract public class Tower implements EnemyObserver, Drawable {
 
     protected Bitmap current;
 
-
+    protected AbstractProjectile p;
 
     protected int hitBox;
 
@@ -194,19 +198,14 @@ abstract public class Tower implements EnemyObserver, Drawable {
     @Override
     public void draw(Canvas canvas) {
         getSphere().draw(canvas);
+        if(getP() != null){
+            getP().draw(canvas);
+        }
 
-        //drawSphere(canvas);
     }
 
-    protected void drawSphere(Canvas canvas) {
-        if(isActive()){
-            Paint p = new Paint();
-            p.setStyle(Paint.Style.FILL_AND_STROKE);
-            p.setColor(Color.parseColor("#8fe9ff"));
-            p.setStrokeWidth(10);
-            p.setAlpha(80);
-            canvas.drawCircle(getPos().getxVal(),getPos().getyVal(),getRadius(),p);
-        }
+    public AbstractProjectile getP() {
+        return p;
     }
 
     @Override
@@ -217,5 +216,16 @@ abstract public class Tower implements EnemyObserver, Drawable {
     @Override
     public void onEnemyDying(Enemy e) {
 
+    }
+
+    public abstract void fire(Enemy[] enemies, int damage, float vel);
+
+    public boolean isRotatable() {
+        return rotatable;
+    }
+
+    @Override
+    public boolean intersects(Position position) {
+        return inHitBox(position);
     }
 }

@@ -24,7 +24,7 @@ public class EndGameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end_game);
-
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         GameStateSaver.getInstance().reset();
 
         endGameMessage = findViewById(R.id.EndGameMessage);

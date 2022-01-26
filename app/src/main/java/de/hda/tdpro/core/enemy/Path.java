@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hda.tdpro.core.Drawable;
+import de.hda.tdpro.core.Intersectable;
 import de.hda.tdpro.core.Position;
 
 /**
@@ -17,7 +18,7 @@ import de.hda.tdpro.core.Position;
  * Class representing the path of a map or an Enemy
  * works like a linked list
  */
-public class Path implements Drawable {
+public class Path implements Drawable, Intersectable {
     AscPoint start;
 
     public Path() {
@@ -72,5 +73,10 @@ public class Path implements Drawable {
             canvas.drawLine(pt.getX(),pt.getY(),pt.getNextPoint().getX(),pt.getNextPoint().getY(),p);
             canvas.drawCircle(pt.getNextPoint().getX(),pt.getNextPoint().getY(),40,p);
         }
+    }
+
+    @Override
+    public boolean intersects(Position position) {
+        return false;
     }
 }

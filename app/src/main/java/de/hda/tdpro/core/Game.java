@@ -19,6 +19,7 @@ import de.hda.tdpro.StaticContext;
 import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.enemy.Path;
 import de.hda.tdpro.core.enemy.WaveManager;
+import de.hda.tdpro.core.misc.MiscObject;
 import de.hda.tdpro.core.tower.Tower;
 import de.hda.tdpro.core.tower.TowerManager;
 import de.hda.tdpro.core.tower.TowerType;
@@ -31,7 +32,7 @@ import de.hda.tdpro.core.tower.upgrades.MetaUpgrade;
  * @author Marian Thiel
  * Game controls all towers and waves. delegate draw method to every drawable instance
  */
-public class Game implements Drawable, GameObservable, EnemyObserver {
+public class Game implements Drawable, GameObservable, EnemyObserver, Intersectable {
     /**
      * control waves
      */
@@ -69,6 +70,8 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
 
     private boolean runningWave;
 
+    private List<MiscObject> miscellaneous;
+
     public static final float FF_FACTOR = 2f;
 
 
@@ -83,12 +86,13 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
 
 
         listeners = new ArrayList<>();
-
         towerManager = new TowerManager(10);
         this.path = path;
         this.waveManager = waveManager;
 
-        Bitmap b = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.b2);
+        miscellaneous = new ArrayList<>();
+
+        Bitmap b = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.bg_1);
         WindowManager wm = ((WindowManager) StaticContext.getContext().getSystemService(Context.WINDOW_SERVICE));
         DisplayMetrics metrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(metrics);
@@ -266,6 +270,10 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
         waveManager.draw(canvas);
         towerManager.draw(canvas);
 
+        for(MiscObject m : miscellaneous){
+            m.draw(canvas);
+        }
+
     }
 
     @Override
@@ -352,6 +360,7 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
     private void prepareOnEvent() {
         if (waveManager.isCurrentWaveFinished()) {
             Log.println(Log.ASSERT,"DIAMONDS_WON",  "DIAMONDS_WON:" + waveManager.getDiamondsOfCurrentWave());
+            storeCheckpointValues();
             if(waveManager.getCurrentWave() + 1 == waveManager.getNUMBER_OF_WAVES()){
                 if(health <= 0){
                     notifyOnGameOver();
@@ -359,20 +368,24 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
                     notifyOnGameWinning();
                 return;
             }
-            int d = waveManager.getDiamondsOfCurrentWave();
-            if(d>0){
-                diamonds +=d;
-                wonDiamonds +=d;
-                checkpoint = waveManager.getCurrentWave();
-                notifyOnCheckpointReached();
-                ConfigWriter.getInstance().writeDiamonds(diamonds);
-            }
+
 
             runningWave = false;
             waveManager.prepare();
             prepareNextWave();
             prepared = true;
             notifyOnChange();
+        }
+    }
+
+    private void storeCheckpointValues(){
+        int d = waveManager.getDiamondsOfCurrentWave();
+        if(d>0){
+            diamonds +=d;
+            wonDiamonds +=d;
+            checkpoint = waveManager.getCurrentWave();
+            notifyOnCheckpointReached();
+            ConfigWriter.getInstance().writeDiamonds(diamonds);
         }
     }
 
@@ -414,5 +427,15 @@ public class Game implements Drawable, GameObservable, EnemyObserver {
 
     public int getCheckpoint() {
         return checkpoint;
+    }
+
+    @Override
+    public boolean intersects(Position position) {
+
+        return path.intersects(position) || towerManager.intersects(position);
+    }
+
+    public void insertMisc(MiscObject o){
+        miscellaneous.add(o);
     }
 }

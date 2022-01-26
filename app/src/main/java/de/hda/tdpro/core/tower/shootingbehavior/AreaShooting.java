@@ -6,16 +6,11 @@ import de.hda.tdpro.core.enemy.Enemy;
 
 public class AreaShooting extends AbstractShootingBehavior{
     @Override
-    protected Enemy hit(Queue<Enemy> queue, int dmg) {
+    protected Enemy[] hit(Queue<Enemy> queue) {
 
-        Enemy [] enemies = new Enemy[64];
+        Enemy [] enemies = new Enemy[queue.size()];
                 enemies = queue.toArray(enemies);
 
-        for (Enemy e : enemies){
-            if(e != null)
-                e.setHp(e.getHp()-dmg);
-        }
-
-        return null;
+       return enemies;
     }
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#07516A"
+    android:background="@mipmap/background"
     tools:context=".activity.UpgradeTower">
 
     <ImageView
@@ -46,43 +46,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/txtUpgradeType"
-            android:layout_width="61dp"
-            android:layout_height="27dp"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="DMG"
-            app:layout_constraintBottom_toTopOf="@+id/btnBuyUpgrade"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TableLayout
             android:id="@+id/tableLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:paddingStart="10dp"
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
             android:paddingEnd="10dp"
             android:paddingRight="10dp"
             android:paddingBottom="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnBuyUpgrade"
+            app:layout_constraintBottom_toTopOf="@+id/btnBuyUpgrade"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <ImageView
+                    android:id="@+id/imageView32"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/gold" />
+
                 <TextView
-                    android:id="@+id/textView16"
+                    android:id="@+id/txtprice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="LVL:" />
+                    android:text="TextView" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView33"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/lvlup" />
 
                 <TextView
                     android:id="@+id/txtLevel"
@@ -96,12 +100,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/textView19"
+                <ImageView
+                    android:id="@+id/imageView34"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="Damage:" />
+                    android:layout_height="19dp"
+                    app:srcCompat="@android:drawable/ic_menu_mylocation" />
 
                 <TextView
                     android:id="@+id/txtDamage"
@@ -115,12 +118,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/textView20"
+                <ImageView
+                    android:id="@+id/imageView35"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="Velocity:" />
+                    android:layout_height="19dp"
+                    app:srcCompat="@drawable/speedup" />
 
                 <TextView
                     android:id="@+id/txtVelocity"
@@ -133,12 +135,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/textView21"
+                <ImageView
+                    android:id="@+id/imageView36"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="Range:" />
+                    android:layout_height="19dp"
+                    app:srcCompat="@drawable/rangesym" />
 
                 <TextView
                     android:id="@+id/txtRange"
@@ -151,13 +152,42 @@
 
         <Button
             android:id="@+id/btnBuyUpgrade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="125dp"
+            android:layout_height="56dp"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="16dp"
             android:text="Buy Upgrade\n(200)"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnBuyUpgrade"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/txtUpgradeType"
+                android:layout_width="61dp"
+                android:layout_height="27dp"
+                android:gravity="center"
+                android:text="DMG"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtDescr"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtUpgradeType" />
+        </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 
     <ImageView
@@ -192,7 +222,7 @@
         app:srcCompat="@drawable/arr_right" />
 
     <ImageButton
-        android:id="@+id/ua_back"
+        android:id="@+id/ua_back2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -208,7 +238,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="120dp"
-        android:text="DMG"
+        android:text="Stats"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnUpgradeVel"
         app:layout_constraintStart_toStartOf="parent"
@@ -220,7 +250,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="120dp"
-        android:text="VEL"
+        android:text="Level"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnUpgradeRange"
         app:layout_constraintStart_toEndOf="@+id/btnUpgradeDMG"
@@ -232,7 +262,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="120dp"
-        android:text="RNG"
+        android:text="Price"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnUpgradeVel"

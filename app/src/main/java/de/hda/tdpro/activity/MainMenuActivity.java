@@ -3,6 +3,7 @@ package de.hda.tdpro.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -12,6 +13,9 @@ import de.hda.tdpro.ConfigWriter;
 import de.hda.tdpro.MusicPlayer;
 import de.hda.tdpro.R;
 import de.hda.tdpro.StaticContext;
+import de.hda.tdpro.core.Position;
+import de.hda.tdpro.core.enemy.Path;
+import de.hda.tdpro.core.enemy.RelativePath;
 import pl.droidsonroids.gif.GifImageButton;
 
 public class MainMenuActivity extends AppCompatActivity implements View.OnClickListener {
@@ -23,14 +27,18 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-
-        musicPlayer = MusicPlayer.getInstance();
-        musicPlayer.loadMusic(this, R.raw.ingame);
-        musicPlayer.startMusic();
-
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        //musicPlayer = MusicPlayer.getInstance();
+       // musicPlayer.loadMusic(this, R.raw.ingame);
+        //musicPlayer.startMusic();
 
 
         StaticContext.setContext(this);
+        Path p = new RelativePath();
+        p.addPoint(0,200);
+        p.addPoint(200,0);
+        p.addPoint(0,200);
+        Log.println(Log.ASSERT,"intersects", "intersects" + p.intersects(new Position(100,220)));
 
         ConfigWriter.getInstance().readDiamonds();
 

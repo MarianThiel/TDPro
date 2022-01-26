@@ -8,9 +8,9 @@ public abstract class AbstractShootingBehavior implements ShootingBehavior{
 
 
     @Override
-    public Enemy shoot(Queue<Enemy> queue, int dmg) {
+    public Enemy[] shoot(Queue<Enemy> queue, int dmg) {
         while (removeDeadEnemy(queue));
-        return hit(queue, dmg);
+        return hit(queue);
     }
 
     private boolean removeDeadEnemy(Queue<Enemy> queue){
@@ -22,7 +22,7 @@ public abstract class AbstractShootingBehavior implements ShootingBehavior{
         return false;
     }
 
-    protected abstract Enemy hit(Queue<Enemy> queue, int dmg);
+    protected abstract Enemy[] hit(Queue<Enemy> queue);
 
 
 }

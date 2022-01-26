@@ -28,7 +28,7 @@ public class LevelSelectionActivity extends AppCompatActivity implements View.On
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_level_selection);
-
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
 
         // set onClick Buttons

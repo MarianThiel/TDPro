@@ -35,14 +35,18 @@ public class Projectile implements Drawable, Runnable {
 
     private Bitmap img;
 
+    private int dmg;
+
     private Enemy enemy;
-    public Projectile(int xStart, int yStart, Enemy enemy, int duration, Context context){
+    public Projectile(int xStart, int yStart, Enemy enemy,int dmg, int duration, Context context){
         this.xStart = xStart;
         this.yStart = yStart;
         this.enemy = enemy;
         this.xEnd = enemy.getPosition().getxVal();
         this.yEnd = enemy.getPosition().getyVal();
         this.duration = duration;
+        this.dmg = dmg;
+
         x = xStart;
         y = yStart;
         v = new Vector2D(xEnd,yEnd);
@@ -109,6 +113,6 @@ public class Projectile implements Drawable, Runnable {
             }
         }
         hit = true;
-
+        enemy.setHp(enemy.getHp() - dmg);
     }
 }

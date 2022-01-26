@@ -37,6 +37,9 @@ public class SettingsActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_settings);
+
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
         seekbar= findViewById(R.id.seekBar);
         returnFromSetting= findViewById(R.id.returnFromSetting);
         contrast = findViewById(R.id.contrastButton);

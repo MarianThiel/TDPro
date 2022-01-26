@@ -8,15 +8,14 @@
     tools:context=".activity.UpgradeAbility">
 
     <ImageButton
+        android:id="@+id/ua_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
-        android:background="?attr/actionBarItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_revert"
-        tools:ignore="DuplicateIds" />
+        app:srcCompat="@android:drawable/ic_menu_revert" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="84dp"
@@ -24,8 +23,7 @@
         android:background="#80FF2F2F"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ua_back">
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
             android:id="@+id/imageView14"
@@ -92,28 +90,26 @@
         android:id="@+id/btnLeft3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:background="?attr/actionBarItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ua_back"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.499"
-        app:srcCompat="@drawable/arr_left" />
+        app:srcCompat="@drawable/arr_left"
+        tools:layout_editor_absoluteX="66dp" />
 
     <ImageButton
         android:id="@+id/imageButton13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:background="?attr/actionBarItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ua_back"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.499"
-        app:srcCompat="@drawable/arr_right" />
+        app:srcCompat="@drawable/arr_right"
+        tools:layout_editor_absoluteX="321dp" />
 
     <ImageView
-        android:id="@+id/ua_back"
+        android:id="@+id/ua_back2"
         android:layout_width="199dp"
         android:layout_height="188dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -165,9 +161,8 @@
         android:id="@+id/textView23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
         android:text="Name of Ability"
-        app:layout_constraintBottom_toTopOf="@+id/ua_back"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="220dp" />
 </android.support.constraint.ConstraintLayout>

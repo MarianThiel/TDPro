@@ -10,6 +10,7 @@ import java.util.Map;
 import de.hda.tdpro.R;
 import de.hda.tdpro.StaticContext;
 import de.hda.tdpro.core.enemy.Vector2D;
+import de.hda.tdpro.core.misc.MiscType;
 import de.hda.tdpro.core.tower.TowerType;
 import de.hda.tdpro.core.tower.upgrades.UpgradeType;
 
@@ -25,6 +26,8 @@ public class ResourceLoader {
     private Map<UpgradeType,Bitmap> upgradeBadges;
 
     private Map<TowerType, Bitmap> projectiles;
+
+    private Map<MiscType, Bitmap> miscs;
 
     private static int MAX_LEVEL_IMAGES = 5;
 
@@ -185,7 +188,8 @@ public class ResourceLoader {
 
         double arc = v2.getArc(v3);
         Matrix m = new Matrix();
-        m.postRotate((int)arc);
+        m.setRotate((float)arc,p1.getxVal(),p1.getyVal());
+
         return Bitmap.createBitmap(b,0,0,b.getWidth(),b.getHeight(),m,true);
     }
 }

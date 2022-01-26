@@ -64,14 +64,15 @@ public class RangeSphere implements Drawable, Runnable {
      * @param t according tower
      *
      */
-    public RangeSphere(Tower t) {
+    public RangeSphere(Tower t, ShootingBehavior shootingBehavior) {
         cmp = new EnemyFirstComparator();
         queue = new PriorityQueue<>(cmp);
         this.tower = t;
         queueBlock = false;
         priority = Priority.FIRST;
-        shootingBehavior = new AreaShooting();
+        this.shootingBehavior = shootingBehavior;
         speedFactor = 1f;
+        
 
     }
 
@@ -79,9 +80,9 @@ public class RangeSphere implements Drawable, Runnable {
      * hits enemy of queue
      * can be extended to hit enemy by a specific ShootingBehavior
      *
-     * @param dmg damage to deal
+     *
      */
-    public void hitEnemy(int dmg){
+    public void hitEnemy(){
         /*
         Enemy e = queue.peek();
 
@@ -99,27 +100,14 @@ public class RangeSphere implements Drawable, Runnable {
         removeDeadEnemy(e);
 
          */
-        Enemy e =shootingBehavior.shoot(queue,tower.getDamage());
-        if(e != null){
-            tower.rotateTower(e.getEstimatedPosition(tower.getSpeed()));
-            fireProjectile(e);
+        Enemy[] e =shootingBehavior.shoot(queue,tower.getDamage());
+        tower.fire(e,tower.getDamage(),tower.getSpeed());
+        if(tower.isRotatable() && e != null){
+            tower.rotateTower(e[0].getPosition());
         }
     }
 
-    private void fireProjectile(Enemy e) {
-            Position p = e.getEstimatedPosition(tower.getSpeed());
-            projectile =  new Projectile(tower.getPos().getxVal(),tower.getPos().getyVal(), e,(int)tower.getSpeed(),null);
 
-    }
-
-    private boolean removeDeadEnemy(Enemy e){
-        if(e != null)
-            if(e.getHp() <= 0 || e.isFinished()){
-                queue.poll();
-                return true;
-            }
-        return false;
-    }
 
     public boolean intersects(Position p){
         Position pc = tower.getPos();
@@ -212,7 +200,7 @@ public class RangeSphere implements Drawable, Runnable {
             if(!queueBlock){
                 if(hasEnemyInside()){
 
-                    hitEnemy(tower.getDamage());
+                    hitEnemy();
                 }
                 try {
                     Thread.sleep ((long) (1000/(tower.getSpeed() * speedFactor)));
