@@ -115,6 +115,7 @@
         <item name="android:textSize">16dip</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">#FBC02D</item>
+        <item name="android:gravity">left</item>
     </style>
 
     <style name="Towername">

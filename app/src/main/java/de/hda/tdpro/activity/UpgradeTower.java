@@ -72,7 +72,7 @@ public class UpgradeTower extends AppCompatActivity {
         setupListeners();
 
         selectTower(selectedTower);
-        initContextMenu(upgrades.get("stats"));
+        initStatsUpgrade();
         demoTower = new MetaTower("Fire Tower",10,80,1,50);
 
     }
@@ -96,7 +96,7 @@ public class UpgradeTower extends AppCompatActivity {
         l_rng = findViewById(R.id.txtRange);
         l_price = findViewById(R.id.txtprice);
         l_dsc = findViewById(R.id.txtDescr);
-        l_name = findViewById(R.id.txtUpgradeType);
+
     }
 
     private void setupListeners(){
@@ -108,13 +108,13 @@ public class UpgradeTower extends AppCompatActivity {
         left.setOnClickListener(e->{
             selectedTower = Math.floorMod (selectedTower - 1,towers.length);
             selectTower(selectedTower);
-            initContextMenu(upgrades.get("stats"));
+            initContextMenu();
         });
 
         right.setOnClickListener(e->{
             selectedTower =  Math.floorMod (selectedTower + 1,towers.length);
             selectTower(selectedTower);
-            initContextMenu(upgrades.get("stats"));
+            initContextMenu();
         });
 
         buy.setOnClickListener(e->{
@@ -124,34 +124,60 @@ public class UpgradeTower extends AppCompatActivity {
 
         dmg.setOnClickListener(e->{
             //show actual dmg upgrade
-            initContextMenu(upgrades.get("stats"));
+            initStatsUpgrade();
             toggleButton(dmg);
         });
 
         vel.setOnClickListener(e->{
             //show actual vel upgrade
-            initContextMenu(upgrades.get("level"));
+           initLevelUpgrade();
             toggleButton(vel);
         });
 
         rng.setOnClickListener(e->{
             //show actual rng upgrade
-            initContextMenu(upgrades.get("price"));
+            initPriceUpgrade();
             toggleButton(rng);
         });
 
     }
 
-    private void initContextMenu(GlobalTowerUpgrade upgrade){
+    private void initContextMenu(){
         MetaTower meta = MetaTower.getMetaTower(towers[selectedTower]);
         towerName.setText(meta.getName());
         lvl.setText(Integer.toString(Tower.MAX_LEVEL));
-        l_price.setText(Integer.toString(meta.getPrice()) + " + " + upgrade.getValue());
+        l_price.setText(Integer.toString(meta.getPrice()));
         l_dmg.setText(Integer.toString(meta.getDmg()));
         l_vel.setText(Float.toString(meta.getVelocity()));
         l_rng.setText(Integer.toString(meta.getRange()));
+
     }
 
+    private void initStatsUpgrade(){
+        initContextMenu();
+        GlobalTowerUpgrade upgrade = upgrades.get("stats");
+        upgradeType.setText("STATS");
+        l_dmg.setText(l_dmg.getText() +" + "+ upgrade.getValue());
+        l_rng.setText(l_dmg.getText() + " + " + upgrade.getValue());
+        l_vel.setText(l_vel.getText() + " + " + upgrade.getValue());
+
+        l_dsc.setText(upgrade.getDescription());
+
+    }
+
+    private void initLevelUpgrade(){
+        initContextMenu();
+        GlobalTowerUpgrade upgrade = upgrades.get("level");
+
+        lvl.setText(lvl.getText() + " + " + upgrade.getValue());
+        l_dsc.setText(upgrade.getDescription());
+    }
+
+    private void initPriceUpgrade(){
+        initContextMenu();
+        GlobalTowerUpgrade upgrade = upgrades.get("stats");
+        l_dsc.setText(upgrade.getDescription());
+    }
     private void selectTower(int i){
         upgrades = loadUpgrades(towers[i]);
     }
