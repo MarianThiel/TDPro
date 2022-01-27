@@ -43,13 +43,20 @@ public class LevelSelectionActivity extends AppCompatActivity implements View.On
 
         // set Text Section
         setLevelInfo();
+        setLevelInfoDemo();
     }
 
     public void setLevelInfo() {
         TextView levelInfo = findViewById(R.id.textLevelInfo);
-        String s = ( "\n Difficulty: easy\n Waves: " + "\n Current Wave: " + "");
+        String s = ( " Difficulty: easy\n Waves: " + "\n Current Wave: " + "");
         levelInfo.setText(s);
     }
+    public void setLevelInfoDemo() {
+        TextView levelInfo = findViewById(R.id.textLevelInfo);
+        String s = ( " Difficulty: easy\n Waves: 10" + "\n Current Wave: 0" + "");
+        levelInfo.setText(s);
+    }
+
 
     public void onClick(View view) {
         ImageButton back = findViewById(R.id.imageButtonBack);
