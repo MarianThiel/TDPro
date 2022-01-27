@@ -23,10 +23,7 @@ public class UpgradeAbility extends AppCompatActivity {
     private Button upgradeTower;
     private Button upgradeLife;
     private TextView text;
-    private int costTower =5;
-    private int costLife=5;
-    private int levelTower=0;
-    private int levelHealth=0;
+    GameUpgrade game;
 
 
 
@@ -36,6 +33,8 @@ public class UpgradeAbility extends AppCompatActivity {
         setContentView(R.layout.activity_upgrade_ability);
         amountDiamond3= findViewById(R.id.amountOfDiamonds3);
         amountDiamond3.setText(Integer.toString(ConfigWriter.getInstance().readDiamonds()));
+        game = new GameUpgrade("maxtower");
+        game.readFromConfig();
 
         towerView = findViewById(R.id.imageView44);
         lifeView = findViewById(R.id.imageView45);
@@ -67,28 +66,34 @@ public class UpgradeAbility extends AppCompatActivity {
         towerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                game = new GameUpgrade("maxtower");
+                game.readFromConfig();
                 text.setText("State of Attributes and Upgrade Information\n" +
-                        "Tower now have the Level of "+levelTower+ "\nPrice for the next Upgrade "+ costTower+ " diamonds\n"
-                +"After Upgrade you will have "+ 5 +levelTower +" Tower");
+                        "You have now "+game.getValue() +" Towers"+"\nPrice for the next Upgrade "+ game.getCosts()+ " diamonds\n"
+               );
 
             }
         });
         lifeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                game = new GameUpgrade("maxhealth");
+                game.readFromConfig();
                 text.setText("State of Attributes and Upgrade Information\n" +
-                        " You have now at the level "+levelHealth  +" of life \n"+ "Price for the next Upgrade "+ costLife +" diamonds \n"
-                +"After Upgrade you will have"+ 100+ levelHealth*15 +" life");
+                        " You have now "+game.getValue()  +" lifes \n"+ "Price for the next Upgrade "+ game.getCosts() +" diamonds \n"
+               );
             }
         });
         upgradeTower.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(ConfigWriter.getInstance().readDiamonds()>=costTower) {
-                    GameUpgrade game = new GameUpgrade("maxtower");
+                game = new GameUpgrade("maxtower");
+                game.readFromConfig();
+                if(ConfigWriter.getInstance().readDiamonds()>=game.getCosts()) {
+
                     //ConfigWriter.getInstance().writeInitHealth(ConfigWriter.getInstance().);
-                    ConfigWriter.getInstance().writeDiamonds(ConfigWriter.getInstance().readDiamonds() - costTower);
-                    costTower*=1.5;
+                    ConfigWriter.getInstance().writeDiamonds(ConfigWriter.getInstance().readDiamonds() - game.getCosts());
+                    ConfigWriter.getInstance().writeMaxTowers(ConfigWriter.getInstance().readMaxTowers()+game.getValue());
                 }
                 else{
                     text.setText("You dont have enough Diamonds");
@@ -99,10 +104,12 @@ public class UpgradeAbility extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                if(ConfigWriter.getInstance().readDiamonds()>=costLife) {
-                    ConfigWriter.getInstance().writeInitHealth(ConfigWriter.getInstance().readHealth() + costLife);
-                    ConfigWriter.getInstance().writeDiamonds(ConfigWriter.getInstance().readDiamonds() - costLife);
-                    costLife*=1.5;
+                game = new GameUpgrade("maxhealth");
+                game.readFromConfig();
+                if(ConfigWriter.getInstance().readDiamonds()>=game.getCosts()) {
+                    ConfigWriter.getInstance().writeInitHealth(ConfigWriter.getInstance().readHealth() + game.getValue());
+                    ConfigWriter.getInstance().writeDiamonds(ConfigWriter.getInstance().readDiamonds() - game.getCosts());
+                    //ConfigWriter.getInstance().wr
                 }
                 else{
                     text.setText("You dont have enough Diamonds");
