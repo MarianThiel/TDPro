@@ -68,8 +68,12 @@ public class GameFactory {
         try {
             List<Position> l = p.generateAllPositions();
             Game g = parseGameConfig("demo_level.xml", p);
-            Position p1 = l.get(150);
+            Position p1 = l.get(50);
+            Position p2 = new Position(p1.getxVal(),p1.getyVal()+100);
+            Position p3 = new Position(p2.getxVal()+40,p2.getyVal()+80);
             MiscObject m = new MiscObject(new Position(p1.getxVal(),p1.getyVal()+100), MiscType.TREE_LARGE);
+            g.insertMisc(m);
+            m = new MiscObject(new Position(m.getPosition().getxVal()+40,m.getPosition().getyVal()+80), MiscType.TREE_LARGE);
             g.insertMisc(m);
             return g;
         } catch (ParserConfigurationException e) {
