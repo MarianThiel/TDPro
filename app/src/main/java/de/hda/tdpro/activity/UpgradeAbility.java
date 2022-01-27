@@ -91,9 +91,11 @@ public class UpgradeAbility extends AppCompatActivity {
                 game.readFromConfig();
                 if(ConfigWriter.getInstance().readDiamonds()>=game.getCosts()) {
 
-                    //ConfigWriter.getInstance().writeInitHealth(ConfigWriter.getInstance().);
                     ConfigWriter.getInstance().writeDiamonds(ConfigWriter.getInstance().readDiamonds() - game.getCosts());
                     ConfigWriter.getInstance().writeMaxTowers(ConfigWriter.getInstance().readMaxTowers()+game.getValue());
+                    game.setCosts((int)(game.getCosts()*game.getMulti()));
+                    game.setCurrentLevel(game.getCurrentLevel()+1);
+                    game.writeToConfig();
                 }
                 else{
                     text.setText("You dont have enough Diamonds");
@@ -109,7 +111,9 @@ public class UpgradeAbility extends AppCompatActivity {
                 if(ConfigWriter.getInstance().readDiamonds()>=game.getCosts()) {
                     ConfigWriter.getInstance().writeInitHealth(ConfigWriter.getInstance().readHealth() + game.getValue());
                     ConfigWriter.getInstance().writeDiamonds(ConfigWriter.getInstance().readDiamonds() - game.getCosts());
-                    //ConfigWriter.getInstance().wr
+                    game.setCosts((int)(game.getCosts()*game.getMulti()));
+                    game.setCurrentLevel(game.getCurrentLevel()+1);
+                    game.writeToConfig();
                 }
                 else{
                     text.setText("You dont have enough Diamonds");
