@@ -40,6 +40,15 @@ public class LevelSelectionActivity extends AppCompatActivity implements View.On
         previous.setOnClickListener((View.OnClickListener) this);
         Button start = (Button) findViewById(R.id.buttonStart);
         start.setOnClickListener((View.OnClickListener) this);
+
+        // set Text Section
+        setLevelInfo();
+    }
+
+    public void setLevelInfo() {
+        TextView levelInfo = findViewById(R.id.textLevelInfo);
+        String s = ( "\n Difficulty: easy\n Waves: " + "\n Current Wave: " + "");
+        levelInfo.setText(s);
     }
 
     public void onClick(View view) {

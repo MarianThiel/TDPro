@@ -23,12 +23,11 @@
         style="@style/default_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="43dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:text="START"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButtonNext" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageButton
         android:id="@+id/imageButtonPrevious"
@@ -64,22 +63,6 @@
         app:srcCompat="@android:drawable/arrow_up_float" />
 
     <TextView
-        android:id="@+id/textLevelInfo"
-        android:layout_width="181dp"
-        android:layout_height="247dp"
-        android:background="#6D000000"
-        android:fontFamily="cursive"
-        android:text="\nDifficulty:   easy\n\nWavves:   10"
-        android:textColor="#FFEB3B"
-        android:textSize="26sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.061"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.615" />
-
-    <TextView
         android:id="@+id/textLevel"
         android:layout_width="91dp"
         android:layout_height="35dp"
@@ -98,13 +81,10 @@
         android:id="@+id/imageButtonBack"
         android:layout_width="68dp"
         android:layout_height="74dp"
+        android:layout_marginStart="16dp"
         android:background="#00FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.023"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.983"
         app:srcCompat="@android:drawable/ic_menu_revert" />
 
     <pl.droidsonroids.gif.GifImageView
@@ -119,5 +99,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.258" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="150dp"
+        android:layout_height="187dp"
+        android:background="@android:drawable/gallery_thumb"
+        android:backgroundTint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.497">
+
+        <TextView
+            android:id="@+id/textLevelInfo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#6D000000"
+            android:fontFamily="cursive"
+            android:text="\n Difficulty: easy\n\n Wavves: 10"
+            android:textColor="#FFEB3B"
+            android:textSize="26sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>
