@@ -20,10 +20,13 @@ import javax.xml.parsers.ParserConfigurationException;
 import de.hda.tdpro.ConfigWriter;
 import de.hda.tdpro.StaticContext;
 import de.hda.tdpro.core.Game;
+import de.hda.tdpro.core.Position;
 import de.hda.tdpro.core.enemy.EnemyType;
 import de.hda.tdpro.core.enemy.EnemyWave;
 import de.hda.tdpro.core.enemy.Path;
 import de.hda.tdpro.core.enemy.WaveManager;
+import de.hda.tdpro.core.misc.MiscObject;
+import de.hda.tdpro.core.misc.MiscType;
 
 public class GameFactory {
 
@@ -63,7 +66,15 @@ public class GameFactory {
     public Game createDemoLevel(){
         Path p = PathFactory.getInstance().createRelativePathTest();
         try {
+            List<Position> l = p.generateAllPositions();
             Game g = parseGameConfig("demo_level.xml", p);
+            Position p1 = l.get(50);
+            Position p2 = new Position(p1.getxVal(),p1.getyVal()+100);
+            Position p3 = new Position(p2.getxVal()+40,p2.getyVal()+80);
+            MiscObject m = new MiscObject(new Position(p1.getxVal(),p1.getyVal()+100), MiscType.TREE_LARGE);
+            g.insertMisc(m);
+            m = new MiscObject(new Position(m.getPosition().getxVal()+40,m.getPosition().getyVal()+80), MiscType.TREE_LARGE);
+            g.insertMisc(m);
             return g;
         } catch (ParserConfigurationException e) {
             e.printStackTrace();

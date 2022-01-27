@@ -10,30 +10,22 @@ import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
 
-import de.hda.tdpro.core.Game;
 import de.hda.tdpro.core.GlobalTowerUpgrade;
 import de.hda.tdpro.core.enemy.EnemyType;
 import de.hda.tdpro.core.enemy.MetaEnemy;
@@ -70,10 +62,6 @@ public class ConfigWriter {
 
             element.setAttribute("diamonds",Integer.toString(diamonds));
 
-
-
-
-
             FileWriter output = new FileWriter(DST_PATH);
             writeXml(doc, output);
 
@@ -81,11 +69,61 @@ public class ConfigWriter {
             e.printStackTrace();
         }
 
+    }
 
+    public void writeMaxTowers(int i){
+        try {
+
+            Document doc = readConfig();
+            Element element = doc.getDocumentElement();
+            element.normalize();
+
+            element.setAttribute("maxtower",Integer.toString(i));
+
+            FileWriter output = new FileWriter(DST_PATH);
+            writeXml(doc, output);
+
+        } catch (ParserConfigurationException | IOException | SAXException | TransformerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int readMaxTowers(){
+        try {
+            Document d = readConfig();
+            Element element = d.getDocumentElement();
+            element.normalize();
+
+            NodeList nodes = element.getElementsByTagName("config");
+            Log.println(Log.ASSERT,"DIM", element.getAttribute("maxtower"));
+            return Integer.parseInt(element.getAttribute("maxtower"));
+
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     public void writeInitHealth(int health){
 
+        try {
+
+            Document doc = readConfig();
+            Element element = doc.getDocumentElement();
+            element.normalize();
+
+            element.setAttribute("health",Integer.toString(health));
+
+            FileWriter output = new FileWriter(DST_PATH);
+            writeXml(doc, output);
+
+        } catch (ParserConfigurationException | IOException | SAXException | TransformerException e) {
+            e.printStackTrace();
+        }
     }
 
     public void writeTowerStats(MetaTower meta){

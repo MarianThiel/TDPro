@@ -13,41 +13,27 @@
 
         <ImageView
             android:id="@+id/imageBackground2"
-            android:layout_width="1038dp"
-            android:layout_height="425dp"
-            android:layout_marginBottom="360dp"
+            android:layout_width="1074dp"
+            android:layout_height="554dp"
+            android:layout_marginBottom="312dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.633"
+            app:layout_constraintHorizontal_bias="0.656"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/old_dark_castle_interior_background" />
 
         <ImageView
             android:id="@+id/imageBackground"
-            android:layout_width="1523dp"
-            android:layout_height="424dp"
+            android:layout_width="1424dp"
+            android:layout_height="1169dp"
             android:layout_marginTop="195dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.316"
+            app:layout_constraintHorizontal_bias="0.297"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.991"
+            app:layout_constraintVertical_bias="0.398"
             app:srcCompat="@drawable/old_dark_castle_interior_background" />
-
-        <TextView
-            android:id="@+id/textLevelInfo"
-            android:layout_width="181dp"
-            android:layout_height="247dp"
-            android:fontFamily="cursive"
-            android:text="----------------\nhier könnten Infos über das Level stehen"
-            android:textColor="#FFEB3B"
-            android:textSize="26sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.192" />
 
         <TextView
             android:id="@+id/textLevel"
@@ -84,7 +70,7 @@
             android:src="@drawable/demon_idle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.285"
+            app:layout_constraintHorizontal_bias="0.278"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
@@ -127,6 +113,7 @@
 
         <Button
             android:id="@+id/buttonStart"
+            style="@style/default_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
@@ -136,6 +123,35 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageButtonNext"
             app:layout_constraintVertical_bias="1.0" />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="203dp"
+            android:layout_height="161dp"
+            android:background="@android:drawable/gallery_thumb"
+            android:backgroundTint="#000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.471"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.181">
+
+            <TextView
+                android:id="@+id/textLevelInfo"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#6D000000"
+                android:fontFamily="cursive"
+                android:text="\n Difficulty: easy\n\n Wavves: 10"
+                android:textColor="#FFEB3B"
+                android:textSize="26sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+        </android.support.constraint.ConstraintLayout>
 
     </android.support.constraint.ConstraintLayout>
 

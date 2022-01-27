@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#07516A"
+    android:background="@drawable/bg_dark_land"
     tools:context=".activity.UpgradeTower">
 
     <ImageView
@@ -54,8 +54,6 @@
         android:layout_height="236dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:background="@color/colorPrimaryDark"
-        android:backgroundTint="?android:attr/textColorTertiaryInverse"
         app:layout_constraintEnd_toStartOf="@+id/btnLeft"
         app:layout_constraintHorizontal_bias="0.047"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,6 +61,7 @@
 
         <TableLayout
             android:id="@+id/tableLayout"
+            style="@style/Towerupdates_Context_Font"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:paddingStart="10dp"
@@ -88,6 +87,7 @@
 
                 <TextView
                     android:id="@+id/txtprice"
+                    style="@style/Towerupdates_Context_Font"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TextView" />
@@ -105,6 +105,7 @@
 
                 <TextView
                     android:id="@+id/txtLevel"
+                    style="@style/Towerupdates_Context_Font"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="TextView" />
@@ -122,6 +123,7 @@
 
                 <TextView
                     android:id="@+id/txtDamage"
+                    style="@style/Towerupdates_Context_Font"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TextView" />
@@ -139,6 +141,7 @@
 
                 <TextView
                     android:id="@+id/txtVelocity"
+                    style="@style/Towerupdates_Context_Font"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TextView" />
@@ -156,6 +159,7 @@
 
                 <TextView
                     android:id="@+id/txtRange"
+                    style="@style/Towerupdates_Context_Font"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TextView" />
@@ -164,6 +168,7 @@
 
         <Button
             android:id="@+id/btnBuyUpgrade"
+            style="@style/upgrade_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
@@ -174,6 +179,7 @@
 
         <TextView
             android:id="@+id/textView15"
+            style="@style/context_menu_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Statistics"
@@ -184,6 +190,7 @@
 
     <Button
         android:id="@+id/btnUpgradeDMG"
+        style="@style/default_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Stats"
@@ -194,6 +201,7 @@
 
     <Button
         android:id="@+id/btnUpgradeVel"
+        style="@style/default_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Level"
@@ -204,6 +212,7 @@
 
     <Button
         android:id="@+id/btnUpgradeRange"
+        style="@style/default_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Price"
@@ -214,6 +223,7 @@
 
     <TextView
         android:id="@+id/txtTowerNameContext"
+        style="@style/Towername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
@@ -251,14 +261,13 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:background="@color/colorPrimaryDark"
-        android:backgroundTint="?android:attr/textColorTertiaryInverse"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnRight"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/txtUpgradeType"
+            style="@style/Towername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="DMG"
@@ -268,6 +277,7 @@
 
         <TextView
             android:id="@+id/txtDescr"
+            style="@style/upgrade_font"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="TextView"

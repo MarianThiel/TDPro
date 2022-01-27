@@ -33,6 +33,13 @@ public class EndGameActivity extends AppCompatActivity {
         diam = findViewById(R.id.amountOfDiamonds);
         checkp = findViewById(R.id.checkpointReached);
 
+
+        //Intent intentMoney = getIntent();
+        //int money = intentMoney.getIntExtra("Gold: ", );
+
+        //Intent intentEnemiesKilled = getIntent();
+        //int eKilled = intentEnemiesKilled.getIntExtra("EnemiesKilled: ", );
+
         Intent intent = getIntent();
         boolean win = intent.getBooleanExtra("WIN", false);
         int adiam = intent.getIntExtra("WON_DIAM",0);
