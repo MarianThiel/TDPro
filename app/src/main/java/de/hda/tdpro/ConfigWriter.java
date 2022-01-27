@@ -33,6 +33,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import de.hda.tdpro.core.Game;
 import de.hda.tdpro.core.GlobalTowerUpgrade;
 import de.hda.tdpro.core.enemy.EnemyType;
 import de.hda.tdpro.core.enemy.MetaEnemy;
@@ -60,12 +61,10 @@ public class ConfigWriter {
     }
 
     public void writeDiamonds(int diamonds){
-        DocumentBuilder documentBuilder = null;
+
         try {
-            documentBuilder = documentBuilderFactory.newDocumentBuilder();
-            InputStream is = StaticContext.getContext().getAssets().open(FILE_PATH);
+
             Document doc = readConfig();
-                    // documentBuilder.parse(is);
             Element element = doc.getDocumentElement();
             element.normalize();
 
@@ -307,4 +306,74 @@ public class ConfigWriter {
         }
         return null;
     }
+
+    public GameUpgrade readGameUpgrade(String key){
+
+        try {
+            Document d = readConfig();
+
+            Element e1 = d.getDocumentElement();
+            e1.normalize();
+
+            NodeList lst = e1.getElementsByTagName("gameupgrade");
+
+            for(int i = 0; i < lst.getLength(); i++){
+                Node n = lst.item(i);
+                if(n.getNodeType() == Node.ELEMENT_NODE){
+                    Element e2 = (Element) n;
+                    if(e2.getAttribute("key").equals(key)){
+
+                        String k = e2.getAttribute("key");
+                        int cost = Integer.parseInt(e2.getAttribute("costs"));
+                        int val = Integer.parseInt(e2.getAttribute("value"));
+                        float m = Float.parseFloat(e2.getAttribute("multi"));
+
+                        return new GameUpgrade(k,cost,val,m);
+
+                    }
+                }
+            }
+
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public void writeGameUpgrade(GameUpgrade g){
+        try {
+
+            Document doc = readConfig();
+            Element element = doc.getDocumentElement();
+            element.normalize();
+
+            NodeList lst = element.getElementsByTagName("gameupgrade");
+
+            for(int i = 0; i < lst.getLength(); i++){
+                Node n = lst.item(i);
+
+                if(n.getNodeType() == Node.ELEMENT_NODE){
+                    Element e2 = (Element) n;
+                    if(e2.getAttribute("key").equals(g.getKey())){
+                        e2.setAttribute("costs",Integer.toString(g.getCosts()));
+                        e2.setAttribute("value",Integer.toString(g.getValue()));
+                        e2.setAttribute("multi",Float.toString(g.getMulti()));
+                    }
+                }
+            }
+
+
+            FileWriter output = new FileWriter(DST_PATH);
+            writeXml(doc, output);
+
+        } catch (ParserConfigurationException | IOException | SAXException | TransformerException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
