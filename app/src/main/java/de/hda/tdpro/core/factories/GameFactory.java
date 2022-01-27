@@ -70,11 +70,99 @@ public class GameFactory {
             Game g = parseGameConfig("demo_level.xml", p);
             Position p1 = l.get(50);
             Position p2 = new Position(p1.getxVal(),p1.getyVal()+100);
-            Position p3 = new Position(p2.getxVal()+40,p2.getyVal()+80);
+            Position p3 = new Position(p2.getxVal()+550,p2.getyVal()-160);
             MiscObject m = new MiscObject(new Position(p1.getxVal(),p1.getyVal()+100), MiscType.TREE_LARGE);
             g.insertMisc(m);
             m = new MiscObject(new Position(m.getPosition().getxVal()+40,m.getPosition().getyVal()+80), MiscType.TREE_LARGE);
             g.insertMisc(m);
+
+            ///
+            MiscObject m2 = new MiscObject(new Position(p3.getxVal(),p3.getyVal()), MiscType.ROCK_TALL);
+            g.insertMisc(m2);
+            p3 = new Position(p3.getxVal()+1400,p3.getyVal()+640);
+            m2 = new MiscObject(new Position(p3.getxVal(),p3.getyVal() ), MiscType.ROCK_TALL);
+            g.insertMisc(m2);
+
+            p3 = l.get(1);
+            p3 = new Position(p3.getxVal(),p3.getyVal()+640);
+            m2 = new MiscObject(new Position(p3.getxVal(),p3.getyVal() ), MiscType.ROCK_TALL);
+            g.insertMisc(m2);
+            int x = 0;
+            int y = -80;
+            boolean b = true;
+            boolean b2 = true;
+            p3 = new Position(p3.getxVal()-80,p3.getyVal()+150);
+            for ( int i = 0 ; i < 100; i++) {
+                if (b) {
+                    p3 = new Position(p3.getxVal()+80,p3.getyVal());
+                }
+                else{
+                    if (b2) {
+                        p3 = new Position(p3.getxVal() + 40, p3.getyVal() - 40);
+                        b2 = false;
+                        if (b) {
+                            b = false;
+                        }
+                        else {
+                            b = true;
+                        }
+                    }
+                    else {
+                        p3 = new Position(p3.getxVal() + 40, p3.getyVal() + 40);
+                        b2 = true;
+                        if (b) {
+                            b = false;
+                        }
+                        else {
+                            b = true;
+                        }
+                    }
+                }
+
+                m2 = new MiscObject(new Position(p3.getxVal(),p3.getyVal() ), MiscType.TREE_LARGE);
+                g.insertMisc(m2);
+
+                if (b) {
+                    b = false;
+                }
+                else {
+                    b = true;
+                }
+
+                /////
+            }
+
+            p3 = l.get(1);
+            p3 = new Position(p3.getxVal() + 670, p3.getyVal() + 40);
+            m2 = new MiscObject(new Position(p3.getxVal()+400,p3.getyVal() ), MiscType.TREE_LARGE);
+            g.insertMisc(m2);
+            m2 = new MiscObject(new Position(p3.getxVal()+430,p3.getyVal() ), MiscType.TREE_LARGE);
+            g.insertMisc(m2);
+            m2 = new MiscObject(new Position(p3.getxVal()+460,p3.getyVal() ), MiscType.TREE_LARGE);
+            g.insertMisc(m2);
+            m2 = new MiscObject(new Position(p3.getxVal()+400,p3.getyVal()-25 ), MiscType.TREE_LARGE);
+            g.insertMisc(m2);
+            m2 = new MiscObject(new Position(p3.getxVal()+430,p3.getyVal()-45 ), MiscType.TREE_LARGE);
+            g.insertMisc(m2);
+            m2 = new MiscObject(new Position(p3.getxVal()+460,p3.getyVal()- 74 ), MiscType.TREE_LARGE);
+            g.insertMisc(m2);
+
+            p3 = l.get(1);
+            p3 = new Position(p3.getxVal() + 490, p3.getyVal() + 120);
+            m2 = new MiscObject(new Position(p3.getxVal()+1260,p3.getyVal()-60 ), MiscType.ROCK_SMALL);
+            g.insertMisc(m2);
+            /*
+            m2 = new MiscObject(new Position(p3.getxVal()+970,p3.getyVal() ), MiscType.ROCK_SMALL);
+            g.insertMisc(m2);
+            m2 = new MiscObject(new Position(p3.getxVal()+980,p3.getyVal() ), MiscType.ROCK_SMALL);
+            g.insertMisc(m2);
+            m2 = new MiscObject(new Position(p3.getxVal()+400,p3.getyVal()-25 ), MiscType.ROCK_SMALL);
+            g.insertMisc(m2);
+            m2 = new MiscObject(new Position(p3.getxVal()+430,p3.getyVal()-45 ), MiscType.ROCK_SMALL);
+            g.insertMisc(m2);
+               */
+
+
             return g;
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
