@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/main_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@android:drawable/ic_menu_revert"
@@ -47,21 +48,24 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="16dp"
-        android:background="#009688"
+        android:background="@color/main_color"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.345">
+        app:layout_constraintVertical_bias="0.135">
 
         <TextView
             android:id="@+id/textView22"
+            style="@style/Towerupdates_Context_Font"
             android:layout_width="338dp"
             android:layout_height="67dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:text="Stats of Atribute and Upgrade Information"
+            android:textSize="17sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -84,8 +88,8 @@
             android:id="@+id/imageView44"
             android:layout_width="74dp"
             android:layout_height="83dp"
-            android:layout_marginStart="64dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/tower_symb" />
@@ -94,33 +98,37 @@
             android:id="@+id/imageView45"
             android:layout_width="78dp"
             android:layout_height="74dp"
-            android:layout_marginStart="88dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginStart="124dp"
+            android:layout_marginTop="24dp"
             app:layout_constraintStart_toEndOf="@+id/imageView44"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/heart" />
 
         <Button
             android:id="@+id/upgradeTower"
+            style="@style/default_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginBottom="36dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginBottom="52dp"
             android:text="Upgrade"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView44"
+            app:layout_constraintVertical_bias="1.0" />
 
         <Button
             android:id="@+id/upgradeHeart"
+            style="@style/default_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="76dp"
+            android:layout_marginStart="88dp"
             android:layout_marginBottom="28dp"
             android:text="Upgrade"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/upgradeTower"
             app:layout_constraintTop_toBottomOf="@+id/imageView45"
-            app:layout_constraintVertical_bias="0.859" />
+            app:layout_constraintVertical_bias="0.652" />
 
     </android.support.constraint.ConstraintLayout>
 

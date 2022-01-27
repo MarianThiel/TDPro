@@ -11,8 +11,8 @@
         android:id="@+id/imageView15"
         android:layout_width="27dp"
         android:layout_height="28dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/amountOfDiamonds3"
         app:srcCompat="@drawable/diamond" />
@@ -21,8 +21,8 @@
         android:id="@+id/amountOfDiamonds3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="20dp"
         android:gravity="left"
         android:text="100"
         android:textColor="#FFFF00"
@@ -34,23 +34,29 @@
         android:id="@+id/ua_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="32dp"
+        android:backgroundTint="@color/main_color"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/amountOfDiamonds3"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.933"
         app:srcCompat="@android:drawable/ic_menu_revert"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/textView22"
+        style="@style/Towerupdates_Context_Font"
         android:layout_width="269dp"
         android:layout_height="198dp"
-        android:layout_marginTop="64dp"
-        android:background="#009688"
+        android:layout_marginTop="24dp"
+        android:background="@color/main_color"
         android:text="State of Attributes and Upgrade Information"
-        android:textSize="15dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/constraintLayout6"
-        app:layout_constraintHorizontal_bias="0.329"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -68,40 +74,51 @@
             android:id="@+id/imageView45"
             android:layout_width="114dp"
             android:layout_height="110dp"
-            android:layout_marginStart="56dp"
-            android:layout_marginTop="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.321"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.197"
             app:srcCompat="@drawable/heart" />
 
         <ImageView
             android:id="@+id/imageView44"
             android:layout_width="114dp"
             android:layout_height="110dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="44dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.833"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.197"
             app:srcCompat="@drawable/tower_symb" />
 
         <Button
             android:id="@+id/upgradeHeart"
+            style="@style/default_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="72dp"
-            android:layout_marginTop="60dp"
             android:text="Upgrade"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.319"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView45" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView45"
+            app:layout_constraintVertical_bias="0.86" />
 
         <Button
             android:id="@+id/upgradeTower"
+            style="@style/default_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
-            android:layout_marginEnd="60dp"
             android:text="Upgrade"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView44" />
+            app:layout_constraintHorizontal_bias="0.832"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView44"
+            app:layout_constraintVertical_bias="0.709" />
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
