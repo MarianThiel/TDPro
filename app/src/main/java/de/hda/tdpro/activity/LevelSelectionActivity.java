@@ -57,6 +57,7 @@ public class LevelSelectionActivity extends AppCompatActivity implements View.On
         levelInfo.setText(s);
     }
 
+
     public void onClick(View view) {
         ImageButton back = findViewById(R.id.imageButtonBack);
         ImageButton next = findViewById(R.id.imageButtonNext);
