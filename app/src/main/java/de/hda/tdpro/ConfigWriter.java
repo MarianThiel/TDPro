@@ -365,8 +365,9 @@ public class ConfigWriter {
                         int cost = Integer.parseInt(e2.getAttribute("costs"));
                         int val = Integer.parseInt(e2.getAttribute("value"));
                         float m = Float.parseFloat(e2.getAttribute("multi"));
+                        int c = Integer.parseInt(e2.getAttribute("clevel"));
 
-                        return new GameUpgrade(k,cost,val,m);
+                        return new GameUpgrade(k,cost,val,m,c);
 
                     }
                 }
@@ -400,6 +401,7 @@ public class ConfigWriter {
                     if(e2.getAttribute("key").equals(g.getKey())){
                         e2.setAttribute("costs",Integer.toString(g.getCosts()));
                         e2.setAttribute("value",Integer.toString(g.getValue()));
+                        e2.setAttribute("clevel",Integer.toString(g.getCurrentLevel()));
                         e2.setAttribute("multi",Float.toString(g.getMulti()));
                     }
                 }
