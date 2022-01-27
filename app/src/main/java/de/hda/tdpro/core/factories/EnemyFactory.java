@@ -1,11 +1,11 @@
 package de.hda.tdpro.core.factories;
 
-import android.content.res.Resources;
-import android.graphics.BitmapFactory;
-import de.hda.tdpro.R;
-import de.hda.tdpro.StaticContext;
+import android.graphics.Bitmap;
+
+import de.hda.tdpro.core.ResourceLoader;
 import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.enemy.EnemyType;
+import de.hda.tdpro.core.enemy.MetaEnemy;
 
 /**
  * @author Marian Thiel
@@ -34,21 +34,37 @@ public class EnemyFactory {
      * @return a random Enemy
      */
     public Enemy createRandomEnemy(){
-        return new Enemy((int)(100 + Math.random()*1500),0,(float) (50+ (Math.random()*70)), BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.test3));
+        Bitmap[] images = ResourceLoader.getInstance().getAnimation("NM");
+        MetaEnemy meta = MetaEnemy.getMetaEnemy(EnemyType.L1FAST);
+        return new Enemy(meta.getHp(), meta.getValue(), meta.getVel(), images);
     }
 
     public Enemy createL1Tank(){
-        return new Enemy(1000,50, 50,BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.fire_tower));
+
+        Bitmap[] images = ResourceLoader.getInstance().getAnimation("L1TANK");
+        MetaEnemy meta = MetaEnemy.getMetaEnemy(EnemyType.L1TANK);
+        return new Enemy(meta.getHp(), meta.getValue(), meta.getVel(), images);
     }
+
+    public Enemy createL1Boss(){
+        Bitmap[] images = ResourceLoader.getInstance().getAnimation("L1BOSS");
+        MetaEnemy meta = MetaEnemy.getMetaEnemy(EnemyType.L1BOSS);
+        return new Enemy(meta.getHp(), meta.getValue(), meta.getVel(), images);
+    }
+
 
     public Enemy createEnemyByType(EnemyType type){
         Enemy e = null;
         switch (type){
-            case RANDOM:
+            case L1FAST:
                 e = createRandomEnemy();
                 break;
             case L1TANK:
                 e = createL1Tank();
+                break;
+            case L1BOSS:
+                e = createL1Boss();
+                break;
         }
         return e;
     }

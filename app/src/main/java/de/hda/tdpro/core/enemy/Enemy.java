@@ -2,6 +2,7 @@ package de.hda.tdpro.core.enemy;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 
@@ -31,7 +32,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
     /**
      * armor of enemy | note useless until now
      */
-    private int armor;
+    private int goldDropping;
     /**
      * velocity of enemy in steps/seconds
      */
@@ -63,7 +64,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
     /**
      * Image of enemy
      */
-    private Bitmap image;
+    private Bitmap[] image;
     /**
      * observers of enemy
      */
@@ -73,38 +74,55 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
 
     private final long SLEEP;
 
+    private int imageIndex;
+
+    private int stepCount;
+
+    private int positionAsInt;
+
+    private final int MAX_HEALTH;
+
+    private float speedFactor;
+
     /**
      * default constructor
      * @param hp
-     * @param armor
+     * @param goldDropping
      * @param velocity
      * @param img
      */
-    public Enemy(int hp, int armor, float velocity, Bitmap img) {
+    public Enemy(int hp, int goldDropping, float velocity, Bitmap[] img) {
+        this.MAX_HEALTH = hp;
         this.hp = hp;
-        this.armor = armor;
+        this.goldDropping = goldDropping;
         this.velocity = velocity;
         alive = true;
         image = img;
         observers = new LinkedList<>();
         fin = false;
         SLEEP = (long)(1000/velocity);
+        imageIndex = 0;
+        stepCount = 0;
+        positionAsInt = 0;
+        speedFactor = 1f;
+
     }
 
     /**
      * constructor for TestBench
      * @param hp Hit points of an Enemy
-     * @param armor Armor of an Enemy
+     * @param goldDropping Armor of an Enemy
      * @param velocity velocity of an Enemy
      */
-    public Enemy(int hp, int armor, float velocity) {
+    public Enemy(int hp, int goldDropping, float velocity) {
         this.hp = hp;
-        this.armor = armor;
+        this.goldDropping = goldDropping;
         this.velocity = velocity;
         alive = true;
         observers = new LinkedList<>();
 
         SLEEP = (long)(1000/velocity);
+        MAX_HEALTH = 0;
     }
 
     public int getHp() {
@@ -127,12 +145,12 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
         }
     }
 
-    public int getArmor() {
-        return armor;
+    public int getGoldDropping() {
+        return goldDropping;
     }
 
-    public void setArmor(int armor) {
-        this.armor = armor;
+    public void setGoldDropping(int goldDropping) {
+        this.goldDropping = goldDropping;
     }
 
     public float getVelocity() {
@@ -153,6 +171,7 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
      */
     public void setPosition(Position position) {
         this.position = position;
+        positionAsInt++;
         notifyOnMovement();
     }
 
@@ -172,21 +191,25 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
      * starts the thread
      */
     public void initWalking(){
-        walking = true;
-        walkingThread = new Thread(this);
-        walkingThread.start();
+        if(!walking){
+            walking = true;
+            walkingThread = new Thread(this);
+            walkingThread.start();
+        }
     }
 
     /**
      * stops the thread
      */
     public void stopWalking(){
-        walking = false;
-        walkingThread.interrupt();
-        try {
-            walkingThread.join();
-        } catch (InterruptedException e) {
+        if(walking){
+            walking = false;
+            walkingThread.interrupt();
+            try {
+                walkingThread.join();
+            } catch (InterruptedException e) {
 
+            }
         }
     }
 
@@ -220,6 +243,10 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
         }
     }
 
+    public int getPositionAsIndex(){
+        return positionAsInt;
+    }
+
     public boolean isOnScreen(){
         return position != null && !isFinished();
     }
@@ -231,21 +258,25 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
     }
 
     @Override
-    public void removeEnemyObserver(EnemyObserver o) {
+    public synchronized void removeEnemyObserver(EnemyObserver o) {
         observers.remove(o);
     }
 
     @Override
     public void notifyOnMovement() {
-        for(EnemyObserver o : observers){
-            o.onEnemyMovement(this);
+        synchronized (observers) {
+            for (EnemyObserver o : observers) {
+                o.onEnemyMovement(this);
+            }
         }
     }
 
     @Override
     public void notifyEnemyDying() {
-        for(EnemyObserver o : observers){
-            o.onEnemyDying(this);
+        synchronized (observers) {
+            for (EnemyObserver o : observers) {
+                o.onEnemyDying(this);
+            }
         }
     }
 
@@ -253,7 +284,10 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
     public void notifyEnemySuccess() {
         synchronized (observers){
             for(EnemyObserver o : observers){
-                o.onEnemySuccess(this);
+                synchronized (o){
+                    o.onEnemySuccess(this);
+                }
+
             }
         }
 
@@ -262,10 +296,14 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
     @Override
     public void run() {
         while(walking){
+            if (stepCount % 4 == 0){
+                imageIndex = (imageIndex + 1) % image.length;
+            }
             walkStep();
+            stepCount++;
 
             try {
-                Thread.sleep(SLEEP);
+                Thread.sleep((long)(1000/(velocity*speedFactor)));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -275,12 +313,48 @@ public class Enemy implements EnemyObservable, Runnable, Drawable {
     @Override
     public void draw(Canvas canvas) {
         if(position != null){
-            canvas.drawBitmap(image, position.getxVal()-(image.getWidth()/2), position.getyVal()-(image.getHeight()/2),null);
+            canvas.drawBitmap(image[imageIndex], position.getxVal()-(image[imageIndex].getWidth()/2), position.getyVal()-(image[imageIndex].getHeight()/2),null);
             String s = Integer.toString(hp);
             Paint p = new Paint();
             p.setTextSize(50);
-            canvas.drawText(s,position.getxVal()-(image.getWidth()/2),position.getyVal()+10,p);
+            //canvas.drawText(s,position.getxVal()-(image[imageIndex].getWidth()/2),position.getyVal()+100,p); textual display of health
+            if(hp != MAX_HEALTH)
+                drawHealthBar(canvas);
         }
 
+    }
+
+    private void drawHealthBar(Canvas canvas){
+        Vector2D p2 = new Vector2D(getPosition().getxVal() - (image[imageIndex].getWidth()/2),getPosition().getyVal());
+
+        float percentage = (float)((float)hp / (float)MAX_HEALTH);
+        Vector2D p_add = new Vector2D(50,0).mul(percentage);
+        p2 = p2.add(p_add);
+
+        Paint paint = new Paint();
+        paint.setStrokeWidth(5);
+        if(percentage < 0.5){
+            paint.setColor(Color.RED);
+        }else paint.setColor(Color.GREEN);
+
+        canvas.drawLine(getPosition().getxVal() - (image[imageIndex].getWidth()/2),getPosition().getyVal() - 100,(float)p2.x,(float)p2.y - 100,paint);
+    }
+    public Position getEstimatedPosition(float velocity){
+
+        float vel = ( getVelocity()/ (velocity+2));
+        Log.println(Log.ASSERT,"position_e", "pos: " + vel);
+        int i = path.indexOf(getPosition())+ (int) vel;
+
+
+        if(i < path.size()){
+            return path.get(i);
+        }else{
+            return path.get(path.size()-1);
+        }
+
+    }
+
+    public void setSpeedFactor(float speedFactor) {
+        this.speedFactor = speedFactor;
     }
 }

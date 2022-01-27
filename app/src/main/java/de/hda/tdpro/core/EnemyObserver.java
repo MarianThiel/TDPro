@@ -9,11 +9,19 @@ import de.hda.tdpro.core.enemy.Enemy;
 public interface EnemyObserver {
     /**
      * update on Enemy movement
-     * @param e the Enemy which calls the method
+     * @param e observed enemy
      */
     void onEnemyMovement(Enemy e);
 
+    /**
+     * update on Enemy success
+     * @param e observed enemy
+     */
     void onEnemySuccess(Enemy e);
 
+    /**
+     * update on Enemy dying
+     * @param e
+     */
     void onEnemyDying(Enemy e);
 }

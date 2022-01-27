@@ -1,12 +1,13 @@
 package de.hda.tdpro.core.enemy;
 
 import android.graphics.Canvas;
-import android.util.Log;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import de.hda.tdpro.core.Drawable;
+import de.hda.tdpro.core.Game;
+import de.hda.tdpro.core.TimingUnit;
 
 /**
  * @author Marian Thiel
@@ -15,7 +16,7 @@ import de.hda.tdpro.core.Drawable;
  * Class for managing Waves
  * holds all waves of an entire level
  */
-public class WaveManager implements Drawable {
+public class WaveManager implements Drawable, TimingUnit {
     /**
      * number of waves
      */
@@ -36,6 +37,8 @@ public class WaveManager implements Drawable {
 
     private int lastWaveInserted;
 
+    private boolean currentWaveStarted;
+
     /**
      * test constructor
      * @param NUMBER_OF_WAVES number of enemies
@@ -45,6 +48,7 @@ public class WaveManager implements Drawable {
         this.NUMBER_OF_WAVES = NUMBER_OF_WAVES;
         waves = new EnemyWave[NUMBER_OF_WAVES];
         currentWave = 0;
+        currentWaveStarted = false;
         lastWaveInserted = 0;
         this.path = path;
     }
@@ -57,7 +61,7 @@ public class WaveManager implements Drawable {
      */
     public void initDemoData(){
         for(int i = 0; i < NUMBER_OF_WAVES;i++){
-            waves[i] = new EnemyWave(10000, path);
+            waves[i] = new EnemyWave(10000, path, 0);
             waves[i].initDemoEnemies();
         }
     }
@@ -68,9 +72,14 @@ public class WaveManager implements Drawable {
     public void startCurrentWave(){
 
         waves[currentWave].startWave();
+        currentWaveStarted = true;
         //currentWave++;
     }
 
+    /**
+     * add a collection of waves to the waveManager
+     * @param waves
+     */
     public void addAll(List<EnemyWave> waves){
         for (EnemyWave w : waves){
             if(lastWaveInserted < NUMBER_OF_WAVES)
@@ -92,6 +101,10 @@ public class WaveManager implements Drawable {
         return lst;
     }
 
+    /**
+     *
+     * @return true if each enemy in the current
+     */
     public boolean isCurrentWaveFinished(){
        for (int i = 0; i < waves[currentWave].getENEMIES_IN_WAVE(); i++){
            Enemy e = waves[currentWave].getEnemy(i);
@@ -101,11 +114,14 @@ public class WaveManager implements Drawable {
                }
            }
        }
+       currentWaveStarted = false;
        return true;
     }
 
+    /**
+     * increments the current wave
+     */
     public void prepare(){
-        if(currentWave<NUMBER_OF_WAVES-1)
             currentWave++;
     }
 
@@ -117,6 +133,10 @@ public class WaveManager implements Drawable {
         return currentWave;
     }
 
+    /**
+     * returns a list of all Enemies on screen
+     * @return
+     */
     private List<Enemy> getEnemiesOnScreen(){
         List<Enemy> list = new LinkedList<>();
 
@@ -134,6 +154,9 @@ public class WaveManager implements Drawable {
         waves[currentWave].draw(canvas);
     }
 
+    /**
+     * pasues the current wave
+     */
     public void pause(){
       waves[currentWave].pauseWaveEjecting();
       List<Enemy> lst = getEnemiesOnScreen();
@@ -142,12 +165,29 @@ public class WaveManager implements Drawable {
       }
     }
 
+    /**
+     * resumes the current wave
+     */
+    @Override
     public void resume(){
-        waves[currentWave].resumeWaveEjecting();
-        List<Enemy> lst = getEnemiesOnScreen();
-        for(Enemy e : lst){
-
-            e.initWalking();
+        if(currentWaveStarted){
+            waves[currentWave].resumeWaveEjecting();
+            List<Enemy> lst = getEnemiesOnScreen();
+            for(Enemy e : lst){
+                e.initWalking();
+            }
         }
+    }
+
+    public int getDiamondsOfCurrentWave(){
+        return waves[currentWave].getNumOfDiamonds();
+    }
+    @Override
+    public void speedUp(){
+        waves[currentWave].speedUpEnemies(Game.FF_FACTOR);
+    }
+    @Override
+    public void slowDown(){
+        waves[currentWave].speedUpEnemies(1);
     }
 }

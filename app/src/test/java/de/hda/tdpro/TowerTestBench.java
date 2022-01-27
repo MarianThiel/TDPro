@@ -8,7 +8,6 @@ import de.hda.tdpro.core.tower.FireTower;
 import de.hda.tdpro.core.tower.Tower;
 import de.hda.tdpro.core.tower.TowerManager;
 import de.hda.tdpro.core.tower.TowerType;
-import de.hda.tdpro.core.tower.UpgradeType;
 import de.hda.tdpro.core.tower.upgrades.MetaUpgrade;
 
 public class TowerTestBench {

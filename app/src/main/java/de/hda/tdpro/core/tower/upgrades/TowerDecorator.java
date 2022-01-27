@@ -1,8 +1,13 @@
 package de.hda.tdpro.core.tower.upgrades;
 
+import android.graphics.Canvas;
+
 import de.hda.tdpro.core.Position;
+import de.hda.tdpro.core.ResourceLoader;
+import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.tower.RangeSphere;
 import de.hda.tdpro.core.tower.Tower;
+import de.hda.tdpro.core.tower.projectiles.AbstractProjectile;
 
 /**
  * @author Marian Thiel
@@ -11,11 +16,14 @@ import de.hda.tdpro.core.tower.Tower;
  * class decorates a tower with upgrade
  * the attribute values are accumulated
  */
-public class TowerDecorator extends Tower {
+public abstract class TowerDecorator extends Tower {
     Tower embeddedTower;
     public TowerDecorator(Tower uTower) {
         super(0,0,0,0);
         embeddedTower = uTower;
+        this.img = embeddedTower.getImg();
+        getSphere().setTower(this);
+        current = img[(getLevel()-1) % img.length];
     }
 
     @Override
@@ -31,6 +39,14 @@ public class TowerDecorator extends Tower {
     @Override
     public float getSpeed() {
         return this.speed + embeddedTower.getSpeed();
+    }
+
+    public void setLocalSpeed(float vel){
+        this.speed = vel;
+    }
+
+    public float getLocalSpeed(){
+        return speed;
     }
 
     @Override
@@ -61,4 +77,48 @@ public class TowerDecorator extends Tower {
         return embeddedTower.getPos();
     }
 
+    @Override
+    public boolean isActive() {
+        return embeddedTower.isActive();
+    }
+
+    @Override
+    public void setActive(boolean active) {
+        embeddedTower.setActive(active);
+    }
+
+    @Override
+    public void setPos(Position pos) {
+        embeddedTower.setPos(pos);
+    }
+
+    @Override
+    public AbstractProjectile getP() {
+        return embeddedTower.getP();
+    }
+
+    @Override
+    public void rotateTower(Position p) {
+        super.rotateTower(p);
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        super.draw(canvas);
+        canvas.drawBitmap(current, getPos().getxVal()-(img[(getLevel()-1) % img.length].getWidth()/2),getPos().getyVal()-(img[(getLevel()-1) % img.length].getHeight()/2),null);
+    }
+
+    public Tower getEmbeddedTower() {
+        return embeddedTower;
+    }
+
+    @Override
+    public void fire(Enemy[] enemies, int damage, float vel) {
+        embeddedTower.fire(enemies, damage, vel);
+    }
+
+    @Override
+    public boolean isRotatable() {
+        return embeddedTower.isRotatable();
+    }
 }

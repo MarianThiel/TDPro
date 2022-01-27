@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hda.tdpro.core.Drawable;
+import de.hda.tdpro.core.Intersectable;
 import de.hda.tdpro.core.Position;
 
 /**
@@ -17,7 +18,7 @@ import de.hda.tdpro.core.Position;
  * Class representing the path of a map or an Enemy
  * works like a linked list
  */
-public class Path implements Drawable {
+public class Path implements Drawable, Intersectable {
     AscPoint start;
 
     public Path() {
@@ -29,7 +30,7 @@ public class Path implements Drawable {
      * @param x X-Coordinate
      * @param y Y-Coordinate
      */
-    public void addStaticPoint(int x, int y){
+    public void addPoint(int x, int y){
         if(start == null){
             start = new AscPoint(x,y);
 
@@ -42,18 +43,7 @@ public class Path implements Drawable {
         }
     }
 
-    public void addRelativePoint(int x, int y){
-        if(start == null){
-            start = new RelativePoint(x,y);
 
-        }else
-            for(AscPoint p = start; p != null; p = p.getNextPoint()){
-                if(p.getNextPoint()==null){
-                    p.setNextPoint(new RelativePoint(x,y));
-                    return;
-                }
-            }
-    }
 
     /**
      * Generates all point of the path by calling calculatePosition on each point
@@ -83,5 +73,15 @@ public class Path implements Drawable {
             canvas.drawLine(pt.getX(),pt.getY(),pt.getNextPoint().getX(),pt.getNextPoint().getY(),p);
             canvas.drawCircle(pt.getNextPoint().getX(),pt.getNextPoint().getY(),40,p);
         }
+    }
+
+    @Override
+    public boolean intersects(Position position) {
+        return false;
+    }
+
+    @Override
+    public void showBorders(boolean v) {
+
     }
 }
