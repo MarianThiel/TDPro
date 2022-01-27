@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sea"
+    android:background="@drawable/bg_dark"
     tools:context=".activity.EndGameActivity">
 
     <TextView
@@ -27,7 +27,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="64dp"
         android:background="@android:drawable/gallery_thumb"
-        android:backgroundTint="?android:attr/textColorTertiaryInverse"
+        android:backgroundTint="?android:attr/textColorTertiary"
         android:backgroundTintMode="src_over"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,8 +41,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@android:drawable/editbox_dropdown_dark_frame"
-            android:backgroundTint="@android:color/holo_blue_light"
+            android:background="@android:drawable/screen_background_dark_transparent"
+            android:backgroundTint="@android:color/primary_text_light_nodisable"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
