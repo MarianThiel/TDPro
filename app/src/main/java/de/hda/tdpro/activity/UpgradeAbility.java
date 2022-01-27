@@ -71,6 +71,7 @@ public class UpgradeAbility extends AppCompatActivity {
                 text.setText("State of Attributes and Upgrade Information\n" +
                         "You have now "+game.getValue() +" Towers"+"\nPrice for the next Upgrade "+ game.getCosts()+ " diamonds\n"
                );
+                amountDiamond3.setText(Integer.toString(ConfigWriter.getInstance().readDiamonds()));
 
             }
         });
@@ -80,8 +81,10 @@ public class UpgradeAbility extends AppCompatActivity {
                 game = new GameUpgrade("maxhealth");
                 game.readFromConfig();
                 text.setText("State of Attributes and Upgrade Information\n" +
-                        " You have now "+game.getValue()  +" lifes \n"+ "Price for the next Upgrade "+ game.getCosts() +" diamonds \n"
+                        " You have now"+game.getValue()  +" lifes \n"+ "Price for the next Upgrade "+ game.getCosts() +" diamonds \n"
                );
+                amountDiamond3.setText(Integer.toString(ConfigWriter.getInstance().readDiamonds()));
+
             }
         });
         upgradeTower.setOnClickListener(new View.OnClickListener() {
