@@ -43,6 +43,13 @@ public class LexiconActivity extends AppCompatActivity {
      */
     private void initLexicon(){
         Button btn = new Button(this);
+        btn.setText("Spiel");
+        btn.setOnClickListener(e->{
+            displayText.loadUrl("file:///android_asset/lexicon/Gameplay.html");
+        });
+        buttonLayout.addView(btn);
+
+        btn = new Button(this);
         btn.setText("Türme");
         btn.setOnClickListener(e->{
             displayText.loadUrl("file:///android_asset/lexicon/tower.html");
