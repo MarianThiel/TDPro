@@ -30,7 +30,8 @@
         <activity android:name=".activity.LevelSelectionActivity" />
         <activity android:name=".activity.TowerUpgradeActivity" />
         <activity android:name=".activity.AbilityUpgradeActivity" />
-        <activity android:name=".activity.MainMenuActivity">
+        <activity android:name=".activity.MainMenuActivity" />
+        <activity android:name=".activity.StartUpActivity"  >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
