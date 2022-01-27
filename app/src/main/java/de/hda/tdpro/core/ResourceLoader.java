@@ -173,6 +173,16 @@ public class ResourceLoader {
         bases[0] = scale(BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.tree_large1),0.5f);
         bases[1] = scale(BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.tree_large2),0.5f);
         miscs.put(type,bases);
+
+        type = MiscType.ROCK_SMALL;
+        bases = new Bitmap[1];
+        bases[0] = scale(BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.rock_pile),0.5f);
+        miscs.put(type,bases);
+
+        type = MiscType.ROCK_TALL;
+        bases = new Bitmap[1];
+        bases[0] = scale(BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.boulder),0.5f);
+        miscs.put(type,bases);
     }
 
     public Bitmap[] getAnimation(String name){
@@ -213,6 +223,7 @@ public class ResourceLoader {
 
     public Bitmap getRandomMisc(MiscType type){
         Bitmap[] bitmaps = miscs.get(type);
-        return bitmaps[0];
+        int x = (int) (Math.random() * bitmaps.length);
+        return bitmaps[x];
     }
 }

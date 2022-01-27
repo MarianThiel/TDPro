@@ -31,7 +31,7 @@ public class StartUpActivity extends AppCompatActivity {
         ImageView background = findViewById(R.id.background);
 
         public void run() {
-            for (int i=0;i<810;i++){
+            for (int i=0;i<10;i++){
                 background.setX((background.getX()+1));
                 try {
                     Thread.sleep(10);
@@ -39,7 +39,7 @@ public class StartUpActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-            for (int i=0;i<810;i++){
+            for (int i=0;i<10;i++){
                 background.setX((background.getX()-1));
                 try {
                     Thread.sleep(10);
