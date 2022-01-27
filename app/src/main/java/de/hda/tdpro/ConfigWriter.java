@@ -365,8 +365,9 @@ public class ConfigWriter {
                         int cost = Integer.parseInt(e2.getAttribute("costs"));
                         int val = Integer.parseInt(e2.getAttribute("value"));
                         float m = Float.parseFloat(e2.getAttribute("multi"));
+                        int c = Integer.parseInt(e2.getAttribute("clevel"));
 
-                        return new GameUpgrade(k,cost,val,m);
+                        return new GameUpgrade(k,cost,val,m,c);
 
                     }
                 }
