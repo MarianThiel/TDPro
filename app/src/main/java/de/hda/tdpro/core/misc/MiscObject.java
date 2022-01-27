@@ -42,4 +42,8 @@ public class MiscObject implements Drawable, Intersectable {
     public void showBorders(boolean v) {
 
     }
+
+    public Position getPosition() {
+        return position;
+    }
 }
