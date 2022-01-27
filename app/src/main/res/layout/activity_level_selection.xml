@@ -120,7 +120,7 @@
             android:fontFamily="cursive"
             android:text="\n Difficulty: easy\n\n Wavves: 10"
             android:textColor="#FFEB3B"
-            android:textSize="26sp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
