@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import de.hda.tdpro.R;
 
+
 public class StartUpActivity extends AppCompatActivity {
 
     private Thread timeThread;
@@ -25,8 +26,10 @@ public class StartUpActivity extends AppCompatActivity {
         timeThread.start();
     }
 
+
     class Splashhandler implements Runnable{
         ImageView background = findViewById(R.id.background);
+
         public void run() {
             for (int i=0;i<810;i++){
                 background.setX((background.getX()+1));
