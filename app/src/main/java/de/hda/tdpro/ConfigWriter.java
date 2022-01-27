@@ -401,6 +401,7 @@ public class ConfigWriter {
                     if(e2.getAttribute("key").equals(g.getKey())){
                         e2.setAttribute("costs",Integer.toString(g.getCosts()));
                         e2.setAttribute("value",Integer.toString(g.getValue()));
+                        e2.setAttribute("clevel",Integer.toString(g.getCurrentLevel()));
                         e2.setAttribute("multi",Float.toString(g.getMulti()));
                     }
                 }
