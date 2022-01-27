@@ -110,6 +110,20 @@ public class ConfigWriter {
 
     public void writeInitHealth(int health){
 
+        try {
+
+            Document doc = readConfig();
+            Element element = doc.getDocumentElement();
+            element.normalize();
+
+            element.setAttribute("health",Integer.toString(health));
+
+            FileWriter output = new FileWriter(DST_PATH);
+            writeXml(doc, output);
+
+        } catch (ParserConfigurationException | IOException | SAXException | TransformerException e) {
+            e.printStackTrace();
+        }
     }
 
     public void writeTowerStats(MetaTower meta){
