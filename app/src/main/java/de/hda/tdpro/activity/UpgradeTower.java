@@ -85,6 +85,8 @@ public class UpgradeTower extends AppCompatActivity {
         dmg = findViewById(R.id.btnUpgradeDMG);
         vel = findViewById(R.id.btnUpgradeVel);
         rng = findViewById(R.id.btnUpgradeRange);
+        dmg.setActivated(true);
+
 
         towerName = findViewById(R.id.txtTowerNameContext);
         upgradeType = findViewById(R.id.txtUpgradeType);
@@ -123,16 +125,19 @@ public class UpgradeTower extends AppCompatActivity {
         dmg.setOnClickListener(e->{
             //show actual dmg upgrade
             initContextMenu(upgrades.get("stats"));
+            toggleButton(dmg);
         });
 
         vel.setOnClickListener(e->{
             //show actual vel upgrade
             initContextMenu(upgrades.get("level"));
+            toggleButton(vel);
         });
 
         rng.setOnClickListener(e->{
             //show actual rng upgrade
             initContextMenu(upgrades.get("price"));
+            toggleButton(rng);
         });
 
     }
@@ -154,6 +159,14 @@ public class UpgradeTower extends AppCompatActivity {
     private Map<String,GlobalTowerUpgrade> loadUpgrades(TowerType type){
         Map<String,GlobalTowerUpgrade> upgrades = ConfigWriter.getInstance().readGlobalTowerUpgrades(type);
         return upgrades;
+    }
+
+    private void toggleButton(Button b){
+        dmg.setActivated(false);
+        vel.setActivated(false);
+        rng.setActivated(false);
+
+        b.setActivated(true);
     }
 
 }
