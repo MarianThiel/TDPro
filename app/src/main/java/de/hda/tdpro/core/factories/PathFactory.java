@@ -63,7 +63,7 @@ public class PathFactory {
         p.addPoint(0,height/4);
 
         p.addPoint(width/4,0);
-        p.addPoint(0,-(height/2));
+        p.addPoint(0,-(height/4));
 
         p.addPoint(width/4,0);
 

@@ -20,6 +20,7 @@ import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.enemy.Path;
 import de.hda.tdpro.core.enemy.WaveManager;
 import de.hda.tdpro.core.misc.MiscObject;
+import de.hda.tdpro.core.misc.MiscType;
 import de.hda.tdpro.core.tower.Tower;
 import de.hda.tdpro.core.tower.TowerManager;
 import de.hda.tdpro.core.tower.TowerType;
@@ -91,6 +92,9 @@ public class Game implements Drawable, GameObservable, EnemyObserver, Intersecta
         this.waveManager = waveManager;
 
         miscellaneous = new ArrayList<>();
+        List<Position> l = path.generateAllPositions();
+
+        insertMisc(new MiscObject(l.get(l.size()-20), MiscType.BASE));
 
         Bitmap b = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.bg_1);
         WindowManager wm = ((WindowManager) StaticContext.getContext().getSystemService(Context.WINDOW_SERVICE));

@@ -109,30 +109,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/toggle_hide_show" />
 
-        <ImageButton
-            android:id="@+id/imageButton12"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="16dp"
-            android:background="@android:drawable/presence_invisible"
-            android:backgroundTint="?android:attr/textColorSecondary"
-            app:layout_constraintBottom_toTopOf="@+id/imageButton14"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnSettings"
-            app:srcCompat="@drawable/ice" />
-
-        <ImageButton
-            android:id="@+id/imageButton14"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="16dp"
-            android:background="@android:drawable/presence_invisible"
-            android:backgroundTint="?android:attr/textColorSecondary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageButton12"
-            app:srcCompat="@drawable/speedup" />
-
         <android.support.constraint.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"

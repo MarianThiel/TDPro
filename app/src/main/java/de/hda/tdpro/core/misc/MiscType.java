@@ -5,5 +5,6 @@ public enum MiscType {
     TREE_LARGE,
     ROCK_SMALL,
     ROCK_TALL,
-    TOMB
+    TOMB,
+    BASE
 }

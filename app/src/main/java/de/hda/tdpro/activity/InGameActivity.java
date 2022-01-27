@@ -98,6 +98,9 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
         super.onCreate(savedInstanceState);
         Log.println(Log.ASSERT,"test", "CREATE");
         initActivity();
+
+        gameView = findViewById(R.id.view);
+
         init();
 
         hideContextMenu();
@@ -280,7 +283,7 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
     private void initComponents() {
 
 
-        gameView = findViewById(R.id.view);
+
 
         btnNextWave = findViewById(R.id.btnNextWave);
         btnFastForward = findViewById(R.id.btnFastForward);

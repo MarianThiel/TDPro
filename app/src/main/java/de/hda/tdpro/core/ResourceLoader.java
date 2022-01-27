@@ -27,7 +27,7 @@ public class ResourceLoader {
 
     private Map<TowerType, Bitmap> projectiles;
 
-    private Map<MiscType, Bitmap> miscs;
+    private Map<MiscType, Bitmap[]> miscs;
 
     private static int MAX_LEVEL_IMAGES = 5;
 
@@ -53,6 +53,7 @@ public class ResourceLoader {
         addEnemy2Resource();
 
         addL1BossResource();
+        initMisc();
     }
 
     private void addL1BossResource() {
@@ -160,8 +161,10 @@ public class ResourceLoader {
     private void initMisc(){
         miscs = new HashMap<>();
 
-        MiscType type = MiscType.TREE_LARGE;
-
+        MiscType type = MiscType.BASE;
+        Bitmap[] bases = new Bitmap[1];
+        bases[0] = scale(BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.base),0.5f);
+        miscs.put(type,bases);
     }
 
     public Bitmap[] getAnimation(String name){
@@ -200,4 +203,8 @@ public class ResourceLoader {
     }
 
 
+    public Bitmap getRandomMisc(MiscType type){
+        Bitmap[] bitmaps = miscs.get(type);
+        return bitmaps[0];
+    }
 }
