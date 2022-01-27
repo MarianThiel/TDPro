@@ -1,13 +1,11 @@
 package de.hda.tdpro.core.factories;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import de.hda.tdpro.R;
-import de.hda.tdpro.StaticContext;
+
 import de.hda.tdpro.core.ResourceLoader;
 import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.enemy.EnemyType;
+import de.hda.tdpro.core.enemy.MetaEnemy;
 
 /**
  * @author Marian Thiel
@@ -37,27 +35,28 @@ public class EnemyFactory {
      */
     public Enemy createRandomEnemy(){
         Bitmap[] images = ResourceLoader.getInstance().getAnimation("NM");
-
-        return new Enemy(50,0,130, images);
+        MetaEnemy meta = MetaEnemy.getMetaEnemy(EnemyType.L1FAST);
+        return new Enemy(meta.getHp(), meta.getValue(), meta.getVel(), images);
     }
 
     public Enemy createL1Tank(){
 
         Bitmap[] images = ResourceLoader.getInstance().getAnimation("L1TANK");
-
-        return new Enemy(100,50, 100,images);
+        MetaEnemy meta = MetaEnemy.getMetaEnemy(EnemyType.L1TANK);
+        return new Enemy(meta.getHp(), meta.getValue(), meta.getVel(), images);
     }
 
     public Enemy createL1Boss(){
         Bitmap[] images = ResourceLoader.getInstance().getAnimation("L1BOSS");
-        return new Enemy(12000,50, 30,images);
+        MetaEnemy meta = MetaEnemy.getMetaEnemy(EnemyType.L1BOSS);
+        return new Enemy(meta.getHp(), meta.getValue(), meta.getVel(), images);
     }
 
 
     public Enemy createEnemyByType(EnemyType type){
         Enemy e = null;
         switch (type){
-            case RANDOM:
+            case L1FAST:
                 e = createRandomEnemy();
                 break;
             case L1TANK:

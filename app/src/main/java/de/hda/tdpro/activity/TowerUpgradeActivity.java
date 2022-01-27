@@ -32,6 +32,8 @@ public class TowerUpgradeActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_tower_upgrade);
+
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         damage1= findViewById(R.id.damage1);
         damage2=findViewById(R.id.damage2);
         damage3=findViewById(R.id.damage3);

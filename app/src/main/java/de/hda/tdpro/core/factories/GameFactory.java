@@ -1,6 +1,5 @@
 package de.hda.tdpro.core.factories;
 
-import android.content.Context;
 import android.util.Log;
 
 import org.w3c.dom.Document;
@@ -9,26 +8,25 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import de.hda.tdpro.ConfigWriter;
 import de.hda.tdpro.StaticContext;
 import de.hda.tdpro.core.Game;
 import de.hda.tdpro.core.enemy.EnemyType;
 import de.hda.tdpro.core.enemy.EnemyWave;
 import de.hda.tdpro.core.enemy.Path;
 import de.hda.tdpro.core.enemy.WaveManager;
-import de.hda.tdpro.core.tower.TowerType;
 
 public class GameFactory {
+
     private static GameFactory instance;
 
     private final DocumentBuilderFactory documentBuilderFactory;
@@ -100,14 +98,10 @@ public class GameFactory {
 
         WaveManager waveManager = new WaveManager(NUMBER_OF_WAVES,path);
         waveManager.addAll(waves);
-        Game g = new Game(waveManager,path);
+        Game g = new Game(waveManager,path, ConfigWriter.getInstance().readHealth(),ConfigWriter.getInstance().readGold(),ConfigWriter.getInstance().readDiamonds(),0);
         return g;
     }
-    private String getValue(String tag, Element element) {
-        NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
-        Node node = nodeList.item(0);
-        return node.getNodeValue();
-    }
+
     private int getNumberOfWaves(NodeList lst){
         for (int i=0; i<lst.getLength(); i++) {
 
@@ -123,13 +117,13 @@ public class GameFactory {
     private List<EnemyWave> getWaves(NodeList lst, Path path){
         List<EnemyWave> l = new LinkedList<>();
         for(int i = 0; i < lst.getLength(); i++){
-            //EnemyWave wave = new EnemyWave();
+
             Node node = lst.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element2 = (Element) node;
 
 
-                EnemyWave wave = new EnemyWave(Integer.parseInt(element2.getAttribute("num_enemies")),path);
+                EnemyWave wave = new EnemyWave(Integer.parseInt(element2.getAttribute("num_enemies")),path, Integer.parseInt(element2.getAttribute("diamonds")));
                 NodeList sub = element2.getElementsByTagName("enemy");
 
                 for (int j = 0; j < sub.getLength(); j++){

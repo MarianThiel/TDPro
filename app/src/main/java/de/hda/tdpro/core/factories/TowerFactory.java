@@ -1,8 +1,9 @@
 package de.hda.tdpro.core.factories;
 
-import android.content.Context;
-
+import de.hda.tdpro.core.tower.EarthTower;
 import de.hda.tdpro.core.tower.FireTower;
+import de.hda.tdpro.core.tower.TowerType;
+import de.hda.tdpro.core.tower.upgrades.MetaTower;
 
 public class TowerFactory {
     private static TowerFactory instance = null;
@@ -19,8 +20,13 @@ public class TowerFactory {
     }
 
     public FireTower createFireTower(){
+        MetaTower meta = MetaTower.getMetaTower(TowerType.FIRE_TOWER);
+        return new FireTower(meta.getRange(), meta.getDmg(),meta.getVelocity(),meta.getPrice());
+    }
 
-        return new FireTower(600,10,1,80);
+    public EarthTower createEarthTower(){
+        MetaTower meta = MetaTower.getMetaTower(TowerType.EARTH_TOWER);
+        return new EarthTower(meta.getRange(), meta.getDmg(),meta.getVelocity(),meta.getPrice());
     }
 }
 

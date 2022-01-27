@@ -14,7 +14,15 @@ public interface EnemyObservable {
      * notifies Observers when Observable is moving
      */
     void notifyOnMovement();
+
+    /**
+     * notifies observers when enemy died
+     */
     void notifyEnemyDying();
+
+    /**
+     * notifies observers when enemy succeeded - means reached the endpoint
+     */
     void notifyEnemySuccess();
 
 }

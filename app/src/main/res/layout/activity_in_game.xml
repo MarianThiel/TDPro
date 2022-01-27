@@ -22,15 +22,18 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view">
+        app:layout_constraintTop_toTopOf="@+id/view"
+        app:layout_constraintVertical_bias="0.0">
 
         <ImageButton
             android:id="@+id/btnNextWave"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="15dp"
+            android:background="@android:drawable/editbox_dropdown_dark_frame"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@android:drawable/ic_media_next" />
@@ -40,7 +43,8 @@
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:drawable/editbox_dropdown_dark_frame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/settings" />
@@ -50,6 +54,7 @@
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
+            android:background="@android:drawable/editbox_dropdown_dark_frame"
             android:src="@drawable/selector_toggle_button_ff"
             app:layout_constraintEnd_toStartOf="@+id/btnSettings"
             app:layout_constraintTop_toTopOf="parent" />
@@ -59,6 +64,7 @@
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
+            android:background="@android:drawable/editbox_dropdown_dark_frame"
             android:src="@drawable/selector_toggle_button_pause_play"
             app:layout_constraintEnd_toStartOf="@+id/btnFastForward"
             app:layout_constraintTop_toTopOf="parent" />
@@ -68,92 +74,111 @@
             android:id="@+id/btnCreateTower"
             android:layout_width="50dp"
             android:layout_height="40dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:drawable/editbox_dropdown_dark_frame"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/tower_symb" />
 
-        <ScrollView
-            android:id="@+id/contextMenu"
-            android:layout_width="128dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnCreateTower"
-            tools:layout_editor_absoluteX="1dp">
-
-            <LinearLayout
-                android:id="@+id/contextMenuLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </ScrollView>
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <FrameLayout
+            android:id="@+id/contextMenuLayout"
             android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:background="@android:drawable/gallery_thumb"
-            android:backgroundTint="?attr/colorControlHighlight"
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buyTowerAbort"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/buyTowerAbort"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="15dp"
+            android:background="@android:drawable/editbox_dropdown_dark_frame"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnNextWave"
+            app:srcCompat="@android:drawable/ic_delete" />
+
+        <ImageButton
+            android:id="@+id/btnHideShowContext"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:drawable/editbox_dropdown_dark_frame"
+            app:layout_constraintBottom_toTopOf="@+id/btnNextWave"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/toggle_hide_show" />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:drawable/editbox_dropdown_dark_frame"
             app:layout_constraintEnd_toStartOf="@+id/btnPausePlay"
             app:layout_constraintStart_toEndOf="@+id/btnCreateTower"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/gold" />
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:background="@android:drawable/gallery_thumb"
+                android:backgroundTint="@android:color/widget_edittext_dark"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/txtgold"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="TextView" />
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/gold" />
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/heart" />
+                <TextView
+                    android:id="@+id/txtgold"
+                    style="@style/top_bar_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="TextView" />
 
-            <TextView
-                android:id="@+id/txthealth"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="TextView" />
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/heart" />
 
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/waves" />
+                <TextView
+                    android:id="@+id/txthealth"
+                    style="@style/top_bar_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="TextView" />
 
-            <TextView
-                android:id="@+id/txtwaves"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="TextView" />
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/waves" />
 
-        <ImageButton
-            android:id="@+id/buyTowerAbort"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnNextWave"
-            app:srcCompat="@android:drawable/ic_delete" />
+                <TextView
+                    android:id="@+id/txtwaves"
+                    style="@style/top_bar_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="TextView" />
+            </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
+
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

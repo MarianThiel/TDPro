@@ -3,22 +3,48 @@ package de.hda.tdpro.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import de.hda.tdpro.ConfigWriter;
+import de.hda.tdpro.MusicPlayer;
 import de.hda.tdpro.R;
+import de.hda.tdpro.StaticContext;
+import de.hda.tdpro.core.Position;
+import de.hda.tdpro.core.enemy.Path;
+import de.hda.tdpro.core.enemy.RelativePath;
 import pl.droidsonroids.gif.GifImageButton;
 
 public class MainMenuActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private MusicPlayer musicPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        //musicPlayer = MusicPlayer.getInstance();
+       // musicPlayer.loadMusic(this, R.raw.ingame);
+        //musicPlayer.startMusic();
+
+
+        StaticContext.setContext(this);
+        Path p = new RelativePath();
+        p.addPoint(0,200);
+        p.addPoint(200,0);
+        p.addPoint(0,200);
+        Log.println(Log.ASSERT,"intersects", "intersects" + p.intersects(new Position(100,220)));
+
+        ConfigWriter.getInstance().readDiamonds();
+
+
+        ConfigWriter.getInstance().readDiamonds();
+
         GifImageButton levelSelect = (GifImageButton) findViewById(R.id.buttonLevelSelection);
         levelSelect.setOnClickListener((View.OnClickListener) this);
         GifImageButton spellSelect = (GifImageButton) findViewById(R.id.buttonSpellSelection);
@@ -44,11 +70,11 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
             startActivity(fp);
         }
         if (view == spellSelect) {
-            Intent fp = new Intent(getApplicationContext(), AbilityUpgradeActivity.class);
+            Intent fp = new Intent(getApplicationContext(), UpgradeAbility.class);
             startActivity(fp);
         }
         if (view == towerSelect) {
-            Intent fp = new Intent(getApplicationContext(), TowerUpgradeActivity.class);
+            Intent fp = new Intent(getApplicationContext(), UpgradeTower.class);
             startActivity(fp);
         }
         if (view == settingsSelect) {

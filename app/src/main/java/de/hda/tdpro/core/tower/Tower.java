@@ -1,6 +1,5 @@
 package de.hda.tdpro.core.tower;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -9,15 +8,18 @@ import android.util.Log;
 
 import de.hda.tdpro.core.Drawable;
 import de.hda.tdpro.core.EnemyObserver;
+import de.hda.tdpro.core.Intersectable;
 import de.hda.tdpro.core.Position;
+import de.hda.tdpro.core.ResourceLoader;
 import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.tower.priority.Priority;
+import de.hda.tdpro.core.tower.projectiles.AbstractProjectile;
 
 /**
  * @author Marian Thiel
  *  Abstract Class representing a tower
  */
-abstract public class Tower implements EnemyObserver, Runnable, Drawable {
+abstract public class Tower implements EnemyObserver, Drawable, Intersectable {
 
     /**
      * radius as integer value in pixel
@@ -39,10 +41,7 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
      * position of the tower on the map
      */
     protected Position pos;
-    /**
-     * thread holds instance of the tower, is used for attacking enemies in sphere
-     */
-    private Thread aimThread;
+
     /**
      * true if tower is aiming an enemy - means thread is running
      */
@@ -50,7 +49,7 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
     /**
      * Max level of tower
      */
-    public static final int MAX_LEVEL = 5;
+    public static final int MAX_LEVEL = 50;
     /**
      * the sphere of the tower
      */
@@ -60,16 +59,20 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
      */
     protected boolean active;
 
+    protected boolean rotatable;
+
     /**
      * Image of the Tower as Bitmap
      */
-    protected Bitmap img;
-    /**
-     * Projectile of the Tower
-     */
-    protected Projectile missile;
+    protected Bitmap img[];
+
+    protected Bitmap current;
+
+    protected AbstractProjectile p;
 
     protected int hitBox;
+
+    private boolean borders;
 
     public Tower(int radius, int damage, float speed, int price) {
         this.radius = radius;
@@ -81,6 +84,8 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
         aiming = false;
         active = false;
         hitBox = 50;
+
+        borders = false;
     }
 
     public Position getPos() {
@@ -124,46 +129,47 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
         this.price = price;
     }
 
-    public boolean isAiming() {
-        return aiming;
+    /**
+     * sets the hit priority of the tower
+     * @param priority the Priority defined by Enum
+     */
+    public void setPriority(Priority priority){
+        getSphere().setPriority(priority);
     }
 
-    public void fireMissile(){
-        if(getSphere().hasEnemyInside()){
-            Log.println(Log.ASSERT,"enemy_targeting", this.getClass() + " ENEMY_WAS_HIT - DMG: " + getDamage());
-            getSphere().hitEnemy(this.getDamage());
-        }
-
+    public Priority getPriority(){
+        return getSphere().getPriority();
     }
 
+    /**
+     * starts thread of RangeSphere
+     */
     public void startAiming(){
-        aiming = true;
-        aimThread = new Thread(this);
-        aimThread.start();
+        getSphere().startAiming();
+
     }
+
+    /**
+     * stops thread of RangeSphere
+     */
     public void stopAiming(){
-        aiming = false;
-        try {
-            aimThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        getSphere().stopAiming();
     }
+
 
     public int getLevel(){
         return 1;
     }
 
+
     public RangeSphere getSphere() {
         return sphere;
     }
 
-    public void setHitPriority(Priority type){
-
-        sphere.setPriority(type);
-
-    }
-
+    /**
+     * returns state of the tower
+     * @return true if tower thread was started, false if not
+     */
     public boolean isActive() {
         return active;
     }
@@ -172,6 +178,11 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
         this.active = active;
     }
 
+    /**
+     * intersection method of tower hit box
+     * @param p position which has to be checked
+     * @return true if p is in hit box, false if not
+     */
     protected boolean inHitBox(Position p){
         Position pc = getPos();
         int px = p.getxVal()-pc.getxVal();
@@ -181,9 +192,17 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
         return distance <= hitBox;
     }
 
+    public Bitmap[] getImg() {
+        return img;
+    }
+
+    /**
+     * logic for enqueue enemy to the sphere
+     * @param e observed enemy
+     */
     @Override
     public void onEnemyMovement(Enemy e) {
-        if(e != null){
+        if(e != null && !e.isFinished()){
             Position p = e.getPosition();
             if(getSphere().containsEnemy(e)){
                 if(!getSphere().intersects(p)){
@@ -191,6 +210,7 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
                 }
             }else{ // !sphere.containsEnemy(e)
                 if(getSphere().intersects(p) && e.getHp()>0){
+                    startAiming();
                     getSphere().targetEnemy(e);
                 }
             }
@@ -198,29 +218,34 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
 
     }
 
-    @Override
-    public void run() {
-        while(aiming){
-            fireMissile();
-            try {
-                Thread.sleep ((long) (1000/getSpeed()));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+    /**
+     * rotates te tower in direction to target position
+     * @param p the direction to rotate
+     */
+    public void rotateTower(Position p){
+        current = ResourceLoader.getInstance().getRotated(img[(getLevel()-1) % img.length],this.getPos(),p);
     }
 
     @Override
     public void draw(Canvas canvas) {
-        sphere.draw(canvas);
-        if(isActive()){
-            Paint p = new Paint();
-            p.setStyle(Paint.Style.FILL_AND_STROKE);
-            p.setColor(Color.parseColor("#8fe9ff"));
-            p.setStrokeWidth(10);
-            p.setAlpha(80);
-            canvas.drawCircle(pos.getxVal(),pos.getyVal(),radius,p);
+        getSphere().draw(canvas);
+        if(getP() != null){
+            getP().draw(canvas);
         }
+
+        if(borders){
+            Paint p = new Paint();
+            p.setColor(Color.parseColor("#7700FF00"));
+        }
+
+    }
+
+    /**
+     * get the abstract Projectile
+     * @return null if no projectile was shot
+     */
+    public AbstractProjectile getP() {
+        return p;
     }
 
     @Override
@@ -231,5 +256,32 @@ abstract public class Tower implements EnemyObserver, Runnable, Drawable {
     @Override
     public void onEnemyDying(Enemy e) {
 
+    }
+
+    /**
+     * abstract method to fire a projectile to enemy
+     * @param enemies set of enemies which were selected
+     * @param damage damage value of tower
+     * @param vel velocity of shooting
+     */
+    public abstract void fire(Enemy[] enemies, int damage, float vel);
+
+    /**
+     *
+     * @return true if tower was meant to be rotated
+     */
+    public boolean isRotatable() {
+        return rotatable;
+    }
+
+
+    @Override
+    public boolean intersects(Position position) {
+        return inHitBox(position);
+    }
+
+    @Override
+    public void showBorders(boolean v) {
+        borders = v;
     }
 }

@@ -1,6 +1,5 @@
 package de.hda.tdpro.core.enemy;
 
-import android.content.Context;
 import android.graphics.Canvas;
 
 import java.util.List;
@@ -38,15 +37,20 @@ public class EnemyWave implements Runnable, Drawable {
     private final List<Position> positions;
 
     private boolean stopped;
-
+    /**
+     * local state variable to hold the current enemy pointer
+     */
     private int currentEnemy;
+
+    private int numOfDiamonds;
 
     /**
      * test constructor
      * @param ENEMIES_IN_WAVE number of enemies
      * @param path Path reference
+     * @param numOfDiamonds
      */
-    public EnemyWave(int ENEMIES_IN_WAVE, Path path) {
+    public EnemyWave(int ENEMIES_IN_WAVE, Path path, int numOfDiamonds) {
         this.ENEMIES_IN_WAVE = ENEMIES_IN_WAVE;
         enemies = new Enemy[ENEMIES_IN_WAVE];
         mainPath = path;
@@ -54,6 +58,8 @@ public class EnemyWave implements Runnable, Drawable {
         positions = path.generateAllPositions();
         stopped = true;
         currentEnemy = 0;
+
+        this.numOfDiamonds = numOfDiamonds;
     }
 
 
@@ -103,7 +109,7 @@ public class EnemyWave implements Runnable, Drawable {
     }
 
     /**
-     * ejects enemies in wave by a random value in range 0 - 1 sec
+     * ejects enemies in wave by time
      */
     @Override
     public void run() {
@@ -121,7 +127,10 @@ public class EnemyWave implements Runnable, Drawable {
         }
     }
 
-
+    /**
+     * draws each enemie in wave which is not null, alive and walking
+     * @param canvas the canvas to paint
+     */
     @Override
     public void draw(Canvas canvas) {
         for(Enemy e : enemies){
@@ -130,20 +139,43 @@ public class EnemyWave implements Runnable, Drawable {
         }
     }
 
+    /**
+     * stops the thread - pauses ejecting enemies
+     */
     public void pauseWaveEjecting(){
-        stopped = true;
-        thread.interrupt();
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if(!stopped){
+            stopped = true;
+            thread.interrupt();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
+    /**
+     * starts the thread
+     */
     public void resumeWaveEjecting(){
-        thread = new Thread(this);
-        stopped = false;
-        thread.start();
+        if(stopped){
+            thread = new Thread(this);
+            stopped = false;
+            thread.start();
+        }
 
+    }
+
+    public int getNumOfDiamonds() {
+        return numOfDiamonds;
+    }
+
+    public void speedUpEnemies(float factor){
+        for(Enemy e : enemies){
+            if(e != null){
+                e.setSpeedFactor(factor);
+            }
+        }
     }
 }

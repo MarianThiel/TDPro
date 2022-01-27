@@ -12,7 +12,7 @@ import android.widget.TextView;
 import de.hda.tdpro.R;
 import de.hda.tdpro.core.config.AbilityUpgradeSaving;
 
-public class AbilityUpgradeActivity extends AppCompatActivity {
+public class  AbilityUpgradeActivity extends AppCompatActivity {
     ImageButton death1;
     ImageButton death2;
     ImageButton death3;

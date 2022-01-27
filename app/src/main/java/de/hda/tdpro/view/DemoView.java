@@ -1,5 +1,6 @@
 package de.hda.tdpro.view;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -17,12 +18,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import de.hda.tdpro.R;
 import de.hda.tdpro.StaticContext;
 import de.hda.tdpro.core.Game;
 import de.hda.tdpro.core.GameListener;
 import de.hda.tdpro.core.PointingMode;
+import de.hda.tdpro.core.Position;
 import de.hda.tdpro.core.tower.Tower;
 import de.hda.tdpro.core.tower.TowerType;
 
@@ -43,6 +46,8 @@ public class DemoView extends SurfaceView implements Runnable, GameListener {
     private int RENDER_TIME;
 
     private boolean placingTower;
+
+    private TowerType placingTowerType;
 
     public DemoView(Context context) {
         super(context);
@@ -68,13 +73,22 @@ public class DemoView extends SurfaceView implements Runnable, GameListener {
 
         this.setOnTouchListener((view, motionEvent) -> {
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                if(game.intersects(new Position((int)motionEvent.getX(),(int)motionEvent.getY()))){
+                    Log.println(Log.ASSERT,"INTERSECTED", "TRUE");
+
+                }else{
+                    Log.println(Log.ASSERT,"INTERSECTED", "FALSE");
+                }
+
                 switch (mode){
                     case SELECTION_MODE:
                         handleSelection((int)motionEvent.getX(),(int)motionEvent.getY());
                         break;
                     case PLACE_TOWER_MODE:
-                        handleTowerPlacement(TowerType.FIRE_TOWER,(int)motionEvent.getX(),(int)motionEvent.getY());
-                        setMode(PointingMode.SELECTION_MODE);
+                        if(!game.intersects(new Position((int)motionEvent.getX(),(int)motionEvent.getY()))) {
+                            handleTowerPlacement(placingTowerType, (int) motionEvent.getX(), (int) motionEvent.getY());
+                            setMode(PointingMode.SELECTION_MODE);
+                        }
                         break;
                 }
             }
@@ -99,17 +113,22 @@ public class DemoView extends SurfaceView implements Runnable, GameListener {
                 //locking the canvas
                 canvas = surfaceHolder.lockCanvas();
                 //drawing a background color for canvas
-                canvas.drawColor(Color.WHITE);
+                //canvas.drawColor(Color.WHITE);
                 //Drawing the player
                 game.draw(canvas);
+
                 if(placingTower){
                     WindowManager wm = ((WindowManager) StaticContext.getContext().getSystemService(Context.WINDOW_SERVICE));
                     DisplayMetrics metrics = new DisplayMetrics();
                     wm.getDefaultDisplay().getMetrics(metrics);
 
-                    int width = metrics.widthPixels;
                     int height = metrics.heightPixels;
-
+                    int width = metrics.widthPixels;
+                    if(height>width){
+                        int t = width;
+                        width = height;
+                        height = t;
+                    }
                     Paint p = new Paint();
                     p.setStyle(Paint.Style.FILL_AND_STROKE);
                     p.setColor(Color.parseColor("#212121"));
@@ -199,6 +218,11 @@ public class DemoView extends SurfaceView implements Runnable, GameListener {
 
     }
 
+    @Override
+    public void updateOnCheckpoint() {
+
+    }
+
     public void setMode(PointingMode mode){
         this.mode = mode;
 
@@ -210,5 +234,9 @@ public class DemoView extends SurfaceView implements Runnable, GameListener {
                 placingTower = false;
                 break;
         }
+    }
+
+    public void setPlacingTowerType(TowerType placingTowerType) {
+        this.placingTowerType = placingTowerType;
     }
 }

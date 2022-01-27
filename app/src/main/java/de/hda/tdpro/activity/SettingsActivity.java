@@ -37,6 +37,9 @@ public class SettingsActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_settings);
+
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
         seekbar= findViewById(R.id.seekBar);
         returnFromSetting= findViewById(R.id.returnFromSetting);
         contrast = findViewById(R.id.contrastButton);
@@ -60,8 +63,14 @@ public class SettingsActivity extends AppCompatActivity {
         returnFromSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openMainMenu();
 
+                boolean inGame = getIntent().getBooleanExtra("INGAME", false);
+
+                if(inGame){
+                    backToInGame();
+                }else{
+                    openMainMenu();
+                }
             }
         });
         seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -112,7 +121,12 @@ public class SettingsActivity extends AppCompatActivity {
 
 
     private void openMainMenu() {
-        Intent intent = new Intent(this, MainMenuActivity.class);
+        Intent intent = new Intent(SettingsActivity.this, MainMenuActivity.class);
+        startActivity(intent);
+    }
+
+    private void backToInGame(){
+        Intent intent = new Intent(SettingsActivity.this, InGameActivity.class);
         startActivity(intent);
     }
 }
