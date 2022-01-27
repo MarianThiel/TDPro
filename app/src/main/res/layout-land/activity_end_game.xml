@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sea"
+    android:background="@drawable/bg_dark_land"
     tools:context=".activity.EndGameActivity">
 
     <android.support.constraint.ConstraintLayout
@@ -30,8 +30,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@android:drawable/editbox_dropdown_dark_frame"
-            android:backgroundTint="@android:color/holo_blue_light"
+            android:background="@color/black_overlay2"
+            android:backgroundTint="@android:color/primary_text_light_nodisable"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -62,11 +62,13 @@
 
             <TextView
                 android:id="@+id/textView25"
-                style="@style/endgame_header"
+                style="@style/Towerupdates_Context_Font"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="Statistik"
+                android:textSize="12pt"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -113,9 +115,9 @@
 
             <Button
                 android:id="@+id/ReturnToLevelSelect"
+                style="@style/default_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/holo_green_light"
                 android:text="Continue"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -129,6 +131,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:text="GAME OVER"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
