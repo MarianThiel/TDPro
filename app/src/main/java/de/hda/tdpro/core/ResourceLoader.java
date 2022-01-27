@@ -171,6 +171,12 @@ public class ResourceLoader {
         bases[0] = scale(BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.tree_large1),0.5f);
         bases[1] = scale(BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.tree_large2),0.5f);
         miscs.put(type,bases);
+
+        type = MiscType.TREE_LARGE;
+        bases = new Bitmap[2];
+        bases[0] = scale(BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.tree_large1),0.5f);
+        bases[1] = scale(BitmapFactory.decodeResource(StaticContext.getContext().getResources(),R.drawable.tree_large2),0.5f);
+        miscs.put(type,bases);
     }
 
     public Bitmap[] getAnimation(String name){
