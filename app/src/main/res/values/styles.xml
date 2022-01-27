@@ -117,4 +117,16 @@
         <item name="android:textColor">#FBC02D</item>
     </style>
 
+    <style name="Towername">
+        <item name="android:textSize">20dip</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#D12C24</item>
+    </style>
+
+    <style name="upgrade_font">
+        <item name="android:textSize">16dip</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">#FFF995</item>
+    </style>
+
 </resources>
