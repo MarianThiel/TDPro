@@ -17,9 +17,23 @@
         android:layout_marginBottom="185dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.643"
+        app:layout_constraintHorizontal_bias="0.64"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.474"
         app:srcCompat="@drawable/startupnighttown" />
+
+    <TextView
+        android:id="@+id/startupInfo"
+        android:layout_width="351dp"
+        android:layout_height="323dp"
+        android:layout_marginStart="28dp"
+        android:alpha="0"
+        android:fontFamily="cursive"
+        android:text="Tower Defense Pro\nNuzerorientierte Softwareentwicklung - Meyer\n\nby\nMarian Thiel\nMinh Hoàng Nguyen\nRamón Burggraf\nFelix Ruff"
+        android:textColor="#D8C623"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

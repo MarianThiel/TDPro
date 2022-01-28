@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import de.hda.tdpro.R;
 
@@ -29,9 +30,9 @@ public class StartUpActivity extends AppCompatActivity {
 
     class Splashhandler implements Runnable{
         ImageView background = findViewById(R.id.background);
-
+        TextView info = findViewById(R.id.startupInfo);
         public void run() {
-            for (int i=0;i<10;i++){
+            for (int i=0;i<310;i++){
                 background.setX((background.getX()+1));
                 try {
                     Thread.sleep(10);
@@ -39,13 +40,14 @@ public class StartUpActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-            for (int i=0;i<10;i++){
+            for (int i=0;i<580;i++){
                 background.setX((background.getX()-1));
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                info.setAlpha((float) (info.getAlpha()+0.01));
             }
             for (int i=0;i<100;i++){
                 background.setImageAlpha( (background.getImageAlpha()-1) );
