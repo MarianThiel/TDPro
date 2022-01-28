@@ -3,15 +3,13 @@ package de.hda.tdpro.core.tower;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.util.Log;
 
 import de.hda.tdpro.core.Drawable;
-import de.hda.tdpro.core.ResourceLoader;
+import de.hda.tdpro.core.util.ResourceLoader;
 import de.hda.tdpro.core.enemy.Enemy;
-import de.hda.tdpro.core.enemy.Vector2D;
+import de.hda.tdpro.core.util.Vector2D;
 
 /**
  * graphical representation of a projectile

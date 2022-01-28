@@ -1,6 +1,6 @@
 package de.hda.tdpro.core.tower.upgrades;
 
-import de.hda.tdpro.ConfigWriter;
+import de.hda.tdpro.core.persistence.ConfigWriter;
 import de.hda.tdpro.core.tower.TowerType;
 
 public class MetaTower {

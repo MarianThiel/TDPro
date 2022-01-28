@@ -8,6 +8,7 @@ import java.util.List;
 import de.hda.tdpro.core.Drawable;
 import de.hda.tdpro.core.Game;
 import de.hda.tdpro.core.TimingUnit;
+import de.hda.tdpro.core.path.Path;
 
 /**
  * @author Marian Thiel

@@ -2,8 +2,7 @@ package de.hda.tdpro.core.tower.upgrades;
 
 import android.graphics.Canvas;
 
-import de.hda.tdpro.core.Position;
-import de.hda.tdpro.core.ResourceLoader;
+import de.hda.tdpro.core.path.Position;
 import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.tower.RangeSphere;
 import de.hda.tdpro.core.tower.Tower;

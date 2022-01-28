@@ -1,28 +1,21 @@
 package de.hda.tdpro.activity;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
-import android.widget.TextView;
 
 
-import de.hda.tdpro.ConfigWriter;
 import de.hda.tdpro.R;
-import de.hda.tdpro.core.config.SettingSaving;
 import de.hda.tdpro.view.ExampleDialog;
 
 public class SettingsActivity extends AppCompatActivity {

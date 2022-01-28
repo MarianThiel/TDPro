@@ -12,11 +12,10 @@ import android.widget.Toast;
 
 import java.util.Map;
 
-import de.hda.tdpro.ConfigWriter;
+import de.hda.tdpro.core.persistence.ConfigWriter;
 import de.hda.tdpro.R;
-import de.hda.tdpro.core.GlobalTowerUpgrade;
-import de.hda.tdpro.core.ResourceLoader;
-import de.hda.tdpro.core.tower.Tower;
+import de.hda.tdpro.core.persistence.GlobalTowerUpgrade;
+import de.hda.tdpro.core.util.ResourceLoader;
 import de.hda.tdpro.core.tower.TowerType;
 import de.hda.tdpro.core.tower.upgrades.MetaTower;
 

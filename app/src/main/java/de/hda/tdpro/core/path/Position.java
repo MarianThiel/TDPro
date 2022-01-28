@@ -1,4 +1,4 @@
-package de.hda.tdpro.core;
+package de.hda.tdpro.core.path;
 
 import java.util.Objects;
 

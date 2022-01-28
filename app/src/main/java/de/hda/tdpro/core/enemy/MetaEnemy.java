@@ -1,6 +1,6 @@
 package de.hda.tdpro.core.enemy;
 
-import de.hda.tdpro.ConfigWriter;
+import de.hda.tdpro.core.persistence.ConfigWriter;
 
 public class MetaEnemy {
 

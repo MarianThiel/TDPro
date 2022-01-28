@@ -1,5 +1,7 @@
 package de.hda.tdpro;
 
+import de.hda.tdpro.core.persistence.ConfigWriter;
+
 public class GameUpgrade {
 
     private String key;

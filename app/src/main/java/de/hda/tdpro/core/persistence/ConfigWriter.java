@@ -1,4 +1,4 @@
-package de.hda.tdpro;
+package de.hda.tdpro.core.persistence;
 
 import android.util.Log;
 
@@ -26,7 +26,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import de.hda.tdpro.core.GlobalTowerUpgrade;
+import de.hda.tdpro.GameUpgrade;
+import de.hda.tdpro.StaticContext;
 import de.hda.tdpro.core.enemy.EnemyType;
 import de.hda.tdpro.core.enemy.MetaEnemy;
 import de.hda.tdpro.core.tower.TowerType;
@@ -44,7 +45,7 @@ public class ConfigWriter {
 
     private ConfigWriter(){
         documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        reloadDefaultConfig();
+        //reloadDefaultConfig();
     }
 
     public static ConfigWriter getInstance() {

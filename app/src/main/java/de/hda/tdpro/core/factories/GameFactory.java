@@ -17,13 +17,13 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import de.hda.tdpro.ConfigWriter;
+import de.hda.tdpro.core.persistence.ConfigWriter;
 import de.hda.tdpro.StaticContext;
 import de.hda.tdpro.core.Game;
-import de.hda.tdpro.core.Position;
+import de.hda.tdpro.core.path.Position;
 import de.hda.tdpro.core.enemy.EnemyType;
 import de.hda.tdpro.core.enemy.EnemyWave;
-import de.hda.tdpro.core.enemy.Path;
+import de.hda.tdpro.core.path.Path;
 import de.hda.tdpro.core.enemy.WaveManager;
 import de.hda.tdpro.core.misc.MiscObject;
 import de.hda.tdpro.core.misc.MiscType;

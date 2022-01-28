@@ -8,15 +8,13 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 import de.hda.tdpro.core.Drawable;
-import de.hda.tdpro.core.Position;
+import de.hda.tdpro.core.path.Position;
 import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.tower.priority.EnemyFirstComparator;
 import de.hda.tdpro.core.tower.priority.EnemyHPMaxComparator;
 import de.hda.tdpro.core.tower.priority.EnemyHPMinComparator;
 import de.hda.tdpro.core.tower.priority.EnemyLastComparator;
 import de.hda.tdpro.core.tower.priority.Priority;
-import de.hda.tdpro.core.tower.shootingbehavior.AreaShooting;
-import de.hda.tdpro.core.tower.shootingbehavior.NormalShooting;
 import de.hda.tdpro.core.tower.shootingbehavior.ShootingBehavior;
 
 /**

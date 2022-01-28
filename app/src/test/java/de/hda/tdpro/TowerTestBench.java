@@ -2,7 +2,7 @@ package de.hda.tdpro;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import de.hda.tdpro.core.Position;
+import de.hda.tdpro.core.path.Position;
 import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.tower.FireTower;
 import de.hda.tdpro.core.tower.Tower;

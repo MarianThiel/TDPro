@@ -2,7 +2,7 @@ package de.hda.tdpro.core.factories;
 
 import android.graphics.Bitmap;
 
-import de.hda.tdpro.core.ResourceLoader;
+import de.hda.tdpro.core.util.ResourceLoader;
 import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.enemy.EnemyType;
 import de.hda.tdpro.core.enemy.MetaEnemy;

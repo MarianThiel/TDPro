@@ -1,6 +1,6 @@
-package de.hda.tdpro.core.enemy;
+package de.hda.tdpro.core.util;
 
-import android.util.Log;
+import de.hda.tdpro.core.util.Vector2D;
 
 public class GaussMatrix {
 
@@ -8,7 +8,7 @@ public class GaussMatrix {
     double []v;
 
     double det;
-    public GaussMatrix(Vector2D a1, Vector2D a2,Vector2D a3, Vector2D a4) {
+    public GaussMatrix(Vector2D a1, Vector2D a2, Vector2D a3, Vector2D a4) {
         matrix = new double[2][2];
 
 

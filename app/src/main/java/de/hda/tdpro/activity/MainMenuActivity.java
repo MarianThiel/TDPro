@@ -6,16 +6,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 
-import de.hda.tdpro.ConfigWriter;
+import de.hda.tdpro.core.persistence.ConfigWriter;
 import de.hda.tdpro.MusicPlayer;
 import de.hda.tdpro.R;
 import de.hda.tdpro.StaticContext;
-import de.hda.tdpro.core.Position;
-import de.hda.tdpro.core.enemy.Path;
-import de.hda.tdpro.core.enemy.RelativePath;
+import de.hda.tdpro.core.path.Position;
+import de.hda.tdpro.core.path.Path;
+import de.hda.tdpro.core.path.RelativePath;
 import pl.droidsonroids.gif.GifImageButton;
 
 public class MainMenuActivity extends AppCompatActivity implements View.OnClickListener {

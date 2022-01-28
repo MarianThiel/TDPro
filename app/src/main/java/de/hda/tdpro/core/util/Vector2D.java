@@ -1,6 +1,6 @@
-package de.hda.tdpro.core.enemy;
+package de.hda.tdpro.core.util;
 
-import de.hda.tdpro.core.Position;
+import de.hda.tdpro.core.path.Position;
 
 /**
  * @author Marian Thiel

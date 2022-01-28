@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -12,7 +11,7 @@ import android.widget.TextView;
 
 import de.hda.tdpro.R;
 import de.hda.tdpro.core.Game;
-import de.hda.tdpro.core.ResourceLoader;
+import de.hda.tdpro.core.util.ResourceLoader;
 import de.hda.tdpro.core.tower.upgrades.UpgradeType;
 import de.hda.tdpro.core.tower.upgrades.MetaUpgrade;
 

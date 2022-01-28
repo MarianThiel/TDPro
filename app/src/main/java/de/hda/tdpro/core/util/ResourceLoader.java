@@ -1,4 +1,4 @@
-package de.hda.tdpro.core;
+package de.hda.tdpro.core.util;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,7 +9,7 @@ import java.util.Map;
 
 import de.hda.tdpro.R;
 import de.hda.tdpro.StaticContext;
-import de.hda.tdpro.core.enemy.Vector2D;
+import de.hda.tdpro.core.path.Position;
 import de.hda.tdpro.core.misc.MiscType;
 import de.hda.tdpro.core.tower.TowerType;
 import de.hda.tdpro.core.tower.upgrades.UpgradeType;

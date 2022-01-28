@@ -11,16 +11,17 @@ import android.view.WindowManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.hda.tdpro.ConfigWriter;
+import de.hda.tdpro.core.persistence.ConfigWriter;
 import de.hda.tdpro.R;
 
 import de.hda.tdpro.StaticContext;
 
 import de.hda.tdpro.core.enemy.Enemy;
-import de.hda.tdpro.core.enemy.Path;
+import de.hda.tdpro.core.path.Path;
 import de.hda.tdpro.core.enemy.WaveManager;
 import de.hda.tdpro.core.misc.MiscObject;
 import de.hda.tdpro.core.misc.MiscType;
+import de.hda.tdpro.core.path.Position;
 import de.hda.tdpro.core.tower.Tower;
 import de.hda.tdpro.core.tower.TowerManager;
 import de.hda.tdpro.core.tower.TowerType;

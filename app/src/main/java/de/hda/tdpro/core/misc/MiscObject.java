@@ -5,8 +5,8 @@ import android.graphics.Canvas;
 
 import de.hda.tdpro.core.Drawable;
 import de.hda.tdpro.core.Intersectable;
-import de.hda.tdpro.core.Position;
-import de.hda.tdpro.core.ResourceLoader;
+import de.hda.tdpro.core.path.Position;
+import de.hda.tdpro.core.util.ResourceLoader;
 
 public class MiscObject implements Drawable, Intersectable {
 

@@ -4,13 +4,12 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
 
 import de.hda.tdpro.core.Drawable;
 import de.hda.tdpro.core.EnemyObserver;
 import de.hda.tdpro.core.Intersectable;
-import de.hda.tdpro.core.Position;
-import de.hda.tdpro.core.ResourceLoader;
+import de.hda.tdpro.core.path.Position;
+import de.hda.tdpro.core.util.ResourceLoader;
 import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.tower.priority.Priority;
 import de.hda.tdpro.core.tower.projectiles.AbstractProjectile;

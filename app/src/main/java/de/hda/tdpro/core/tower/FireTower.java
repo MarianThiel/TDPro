@@ -1,14 +1,9 @@
 package de.hda.tdpro.core.tower;
 
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
-import de.hda.tdpro.R;
-import de.hda.tdpro.StaticContext;
-import de.hda.tdpro.core.Position;
-import de.hda.tdpro.core.ResourceLoader;
+import de.hda.tdpro.core.util.ResourceLoader;
 import de.hda.tdpro.core.enemy.Enemy;
-import de.hda.tdpro.core.tower.projectiles.DefaultAreaProjectile;
 import de.hda.tdpro.core.tower.projectiles.DefaultSingleProjectile;
 import de.hda.tdpro.core.tower.shootingbehavior.NormalShooting;
 

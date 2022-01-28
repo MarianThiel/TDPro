@@ -4,8 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.Shader;
 import android.util.Log;
@@ -14,10 +12,9 @@ import java.util.Arrays;
 
 import de.hda.tdpro.R;
 import de.hda.tdpro.StaticContext;
-import de.hda.tdpro.core.Position;
+import de.hda.tdpro.core.path.Position;
 import de.hda.tdpro.core.enemy.Enemy;
-import de.hda.tdpro.core.enemy.MinDistanceComparator;
-import de.hda.tdpro.core.enemy.Vector2D;
+import de.hda.tdpro.core.util.Vector2D;
 import de.hda.tdpro.core.tower.priority.EnemyLastComparator;
 
 public class DefaultAreaProjectile extends AbstractProjectile{

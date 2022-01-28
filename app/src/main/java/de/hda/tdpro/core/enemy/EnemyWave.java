@@ -5,8 +5,9 @@ import android.graphics.Canvas;
 import java.util.List;
 
 import de.hda.tdpro.core.Drawable;
-import de.hda.tdpro.core.Position;
+import de.hda.tdpro.core.path.Position;
 import de.hda.tdpro.core.factories.EnemyFactory;
+import de.hda.tdpro.core.path.Path;
 
 public class EnemyWave implements Runnable, Drawable {
     /**

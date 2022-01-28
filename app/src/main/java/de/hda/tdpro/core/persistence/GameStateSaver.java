@@ -1,4 +1,6 @@
-package de.hda.tdpro.core;
+package de.hda.tdpro.core.persistence;
+
+import de.hda.tdpro.core.Game;
 
 /**
  * @author Marian Thiel

@@ -1,4 +1,4 @@
-package de.hda.tdpro.core.enemy;
+package de.hda.tdpro.core.path;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -9,7 +9,6 @@ import java.util.List;
 
 import de.hda.tdpro.core.Drawable;
 import de.hda.tdpro.core.Intersectable;
-import de.hda.tdpro.core.Position;
 
 /**
  * @author Marian Thiel

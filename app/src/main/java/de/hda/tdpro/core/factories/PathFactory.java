@@ -5,8 +5,8 @@ import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
 import de.hda.tdpro.StaticContext;
-import de.hda.tdpro.core.enemy.Path;
-import de.hda.tdpro.core.enemy.RelativePath;
+import de.hda.tdpro.core.path.Path;
+import de.hda.tdpro.core.path.RelativePath;
 
 public class PathFactory {
     private static PathFactory instance;

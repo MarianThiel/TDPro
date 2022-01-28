@@ -13,7 +13,8 @@ import java.util.List;
 import de.hda.tdpro.core.Drawable;
 import de.hda.tdpro.core.EnemyObserver;
 import de.hda.tdpro.core.EnemyObservable;
-import de.hda.tdpro.core.Position;
+import de.hda.tdpro.core.path.Position;
+import de.hda.tdpro.core.util.Vector2D;
 
 /**
  * @author Marian Thiel

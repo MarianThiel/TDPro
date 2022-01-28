@@ -2,7 +2,8 @@ package de.hda.tdpro.core.enemy;
 
 import java.util.Comparator;
 
-import de.hda.tdpro.core.Position;
+import de.hda.tdpro.core.path.Position;
+import de.hda.tdpro.core.util.Vector2D;
 
 public class MinDistanceComparator implements Comparator<Enemy> {
 

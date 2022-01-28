@@ -10,11 +10,10 @@ import android.widget.Button;
 
 import de.hda.tdpro.R;
 import de.hda.tdpro.activity.EndGameActivity;
-import de.hda.tdpro.activity.InGameActivity;
 import de.hda.tdpro.activity.LexiconActivity;
 import de.hda.tdpro.activity.SettingsActivity;
 import de.hda.tdpro.core.Game;
-import de.hda.tdpro.core.GameStateSaver;
+import de.hda.tdpro.core.persistence.GameStateSaver;
 
 public class MenuDialog extends Dialog {
 

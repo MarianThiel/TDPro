@@ -8,13 +8,12 @@ import java.util.Arrays;
 import de.hda.tdpro.core.Drawable;
 import de.hda.tdpro.core.Game;
 import de.hda.tdpro.core.Intersectable;
-import de.hda.tdpro.core.Position;
+import de.hda.tdpro.core.path.Position;
 import de.hda.tdpro.core.TimingUnit;
 import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.factories.TowerFactory;
 import de.hda.tdpro.core.tower.upgrades.MetaUpgrade;
 import de.hda.tdpro.core.tower.upgrades.SimpleUpgrade;
-import de.hda.tdpro.core.tower.upgrades.TowerDecorator;
 
 public class TowerManager implements Drawable, TimingUnit, Intersectable {
 

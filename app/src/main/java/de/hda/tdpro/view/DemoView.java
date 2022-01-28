@@ -1,6 +1,5 @@
 package de.hda.tdpro.view;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -12,21 +11,13 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.Toast;
 
-import de.hda.tdpro.R;
 import de.hda.tdpro.StaticContext;
 import de.hda.tdpro.core.Game;
 import de.hda.tdpro.core.GameListener;
 import de.hda.tdpro.core.PointingMode;
-import de.hda.tdpro.core.Position;
-import de.hda.tdpro.core.tower.Tower;
+import de.hda.tdpro.core.path.Position;
 import de.hda.tdpro.core.tower.TowerType;
 
 public class DemoView extends SurfaceView implements Runnable, GameListener {

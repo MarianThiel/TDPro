@@ -1,14 +1,12 @@
-package de.hda.tdpro.core.enemy;
+package de.hda.tdpro.core.path;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Shader;
 
-import android.support.constraint.solver.widgets.Rectangle;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -17,7 +15,8 @@ import java.util.List;
 
 import de.hda.tdpro.R;
 import de.hda.tdpro.StaticContext;
-import de.hda.tdpro.core.Position;
+import de.hda.tdpro.core.util.GaussMatrix;
+import de.hda.tdpro.core.util.Vector2D;
 
 /**
  * @author Marian Thiel
@@ -25,7 +24,7 @@ import de.hda.tdpro.core.Position;
  * The relative aspect of the path is that points are relative to each other
  * e.g Point (0,50) -> (50,0) means: first 50 px on y-axis (P1) then 50px on x-axis (P2) results in a endpoint of (50,50)
  */
-public class RelativePath extends Path{
+public class RelativePath extends Path {
 
     private Bitmap texture;
 

@@ -1,10 +1,9 @@
 package de.hda.tdpro.core.tower.projectiles;
 
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 
 import de.hda.tdpro.core.Drawable;
-import de.hda.tdpro.core.Position;
+import de.hda.tdpro.core.path.Position;
 import de.hda.tdpro.core.enemy.Enemy;
 
 public abstract class AbstractProjectile implements Runnable, Drawable {

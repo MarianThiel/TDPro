@@ -5,12 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
-import de.hda.tdpro.ConfigWriter;
+import de.hda.tdpro.core.persistence.ConfigWriter;
 import de.hda.tdpro.R;
-import de.hda.tdpro.core.GameStateSaver;
+import de.hda.tdpro.core.persistence.GameStateSaver;
 
 public class EndGameActivity extends AppCompatActivity {
 

@@ -5,7 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDialogFragment;
 
-import de.hda.tdpro.ConfigWriter;
+import de.hda.tdpro.core.persistence.ConfigWriter;
 
 public class ExampleDialog extends AppCompatDialogFragment {
     @Override

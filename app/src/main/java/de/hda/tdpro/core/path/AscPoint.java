@@ -1,9 +1,9 @@
-package de.hda.tdpro.core.enemy;
+package de.hda.tdpro.core.path;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.hda.tdpro.core.Position;
+import de.hda.tdpro.core.util.Vector2D;
 
 /**
  * @author Marian Thiel
