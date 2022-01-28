@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import java.util.Map;
 import de.hda.tdpro.ConfigWriter;
 import de.hda.tdpro.R;
 import de.hda.tdpro.core.GlobalTowerUpgrade;
+import de.hda.tdpro.core.ResourceLoader;
 import de.hda.tdpro.core.tower.Tower;
 import de.hda.tdpro.core.tower.TowerType;
 import de.hda.tdpro.core.tower.upgrades.MetaTower;
@@ -51,6 +53,7 @@ public class UpgradeTower extends AppCompatActivity {
     private TextView l_name;
     private TextView amountOfDiamonds;
 
+    private ImageView towerImage;
 
     private TowerType[] towers;
 
@@ -90,7 +93,7 @@ public class UpgradeTower extends AppCompatActivity {
         rng = findViewById(R.id.btnUpgradeRange);
         amountOfDiamonds = findViewById(R.id.amountOfDiamonds);
         dmg.setActivated(true);
-
+        towerImage = findViewById(R.id.towerImage);
 
         towerName = findViewById(R.id.txtTowerNameContext);
         upgradeType = findViewById(R.id.txtUpgradeType);
@@ -112,13 +115,13 @@ public class UpgradeTower extends AppCompatActivity {
         left.setOnClickListener(e->{
             selectedTower = Math.floorMod (selectedTower - 1,towers.length);
             selectTower(selectedTower);
-            initContextMenu();
+            initStatsUpgrade();
         });
 
         right.setOnClickListener(e->{
             selectedTower =  Math.floorMod (selectedTower + 1,towers.length);
             selectTower(selectedTower);
-            initContextMenu();
+            initStatsUpgrade();
         });
 
         buy.setOnClickListener(e->{
@@ -155,19 +158,19 @@ public class UpgradeTower extends AppCompatActivity {
         dmg.setOnClickListener(e->{
             //show actual dmg upgrade
             initStatsUpgrade();
-            toggleButton(dmg);
+
         });
 
         vel.setOnClickListener(e->{
             //show actual vel upgrade
             initLevelUpgrade();
-            toggleButton(vel);
+
         });
 
         rng.setOnClickListener(e->{
             //show actual rng upgrade
             initPriceUpgrade();
-            toggleButton(rng);
+
         });
 
     }
@@ -193,10 +196,9 @@ public class UpgradeTower extends AppCompatActivity {
         l_dmg.setText(l_dmg.getText() +" + "+ (int)upgrade.getValue());
         l_rng.setText(l_rng.getText() + " + " + (int)upgrade.getValue());
         l_vel.setText(l_vel.getText().subSequence(0,3) + " + " + (1 / (4 * upgrade.getValue())));
-
         l_dsc.setText(upgrade.getDescription());
         buy.setText("buy Upgrade (" + upgrade.getBase() + ")");
-
+        toggleButton(dmg);
     }
 
     private void initLevelUpgrade(){
@@ -207,6 +209,7 @@ public class UpgradeTower extends AppCompatActivity {
         lvl.setText(lvl.getText() + " + " + (int)upgrade.getValue());
         l_dsc.setText(upgrade.getDescription());
         buy.setText("buy Upgrade (" + (int)upgrade.getBase() + ")");
+        toggleButton(vel);
     }
 
     private void initPriceUpgrade(){
@@ -217,9 +220,11 @@ public class UpgradeTower extends AppCompatActivity {
         l_price.setText(l_price.getText() + " - " + (int)upgrade.getValue());
         l_dsc.setText(upgrade.getDescription());
         buy.setText("buy Upgrade (" + (int)upgrade.getBase() + ")");
+        toggleButton(rng);
     }
     private void selectTower(int i){
         upgrades = loadUpgrades(towers[i]);
+        towerImage.setImageBitmap(ResourceLoader.getInstance().getTowerImages(towers[selectedTower])[0]);
     }
 
     private Map<String,GlobalTowerUpgrade> loadUpgrades(TowerType type){

@@ -12,7 +12,7 @@ public class EarthTower extends Tower{
     public EarthTower(int radius, int damage, float speed, int price, int maxLevel) {
         super(radius, damage, speed, price, maxLevel);
         this.sphere = new RangeSphere(this, new AreaShooting());
-        img = ResourceLoader.getInstance().getTowerImages(TowerType.FIRE_TOWER);
+        img = ResourceLoader.getInstance().getTowerImages(TowerType.EARTH_TOWER);
         current = img[0];
     }
 

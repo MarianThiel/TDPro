@@ -89,7 +89,7 @@ public class ResourceLoader {
         animations.put("NM",nm);
     }
 
-    private Bitmap scale(Bitmap b, float f){
+    public Bitmap scale(Bitmap b, float f){
         return Bitmap.createScaledBitmap(b,(int)(b.getWidth()*f),(int)(b.getHeight()*f),true);
     }
 
@@ -115,12 +115,17 @@ public class ResourceLoader {
 
 
         Bitmap[] firetower = new Bitmap[2];
-        firetower[0] = scale(BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.f_tower),0.15f);
-
-        firetower[1] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.t_fire2);
+        firetower[0] = scale(BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.ft1),1f);
+        firetower[1] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.ft2);
         firetower[1] = Bitmap.createScaledBitmap(firetower[1],90,90,false);
 
         towerBitmaps.put(TowerType.FIRE_TOWER, firetower);
+
+        firetower = new Bitmap[2];
+        firetower[0] = scale(BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.et1),1f);
+        firetower[1] = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.et2);
+        firetower[1] = Bitmap.createScaledBitmap(firetower[1],90,90,false);
+        towerBitmaps.put(TowerType.EARTH_TOWER, firetower);
     }
 
     private void initUpgradeBadges(){

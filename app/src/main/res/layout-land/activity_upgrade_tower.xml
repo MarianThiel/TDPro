@@ -8,7 +8,7 @@
     tools:context=".activity.UpgradeTower">
 
     <ImageView
-        android:id="@+id/towerDisplay"
+        android:id="@+id/towerImage"
         android:layout_width="171dp"
         android:layout_height="203dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,7 +23,7 @@
         android:layout_height="80dp"
         android:background="?attr/actionBarItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/towerDisplay"
+        app:layout_constraintEnd_toStartOf="@+id/towerImage"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/arr_left" />
 
@@ -33,7 +33,7 @@
         android:layout_height="80dp"
         android:background="?attr/actionBarItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/towerDisplay"
+        app:layout_constraintStart_toEndOf="@+id/towerImage"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/arr_right" />
 
@@ -109,6 +109,7 @@
                     style="@style/Towerupdates_Context_Font"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="left"
                     android:text="Tex" />
             </TableRow>
 
@@ -127,6 +128,7 @@
                     style="@style/Towerupdates_Context_Font"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="left"
                     android:text="TextView" />
             </TableRow>
 
@@ -145,6 +147,7 @@
                     style="@style/Towerupdates_Context_Font"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="left"
                     android:text="TextView" />
             </TableRow>
 
@@ -163,6 +166,7 @@
                     style="@style/Towerupdates_Context_Font"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="left"
                     android:text="TextView" />
             </TableRow>
         </TableLayout>
@@ -198,7 +202,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnUpgradeVel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/towerDisplay" />
+        app:layout_constraintTop_toBottomOf="@+id/towerImage" />
 
     <Button
         android:id="@+id/btnUpgradeVel"
@@ -209,7 +213,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnUpgradeRange"
         app:layout_constraintStart_toEndOf="@+id/btnUpgradeDMG"
-        app:layout_constraintTop_toBottomOf="@+id/towerDisplay" />
+        app:layout_constraintTop_toBottomOf="@+id/towerImage" />
 
     <Button
         android:id="@+id/btnUpgradeRange"
@@ -220,7 +224,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnUpgradeVel"
-        app:layout_constraintTop_toBottomOf="@+id/towerDisplay" />
+        app:layout_constraintTop_toBottomOf="@+id/towerImage" />
 
     <TextView
         android:id="@+id/txtTowerNameContext"
@@ -229,7 +233,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:text="Fire Tower"
-        app:layout_constraintBottom_toTopOf="@+id/towerDisplay"
+        app:layout_constraintBottom_toTopOf="@+id/towerImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
