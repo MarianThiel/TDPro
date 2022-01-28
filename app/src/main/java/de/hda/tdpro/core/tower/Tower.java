@@ -61,6 +61,8 @@ abstract public class Tower implements EnemyObserver, Drawable, Intersectable {
 
     protected boolean rotatable;
 
+    protected int maxLevel;
+
     /**
      * Image of the Tower as Bitmap
      */
@@ -74,7 +76,7 @@ abstract public class Tower implements EnemyObserver, Drawable, Intersectable {
 
     private boolean borders;
 
-    public Tower(int radius, int damage, float speed, int price) {
+    public Tower(int radius, int damage, float speed, int price, int maxLevel) {
         this.radius = radius;
         this.damage = damage;
         this.speed = speed;
@@ -86,6 +88,8 @@ abstract public class Tower implements EnemyObserver, Drawable, Intersectable {
         hitBox = 50;
 
         borders = false;
+        this.maxLevel = maxLevel;
+
     }
 
     public Position getPos() {
@@ -283,5 +287,9 @@ abstract public class Tower implements EnemyObserver, Drawable, Intersectable {
     @Override
     public void showBorders(boolean v) {
         borders = v;
+    }
+
+    public int getMaxLevel() {
+        return maxLevel;
     }
 }

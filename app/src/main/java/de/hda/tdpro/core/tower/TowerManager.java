@@ -94,7 +94,7 @@ public class TowerManager implements Drawable, TimingUnit, Intersectable {
     }
 
     private boolean upgradePossible(int i){
-        return towers[i].getLevel()<Tower.MAX_LEVEL;
+        return towers[i].getLevel()<towers[i].getMaxLevel();
     }
 
     public void addTowerAsListener(Enemy e){

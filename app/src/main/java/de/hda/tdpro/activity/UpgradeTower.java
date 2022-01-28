@@ -175,11 +175,11 @@ public class UpgradeTower extends AppCompatActivity {
     private void initContextMenu(){
         MetaTower meta = MetaTower.getMetaTower(towers[selectedTower]);
         towerName.setText(meta.getName());
-        lvl.setText(Integer.toString(Tower.MAX_LEVEL));
-        l_price.setText(Integer.toString(meta.getPrice()));
-        l_dmg.setText(Integer.toString(meta.getDmg()));
-        l_vel.setText(Float.toString(meta.getVelocity()));
-        l_rng.setText(Integer.toString(meta.getRange()));
+        lvl.setText(Integer.toString(meta.getMaxLevel()));
+        l_price.setText(Integer.toString((int) meta.getPrice()));
+        l_dmg.setText(Integer.toString((int) meta.getDmg()));
+        l_vel.setText(Float.toString(meta.getVelocity()).subSequence(0,3));
+        l_rng.setText(Integer.toString((int)meta.getRange()));
         amountOfDiamonds.setText(ConfigWriter.getInstance().readDiamonds() + "");
 
 
@@ -190,9 +190,9 @@ public class UpgradeTower extends AppCompatActivity {
         GlobalTowerUpgrade upgrade = upgrades.get("stats");
         selectedUpgradeKey = "stats";
         upgradeType.setText("STATS");
-        l_dmg.setText(l_dmg.getText() +" + "+ upgrade.getValue());
-        l_rng.setText(l_rng.getText() + " + " + upgrade.getValue());
-        l_vel.setText(l_vel.getText() + " + " + upgrade.getValue());
+        l_dmg.setText(l_dmg.getText() +" + "+ (int)upgrade.getValue());
+        l_rng.setText(l_rng.getText() + " + " + (int)upgrade.getValue());
+        l_vel.setText(l_vel.getText().subSequence(0,3) + " + " + (1 / (4 * upgrade.getValue())));
 
         l_dsc.setText(upgrade.getDescription());
         buy.setText("buy Upgrade (" + upgrade.getBase() + ")");
@@ -204,9 +204,9 @@ public class UpgradeTower extends AppCompatActivity {
         GlobalTowerUpgrade upgrade = upgrades.get("level");
         selectedUpgradeKey = "level";
         upgradeType.setText("MAX LEVEL");
-        lvl.setText(lvl.getText() + " + " + upgrade.getValue());
+        lvl.setText(lvl.getText() + " + " + (int)upgrade.getValue());
         l_dsc.setText(upgrade.getDescription());
-        buy.setText("buy Upgrade (" + upgrade.getBase() + ")");
+        buy.setText("buy Upgrade (" + (int)upgrade.getBase() + ")");
     }
 
     private void initPriceUpgrade(){
@@ -214,9 +214,9 @@ public class UpgradeTower extends AppCompatActivity {
         GlobalTowerUpgrade upgrade = upgrades.get("price");
         selectedUpgradeKey = "price";
         upgradeType.setText("PRICE");
-        l_price.setText(l_price.getText() + " - " + upgrade.getValue());
+        l_price.setText(l_price.getText() + " - " + (int)upgrade.getValue());
         l_dsc.setText(upgrade.getDescription());
-        buy.setText("buy Upgrade (" + upgrade.getBase() + ")");
+        buy.setText("buy Upgrade (" + (int)upgrade.getBase() + ")");
     }
     private void selectTower(int i){
         upgrades = loadUpgrades(towers[i]);

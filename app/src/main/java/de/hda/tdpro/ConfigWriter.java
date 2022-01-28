@@ -149,7 +149,7 @@ public class ConfigWriter {
                         e2.setAttribute("rng", rng + "");
                         e2.setAttribute("vel", vel + "");
                         e2.setAttribute("price",price + "");
-                        e2.setAttribute("mlvl", mlvl + "");
+                        e2.setAttribute("maxlevel", mlvl + "");
                         //String name = e2.getAttribute("name");
                         break;
                         //return new MetaTower(name,dmg,rng,vel,price);

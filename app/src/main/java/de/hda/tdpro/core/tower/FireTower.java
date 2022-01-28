@@ -19,8 +19,8 @@ import de.hda.tdpro.core.tower.shootingbehavior.NormalShooting;
  * inits the sphere
  */
 public class FireTower extends Tower {
-    public FireTower(int radius, int damage, float speed, int price) {
-        super(radius, damage, speed, price);
+    public FireTower(int radius, int damage, float speed, int price, int maxLevel) {
+        super(radius, damage, speed, price, maxLevel);
         this.sphere = new RangeSphere(this, new NormalShooting());
         img = ResourceLoader.getInstance().getTowerImages(TowerType.FIRE_TOWER);
         current = img[0];

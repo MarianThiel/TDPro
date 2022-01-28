@@ -74,7 +74,7 @@ public class TowerStatView extends FrameLayout {
     }
     public void initTower(Tower t){
         txt_dmg.setText(Integer.toString(t.getDamage()));
-        txt_lvl.setText(Integer.toString(t.getLevel()));
+        txt_lvl.setText(Integer.toString(t.getLevel()) + "/" + t.getMaxLevel());
         txt_rad.setText(Integer.toString(t.getRadius()));
         txt_vel.setText(Float.toString(t.getSpeed()).substring(0,3));
     }

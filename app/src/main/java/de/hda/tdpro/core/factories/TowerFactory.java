@@ -21,12 +21,12 @@ public class TowerFactory {
 
     public FireTower createFireTower(){
         MetaTower meta = MetaTower.getMetaTower(TowerType.FIRE_TOWER);
-        return new FireTower(meta.getRange(), meta.getDmg(),meta.getVelocity(),meta.getPrice());
+        return new FireTower(meta.getRange(), meta.getDmg(),meta.getVelocity(),meta.getPrice(),meta.getMaxLevel());
     }
 
     public EarthTower createEarthTower(){
         MetaTower meta = MetaTower.getMetaTower(TowerType.EARTH_TOWER);
-        return new EarthTower(meta.getRange(), meta.getDmg(),meta.getVelocity(),meta.getPrice());
+        return new EarthTower(meta.getRange(), meta.getDmg(),meta.getVelocity(),meta.getPrice(), meta.getMaxLevel());
     }
 }
 

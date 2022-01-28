@@ -19,7 +19,7 @@ import de.hda.tdpro.core.tower.projectiles.AbstractProjectile;
 public abstract class TowerDecorator extends Tower {
     Tower embeddedTower;
     public TowerDecorator(Tower uTower) {
-        super(0,0,0,0);
+        super(0,0,0,0, uTower.getMaxLevel());
         embeddedTower = uTower;
         this.img = embeddedTower.getImg();
         getSphere().setTower(this);
