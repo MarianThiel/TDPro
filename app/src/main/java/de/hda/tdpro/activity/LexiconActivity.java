@@ -32,8 +32,15 @@ public class LexiconActivity extends AppCompatActivity {
         initLexicon();
 
         btnReturn.setOnClickListener(e->{
-            Intent intent = new Intent(LexiconActivity.this, MainMenuActivity.class);
-            startActivity(intent);
+            boolean inGame = getIntent().getBooleanExtra("INGAME", false);
+            if(inGame){
+                Intent intent = new Intent(LexiconActivity.this, InGameActivity.class);
+                startActivity(intent);
+            }else{
+                Intent intent = new Intent(LexiconActivity.this, MainMenuActivity.class);
+                startActivity(intent);
+            }
+
         });
     }
 
