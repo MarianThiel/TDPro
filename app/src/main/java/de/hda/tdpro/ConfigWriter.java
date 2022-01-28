@@ -126,8 +126,96 @@ public class ConfigWriter {
         }
     }
 
-    public void writeTowerStats(MetaTower meta){
+    public void writeTowerStats(MetaTower meta, TowerType type){
+        try {
+            Document d = readConfig();
 
+            Element e1 = d.getDocumentElement();
+            e1.normalize();
+
+            NodeList lst = e1.getElementsByTagName("tower");
+
+            for(int i = 0; i < lst.getLength(); i++){
+                Node node = lst.item(i);
+                if(node.getNodeType() == Node.ELEMENT_NODE){
+                    Element e2 = (Element) node;
+                    if(e2.getAttribute("type").equals(type.toString())){
+                        int dmg = meta.getDmg();
+                        int rng = meta.getRange();
+                        float vel = meta.getVelocity();
+                        int price = meta.getPrice();
+                        int mlvl = meta.getMaxLevel();
+                        e2.setAttribute("dmg",dmg + "");
+                        e2.setAttribute("rng", rng + "");
+                        e2.setAttribute("vel", vel + "");
+                        e2.setAttribute("price",price + "");
+                        e2.setAttribute("mlvl", mlvl + "");
+                        //String name = e2.getAttribute("name");
+                        break;
+                        //return new MetaTower(name,dmg,rng,vel,price);
+                    }
+                }
+            }
+            FileWriter output = new FileWriter(DST_PATH);
+            writeXml(d, output);
+
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (TransformerException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void writeTowerUpgrade(String key, TowerType type, GlobalTowerUpgrade upgrade){
+        try {
+            Document d = readConfig();
+
+            Element e1 = d.getDocumentElement();
+            e1.normalize();
+
+            NodeList lst = e1.getElementsByTagName("tower");
+
+            for(int i = 0; i < lst.getLength(); i++){
+                Node node = lst.item(i);
+                if(node.getNodeType() == Node.ELEMENT_NODE){
+                    Element e2 = (Element) node;
+                    if(e2.getAttribute("type").equals(type.toString())){
+
+                        NodeList upgradeNodes = e2.getElementsByTagName("globalupgrade");
+
+                        for(int j = 0; j < upgradeNodes.getLength(); j++){
+                            Node up = upgradeNodes.item(j);
+                            if(up.getNodeType() == Node.ELEMENT_NODE){
+                                Element e3 = (Element) up;
+                                if(e3.getAttribute("key").equals(key)){
+                                    e3.setAttribute("current", upgrade.getCurrentLevel() + "");
+
+                                }
+                            }
+                        }
+
+                        break;
+
+                    }
+                }
+            }
+            FileWriter output = new FileWriter(DST_PATH);
+            writeXml(d, output);
+
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (TransformerException e) {
+            e.printStackTrace();
+        }
     }
 
     private void writeXml(Document doc,
@@ -251,7 +339,8 @@ public class ConfigWriter {
                         int rng = Integer.parseInt(e2.getAttribute("rng"));
                         float vel = Float.parseFloat(e2.getAttribute("vel"));
                         int price = Integer.parseInt(e2.getAttribute("price"));
-                        return new MetaTower(name,dmg,rng,vel,price);
+                        int mlvl = Integer.parseInt(e2.getAttribute("maxlevel"));
+                        return new MetaTower(name,dmg,rng,vel,price,mlvl);
                     }
                 }
             }

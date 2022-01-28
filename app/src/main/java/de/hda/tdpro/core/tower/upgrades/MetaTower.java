@@ -15,13 +15,16 @@ public class MetaTower {
 
     private final int price;
 
+    private final int maxLevel;
 
-    public MetaTower(String name, int dmg, int range, float velocity, int price) {
+
+    public MetaTower(String name, int dmg, int range, float velocity, int price, int maxLevel) {
         this.name = name;
         this.dmg = dmg;
         this.range = range;
         this.velocity = velocity;
         this.price = price;
+        this.maxLevel = maxLevel;
     }
 
     public String getName() {
@@ -44,6 +47,10 @@ public class MetaTower {
 
     public int getPrice() {
         return price;
+    }
+
+    public int getMaxLevel() {
+        return maxLevel;
     }
 
     public static MetaTower getMetaTower(TowerType type){

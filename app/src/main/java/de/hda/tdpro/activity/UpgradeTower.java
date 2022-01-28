@@ -49,14 +49,14 @@ public class UpgradeTower extends AppCompatActivity {
     private TextView l_dsc;
     private TextView l_name;
 
-    private MetaTower demoTower;
-
 
     private TowerType[] towers;
 
     private Map<String, GlobalTowerUpgrade> upgrades;
 
     private int selectedTower;
+
+    private String selectedUpgradeKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +73,8 @@ public class UpgradeTower extends AppCompatActivity {
 
         selectTower(selectedTower);
         initStatsUpgrade();
-        demoTower = new MetaTower("Fire Tower",10,80,1,50);
+
+
 
     }
 
@@ -120,6 +121,29 @@ public class UpgradeTower extends AppCompatActivity {
         buy.setOnClickListener(e->{
             //buy upgrade write upgrades back to xml
             // write metaTower to xml
+
+            // 1. determine upgradeType
+            MetaTower meta = MetaTower.getMetaTower(towers[selectedTower]);
+            GlobalTowerUpgrade u = upgrades.get(selectedUpgradeKey);
+            // 2. check price, price <= diamonds
+            int price = (int)(u.getBase());
+            int money = ConfigWriter.getInstance().readDiamonds();
+            if(price <= money){
+                // |(true)
+                // |-> create MetaTower, edit values
+                MetaTower m = new MetaTower(meta.getName(), (meta.getDmg() + (int) u.getValue()), (meta.getRange() + (int)u.getValue()),meta.getVelocity() + (1/(4* u.getValue())),(meta.getPrice() - (int) u.getValue()), meta.getMaxLevel() + 1);
+                // |-> write MetaTower
+                ConfigWriter.getInstance().writeTowerStats(m,towers[selectedTower]);
+                // |-> modify upgrade, write upgrade
+                u.setCurrentLevel(u.getCurrentLevel()+1);
+                u.setBase(u.getBase()*u.getMulti());
+                ConfigWriter.getInstance().writeTowerUpgrade(selectedUpgradeKey,towers[selectedTower],u);
+            }else{
+
+                // |(false)
+                // |-> abort -> print os Toast
+            }
+
         });
 
         dmg.setOnClickListener(e->{
@@ -130,7 +154,7 @@ public class UpgradeTower extends AppCompatActivity {
 
         vel.setOnClickListener(e->{
             //show actual vel upgrade
-           initLevelUpgrade();
+            initLevelUpgrade();
             toggleButton(vel);
         });
 
@@ -156,9 +180,10 @@ public class UpgradeTower extends AppCompatActivity {
     private void initStatsUpgrade(){
         initContextMenu();
         GlobalTowerUpgrade upgrade = upgrades.get("stats");
+        selectedUpgradeKey = "stats";
         upgradeType.setText("STATS");
         l_dmg.setText(l_dmg.getText() +" + "+ upgrade.getValue());
-        l_rng.setText(l_dmg.getText() + " + " + upgrade.getValue());
+        l_rng.setText(l_rng.getText() + " + " + upgrade.getValue());
         l_vel.setText(l_vel.getText() + " + " + upgrade.getValue());
 
         l_dsc.setText(upgrade.getDescription());
@@ -168,14 +193,18 @@ public class UpgradeTower extends AppCompatActivity {
     private void initLevelUpgrade(){
         initContextMenu();
         GlobalTowerUpgrade upgrade = upgrades.get("level");
-
+        selectedUpgradeKey = "level";
+        upgradeType.setText("MAX LEVEL");
         lvl.setText(lvl.getText() + " + " + upgrade.getValue());
         l_dsc.setText(upgrade.getDescription());
     }
 
     private void initPriceUpgrade(){
         initContextMenu();
-        GlobalTowerUpgrade upgrade = upgrades.get("stats");
+        GlobalTowerUpgrade upgrade = upgrades.get("price");
+        selectedUpgradeKey = "price";
+        upgradeType.setText("PRICE");
+        l_price.setText(l_price.getText() + " - " + upgrade.getValue());
         l_dsc.setText(upgrade.getDescription());
     }
     private void selectTower(int i){
@@ -187,11 +216,12 @@ public class UpgradeTower extends AppCompatActivity {
         return upgrades;
     }
 
+
+
     private void toggleButton(Button b){
         dmg.setActivated(false);
         vel.setActivated(false);
         rng.setActivated(false);
-
         b.setActivated(true);
     }
 
