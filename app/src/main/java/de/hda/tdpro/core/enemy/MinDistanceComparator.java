@@ -17,7 +17,7 @@ public class MinDistanceComparator implements Comparator<Enemy> {
         float d1 = getDistance(src,o1.getPosition());
         float d2 = getDistance(src,o2.getPosition());
 
-        return Float.compare(d1, d2);
+        return -1*Float.compare(d1, d2);
     }
 
     private float getDistance(Position p1, Position p2){

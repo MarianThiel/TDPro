@@ -14,11 +14,11 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/amountOfDiamonds2"
+        app:layout_constraintEnd_toStartOf="@+id/amountOfDiamonds"
         app:srcCompat="@drawable/diamond" />
 
     <TextView
-        android:id="@+id/amountOfDiamonds2"
+        android:id="@+id/amountOfDiamonds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"

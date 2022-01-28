@@ -18,6 +18,7 @@ import de.hda.tdpro.core.Position;
 import de.hda.tdpro.core.enemy.Enemy;
 import de.hda.tdpro.core.enemy.MinDistanceComparator;
 import de.hda.tdpro.core.enemy.Vector2D;
+import de.hda.tdpro.core.tower.priority.EnemyLastComparator;
 
 public class DefaultAreaProjectile extends AbstractProjectile{
 
@@ -37,7 +38,7 @@ public class DefaultAreaProjectile extends AbstractProjectile{
 
         texture = BitmapFactory.decodeResource(StaticContext.getContext().getResources(), R.drawable.crack);
         shader = new BitmapShader(texture, Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
-        Arrays.sort(enemies,new MinDistanceComparator(src));
+        Arrays.sort(enemies,new EnemyLastComparator());
         this.dst = enemies[enemies.length-1].getPosition();
         Vector2D v1 = new Vector2D(src.getxVal(),src.getyVal());
         Vector2D v2 = new Vector2D(dst.getxVal(),dst.getyVal());
@@ -66,7 +67,7 @@ public class DefaultAreaProjectile extends AbstractProjectile{
         Log.println(Log.ASSERT,"RADIUS", "" + radius + " " + duration);
         while(radius < maxSize){
             Log.println(Log.ASSERT,"RADIUS", "" + radius + " " + duration);
-            radius = radius + duration;
+            radius = radius + 2*duration;
             try {
                 Thread.sleep(1);
             } catch (InterruptedException e) {

@@ -7,6 +7,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Map;
 
@@ -48,6 +49,7 @@ public class UpgradeTower extends AppCompatActivity {
     private TextView l_price;
     private TextView l_dsc;
     private TextView l_name;
+    private TextView amountOfDiamonds;
 
 
     private TowerType[] towers;
@@ -86,6 +88,7 @@ public class UpgradeTower extends AppCompatActivity {
         dmg = findViewById(R.id.btnUpgradeDMG);
         vel = findViewById(R.id.btnUpgradeVel);
         rng = findViewById(R.id.btnUpgradeRange);
+        amountOfDiamonds = findViewById(R.id.amountOfDiamonds);
         dmg.setActivated(true);
 
 
@@ -131,15 +134,18 @@ public class UpgradeTower extends AppCompatActivity {
             if(price <= money){
                 // |(true)
                 // |-> create MetaTower, edit values
-                MetaTower m = new MetaTower(meta.getName(), (meta.getDmg() + (int) u.getValue()), (meta.getRange() + (int)u.getValue()),meta.getVelocity() + (1/(4* u.getValue())),(meta.getPrice() - (int) u.getValue()), meta.getMaxLevel() + 1);
+                ConfigWriter.getInstance().writeDiamonds(ConfigWriter.getInstance().readDiamonds() - price);
+                MetaTower m = getUpgradedTower(selectedUpgradeKey,meta,u);
                 // |-> write MetaTower
                 ConfigWriter.getInstance().writeTowerStats(m,towers[selectedTower]);
                 // |-> modify upgrade, write upgrade
                 u.setCurrentLevel(u.getCurrentLevel()+1);
                 u.setBase(u.getBase()*u.getMulti());
                 ConfigWriter.getInstance().writeTowerUpgrade(selectedUpgradeKey,towers[selectedTower],u);
+                initContextMenu();
             }else{
-
+                Toast t = Toast.makeText(this,"Can't afford Upgrade", Toast.LENGTH_SHORT);
+                t.show();
                 // |(false)
                 // |-> abort -> print os Toast
             }
@@ -174,6 +180,8 @@ public class UpgradeTower extends AppCompatActivity {
         l_dmg.setText(Integer.toString(meta.getDmg()));
         l_vel.setText(Float.toString(meta.getVelocity()));
         l_rng.setText(Integer.toString(meta.getRange()));
+        amountOfDiamonds.setText(ConfigWriter.getInstance().readDiamonds() + "");
+
 
     }
 
@@ -187,6 +195,7 @@ public class UpgradeTower extends AppCompatActivity {
         l_vel.setText(l_vel.getText() + " + " + upgrade.getValue());
 
         l_dsc.setText(upgrade.getDescription());
+        buy.setText("buy Upgrade (" + upgrade.getBase() + ")");
 
     }
 
@@ -197,6 +206,7 @@ public class UpgradeTower extends AppCompatActivity {
         upgradeType.setText("MAX LEVEL");
         lvl.setText(lvl.getText() + " + " + upgrade.getValue());
         l_dsc.setText(upgrade.getDescription());
+        buy.setText("buy Upgrade (" + upgrade.getBase() + ")");
     }
 
     private void initPriceUpgrade(){
@@ -206,6 +216,7 @@ public class UpgradeTower extends AppCompatActivity {
         upgradeType.setText("PRICE");
         l_price.setText(l_price.getText() + " - " + upgrade.getValue());
         l_dsc.setText(upgrade.getDescription());
+        buy.setText("buy Upgrade (" + upgrade.getBase() + ")");
     }
     private void selectTower(int i){
         upgrades = loadUpgrades(towers[i]);
@@ -225,4 +236,16 @@ public class UpgradeTower extends AppCompatActivity {
         b.setActivated(true);
     }
 
+    private MetaTower getUpgradedTower(String key, MetaTower meta, GlobalTowerUpgrade u){
+        switch(key){
+            case "stats":
+                return new MetaTower(meta.getName(), (meta.getDmg() + (int) u.getValue()), (meta.getRange() + (int)u.getValue()),meta.getVelocity() + (1/(4* u.getValue())),(meta.getPrice()), meta.getMaxLevel());
+            case "price":
+                return new MetaTower(meta.getName(), meta.getDmg(), meta.getRange(),meta.getVelocity(),(meta.getPrice() - (int) u.getValue()), meta.getMaxLevel());
+            case "level":
+                return new MetaTower(meta.getName(), meta.getDmg(), meta.getRange(),meta.getVelocity(),meta.getPrice(), meta.getMaxLevel() +1);
+
+        }
+        return null;
+    }
 }

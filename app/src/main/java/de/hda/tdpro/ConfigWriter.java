@@ -194,6 +194,7 @@ public class ConfigWriter {
                                 Element e3 = (Element) up;
                                 if(e3.getAttribute("key").equals(key)){
                                     e3.setAttribute("current", upgrade.getCurrentLevel() + "");
+                                    e3.setAttribute("base", upgrade.getBase() + "");
 
                                 }
                             }

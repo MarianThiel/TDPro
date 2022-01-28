@@ -48,7 +48,7 @@ public class EndGameActivity extends AppCompatActivity {
 
         addDiam.setText("+" + adiam);
         diam.setText("" + ConfigWriter.getInstance().readDiamonds());
-        checkp.setText("Wave " + checkpoint +1);
+        checkp.setText("Wave " + (checkpoint +1));
 
         if(win)
         {
