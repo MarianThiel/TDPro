@@ -210,6 +210,11 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
     private void initButtonListeners() {
         btnNextWave.setOnClickListener(e->{
             if(gameModel.startNextWave()){
+                if(btnFastForward.isActivated()){
+                    gameModel.fastForward(false);
+                    gameModel.fastForward(true);
+
+                }
                 SFXManager.getInstance().playNextWave();
             }
         });
@@ -281,9 +286,6 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
     }
 
     private void initComponents() {
-
-
-
 
         btnNextWave = findViewById(R.id.btnNextWave);
         btnFastForward = findViewById(R.id.btnFastForward);
@@ -409,6 +411,9 @@ public class InGameActivity extends AppCompatActivity implements GameListener {
 
         Intent intent = new Intent(InGameActivity.this, EndGameActivity.class);
         intent.putExtra("WIN",true);
+        intent.putExtra("WON_DIAM",gameModel.getWonDiamonds());
+        intent.putExtra("DIAM",gameModel.getDiamonds());
+        intent.putExtra("CHECKPOINT",gameModel.getCheckpoint());
         startActivity(intent);
         finish();
     }

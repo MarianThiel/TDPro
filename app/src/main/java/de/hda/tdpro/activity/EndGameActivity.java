@@ -54,6 +54,7 @@ public class EndGameActivity extends AppCompatActivity {
         {
             endGameMessage.setText("Level Completed");
             endGameMessage.setTextAppearance(R.style.endgame_won);
+            checkp.setText("Finished");
         }
         else
         {
