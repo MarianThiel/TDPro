@@ -52,4 +52,32 @@ public class GlobalTowerUpgrade {
     public float getBase() {
         return base;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCurrentLevel(int currentLevel) {
+        this.currentLevel = currentLevel;
+    }
+
+    public void setValue(float value) {
+        this.value = value;
+    }
+
+    public void setMulti(float multi) {
+        this.multi = multi;
+    }
+
+    public void setMax(int max) {
+        this.max = max;
+    }
+
+    public void setBase(float base) {
+        this.base = base;
+    }
 }

@@ -90,7 +90,8 @@
                     style="@style/Towerupdates_Context_Font"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:gravity="left"
+                    android:text="Tex" />
             </TableRow>
 
             <TableRow
@@ -108,7 +109,7 @@
                     style="@style/Towerupdates_Context_Font"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="Tex" />
             </TableRow>
 
             <TableRow
