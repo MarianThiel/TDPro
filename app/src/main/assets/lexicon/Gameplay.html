@@ -27,17 +27,43 @@
     </ul>
     <p>Erläuterung der einzelnen Buttons:</p>
     <ul>
-        <img src="D:\TD\app\src\main\assets\lexicon\Bilder\Spielfeld_TD.png">
-        <li>(Play) - Start der gegnerischen Angriffswellen.</li>
-        <li>(Turmsymbol) - Öffnet das Menü der Türme. Nachdem man einen der
+       <!-- <img src="D:\TD\app\src\main\assets\lexicon\Bilder\Spielfeld_TD.png">-->
+        <li>(Wellen-Symbol) - Start der gegnerischen Angriffswellen.</li>
+        <li>(Turm-Symbol) - Öffnet das Menü der Türme. Nachdem man einen der
                             4 Türme ausgewählt hat, kann man diesen auf
                             dem Spielfeld frei setzen
                             ("Ausnahme: Die Route der Gegner").</li>
         <li>(FastForward-Symbol) - Beschleunigt das Spiel.</li>
-        <li>(FastForward-Symbol) - Beschleunigt das Spiel.</li>
-        <li>(FastForward-Symbol) - Beschleunigt das Spiel.</li>
+        <li>(Pause-Symbol) - Pausiert das Spiel.</li>
+        <li>(Zahnrad-Symbol) - Einstellungsmenü für die Lautstärke einzustellen.</li>
+        <Li>(Hauptleiste) - Zeigt von Links nach Rechts gelesen, dein Geld an, Gesundheit
+                            (Lebenspunkte) und die aktuelle Welle / gesamt Wellen.</Li>
     </ul>
-    <p>Darüber hinaus besitzt jeder Turm einen individuellen <b>Preis</b> und ein <b>Angriffsverhalten</b></p>
+    <p>Darüber hinaus kann der Spieler seinen Turm durch ausgeben von Geld upgraden.</p>
+    <ul>
+        <Li>Berührt der Spieler einen seiner erstellten Türme, erscheint ein Menü um
+            die Attribute <b>DMG</b>:Damage,<b>RNG</b>:Range und<b>VEL</b>:Velocity
+            seiner Türme gegen Geld zu erhöhen.
+        </Li>
+       <!-- <img src="Attackmenü_ingame.PNG">-->
+    </ul>
+    <p>Der Spieler kann das Angriffverhalten der Türme beeinflussen:</p>
+    <ul>
+        <Li>Wenn der Spieler während des Spiels seinen Turm berührt, erscheint ein Menü um
+            die Attribute seiner Türme zu erhöhen (siehe Oben). Dort ist der Button <b>FIRST</b>.
+            Berührt der Spieler diesen, erscheint ein weiteres Untermenü.</Li>
+        <!--<img src="Turmupgrade_ingame.PNG">-->
+        <Li>Dort kann der Spieler priorisieren nach <b>MIN HP</b>, <b>Max HP</b>, <b>MAX_SPEED</b>,
+            <b>MIN_SPEED</b>, <b>FIRST</b>(den ersten Gegner der Welle attackieren)
+            und <b>LAST</b>(den letzten Gegner der Welle attackieren).</Li>
+
+        <Li><b>MIN HP</b> - Attackiert den Gegner mit der niedrigsten HP.</Li>
+        <Li><b>MAX HP</b> - Attackiert den Gegner mit der höchsten HP.</Li>
+        <Li><b>MAX SPEED</b> - Attackiert den schnellsten Gegner.</Li>
+        <Li><b>MIN SPEED</b> - Attackiert den Gegner langsamsten Gegner.</Li>
+        <Li><b>FIRST</b> - Attackiert den ersten Gegner in der Welle.</Li>
+        <Li><b>LAST</b> - Attackiert den letzten Gegner in der Welle </Li>
+    </ul>
 </div>
 </body>
 
