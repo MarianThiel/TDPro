@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import de.hda.tdpro.R;
@@ -13,6 +14,7 @@ import de.hda.tdpro.activity.InGameActivity;
 import de.hda.tdpro.core.Game;
 import de.hda.tdpro.core.tower.TowerType;
 import de.hda.tdpro.core.tower.upgrades.MetaTower;
+import de.hda.tdpro.core.util.ResourceLoader;
 
 public class TowerView extends FrameLayout {
 
@@ -28,13 +30,15 @@ public class TowerView extends FrameLayout {
     private TowerType type;
 
 
+    private ImageView img;
     private Context context;
 
     public TowerView(@NonNull Context context, TowerType type) {
         super(context);
-        initComponents();
+
         this.type= type;
         this.context = context;
+        initComponents();
         upgradeView(type);
 
     }
@@ -53,8 +57,10 @@ public class TowerView extends FrameLayout {
         dmg = findViewById(R.id.txtdmg);
         vel = findViewById(R.id.txtvel);
         rng = findViewById(R.id.txtrng);
-
+        img = findViewById(R.id.image);
         buy = findViewById(R.id.buyTower);
+
+        img.setImageBitmap(ResourceLoader.getInstance().getTowerImages(type)[0]);
 
         buy.setOnClickListener(e->{
             ((InGameActivity)context).setTowerPlacingMode(type);

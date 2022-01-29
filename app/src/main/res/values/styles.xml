@@ -129,5 +129,11 @@
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">#FFF995</item>
     </style>
+    <style name="alert_btn">
+        <item name="textAllCaps">true</item>
+        <item name="android:textSize">16dip</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/alert_button</item>
+    </style>
 
 </resources>

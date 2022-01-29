@@ -5,12 +5,13 @@
     android:id="@+id/linearLayout3"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@android:drawable/progress_horizontal">
+    android:background="@drawable/ingame_frame_context">
 
     <ImageView
         android:id="@+id/badge"
         android:layout_width="88dp"
         android:layout_height="0dp"
+        android:padding="20px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -96,8 +97,9 @@
 
     <ImageButton
         android:id="@+id/upgradeButton2"
-        android:layout_width="wrap_content"
+        android:layout_width="150px"
         android:layout_height="0dp"
+        android:background="@drawable/buy_ingame_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tableLayout3"

@@ -18,6 +18,9 @@ public class LexiconActivity extends AppCompatActivity {
     private WebView displayText;
     private LinearLayout buttonLayout;
 
+    private Button gameplay;
+    private Button upgrades;
+    private Button towers;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +32,24 @@ public class LexiconActivity extends AppCompatActivity {
         displayText = findViewById(R.id.web_display);
         buttonLayout = findViewById(R.id.buttonLayout);
 
-        initLexicon();
+        gameplay = findViewById(R.id.btnGameplay);
+        towers = findViewById(R.id.btnTowerLex);
+        upgrades = findViewById(R.id.btnUpgradeLex);
+
+        gameplay.setOnClickListener(e->{
+            displayText.loadUrl("file:///android_asset/lexicon/Gameplay.html");
+            select(gameplay);
+        });
+        upgrades.setOnClickListener(e->{
+            displayText.loadUrl("file:///android_asset/lexicon/upgrades.html");
+            select(upgrades);
+        });
+        towers.setOnClickListener(e->{
+            displayText.loadUrl("file:///android_asset/lexicon/tower.html");
+            select(towers);
+        });
+
+        //initLexicon();
 
         btnReturn.setOnClickListener(e->{
             boolean inGame = getIntent().getBooleanExtra("INGAME", false);
@@ -42,6 +62,14 @@ public class LexiconActivity extends AppCompatActivity {
             }
 
         });
+
+    }
+
+    private void select(Button b){
+        gameplay.setActivated(false);
+        towers.setActivated(false);
+        upgrades.setActivated(false);
+        b.setActivated(true);
     }
 
     /**
@@ -71,7 +99,9 @@ public class LexiconActivity extends AppCompatActivity {
         buttonLayout.addView(btn);
 
         btn = new Button(this);
+
         btn.setText("Fähigkeiten");
+
         btn.setOnClickListener(e->{
             displayText.loadUrl("file:///android_asset/lexicon/ability.html");
         });

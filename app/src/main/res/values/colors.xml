@@ -9,6 +9,7 @@
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
     <color name="main_color">#660f2229</color>
+    <color name="main_color_opacity_50">#9F0F2229</color>
     <color name="black_overlay2">#AB000000</color>
 
 </resources>
